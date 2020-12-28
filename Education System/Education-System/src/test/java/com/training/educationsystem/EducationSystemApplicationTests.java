@@ -1,4 +1,4 @@
-package com.training.educationsystem.educationsystem;
+package com.training.educationsystem;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
