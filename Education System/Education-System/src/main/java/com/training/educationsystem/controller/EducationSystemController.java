@@ -8,12 +8,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/educationsystem")
 public class EducationSystemController {
 
-	// Test route
+	/**
+	 * This is just a testing route
+	 * 
+	 * @return Route is working...
+	 */
 	@GetMapping("/hello")
-	public String check() {
-		return "Running successfully";
+	public String sayHi() {
+		return "Route is working...";
 	}
-
-	// Start implementing the controller from here
 
 }
