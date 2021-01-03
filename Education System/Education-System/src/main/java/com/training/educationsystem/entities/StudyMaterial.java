@@ -2,6 +2,8 @@ package com.training.educationsystem.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -9,6 +11,7 @@ import javax.persistence.Table;
 @Table(name = "study_material_table")
 public class StudyMaterial {
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "material_id")
 	private int materialId;
 

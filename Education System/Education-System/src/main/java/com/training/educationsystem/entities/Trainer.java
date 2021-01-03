@@ -87,7 +87,7 @@ public class Trainer {
 	}
 
 	public void setStudyMaterial(List<StudyMaterial> studyMaterial) {
-		this.studyMaterial = studyMaterial;
+		this.studyMaterial.addAll(studyMaterial);
 	}
 
 	@Override
