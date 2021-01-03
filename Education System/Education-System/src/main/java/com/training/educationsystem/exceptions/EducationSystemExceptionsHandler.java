@@ -1,5 +1,7 @@
 package com.training.educationsystem.exceptions;
 
+import java.util.Date;
+
 import javax.persistence.EntityNotFoundException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -7,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
@@ -143,4 +147,35 @@ public class EducationSystemExceptionsHandler extends ResponseEntityExceptionHan
 		return new ResponseEntity<ErrorMessage>(errorMessage, HttpStatus.BAD_REQUEST);
 	}
 	
+	// specific exception handler for id not found
+		@ResponseBody
+		@ResponseStatus(HttpStatus.BAD_REQUEST)
+		@ExceptionHandler(InvalidInputException.class)
+		ErrorMessageDetails validationExceptionHandler(InvalidInputException e, WebRequest request) {
+			return new ErrorMessageDetails(new Date(), "400", e.getMessage(), request.getDescription(false));
+		}
+
+		// database exception handler for object not found
+		@ResponseBody
+		@ResponseStatus(HttpStatus.NOT_FOUND)
+		@ExceptionHandler(InvalidAdminException.class)
+		ErrorMessageDetails exceptionHandler(InvalidAdminException e, WebRequest request) {
+			return new ErrorMessageDetails(new Date(), "404", e.getMessage(), request.getDescription(false));
+		}
+
+		// database exception handler for object not found
+		@ResponseBody
+		@ResponseStatus(HttpStatus.NOT_FOUND)
+		@ExceptionHandler(InvalidMessageException.class)
+		ErrorMessageDetails exceptionHandler(InvalidMessageException e, WebRequest request) {
+			return new ErrorMessageDetails(new Date(), "404", e.getMessage(), request.getDescription(false));
+		}
+
+		// database exception handler for object not found
+		@ResponseBody
+		@ResponseStatus(HttpStatus.NOT_FOUND)
+		@ExceptionHandler(InvalidProgressException.class)
+		ErrorMessageDetails exceptionHandler(InvalidProgressException e, WebRequest request) {
+			return new ErrorMessageDetails(new Date(), "404", e.getMessage(), request.getDescription(false));
+		}
 }
