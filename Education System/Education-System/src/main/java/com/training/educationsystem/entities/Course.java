@@ -26,12 +26,12 @@ public class Course {
 	private String courseName;
 
 	@Column(name = "student_fk", nullable = true)
-	@ManyToMany(cascade = CascadeType.ALL)
+	//@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany(targetEntity = Student.class)
 	private List<Student> students;
 
 	@Column(name = "trainer_fk", nullable = true)
-	//@ManyToMany(mappedBy = "courses", cascade = CascadeType.ALL)
-	@ManyToMany(targetEntity = Trainer.class)
+	@ManyToMany(mappedBy = "courses", cascade = CascadeType.ALL)
 	private List<Trainer> trainers;
 
 	@Column(name = "hours")
@@ -51,7 +51,6 @@ public class Course {
 
 	public Course() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Course(int courseId, String courseName, List<Student> students, List<Trainer> trainers, float hours,
@@ -83,12 +82,13 @@ public class Course {
 		this.courseName = courseName;
 	}
 
+	
 	public List<Student> getStudents() {
 		return students;
 	}
 
 	public void setStudents(List<Student> students) {
-		this.students.addAll(students);
+		this.students = students;
 	}
 
 	public List<Trainer> getTrainers() {
@@ -96,7 +96,7 @@ public class Course {
 	}
 
 	public void setTrainers(List<Trainer> trainers) {
-		this.trainers.addAll(trainers);
+		this.trainers = trainers;
 	}
 
 	public float getHours() {
@@ -139,3 +139,4 @@ public class Course {
 	}
 
 }
+
