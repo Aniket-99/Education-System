@@ -33,14 +33,14 @@ public class Payment {
 	private String description;
 
 	@Column(name = "payment_date", nullable = false)
-	private LocalDate paymentDate;
+	private String paymentDate;
 
 	public Payment() {
 		super();
 	}
 
 	public Payment(int transactionId, int cardNumber, String cardType, String bankName, double amount,
-			String description, LocalDate paymentDate) {
+			String description, String paymentDate) {
 		super();
 		this.transactionId = transactionId;
 		this.cardNumber = cardNumber;
@@ -99,11 +99,11 @@ public class Payment {
 		this.description = description;
 	}
 
-	public LocalDate getPaymentDate() {
+	public String getPaymentDate() {
 		return paymentDate;
 	}
 
-	public void setPaymentDate(LocalDate paymentDate) {
+	public void setPaymentDate(String paymentDate) {
 		this.paymentDate = paymentDate;
 	}
 
