@@ -1,7 +1,7 @@
 package com.training.educationsystem.entities;
 
+import java.io.Serializable;
 import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,9 +11,16 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+/**
+ * Entity class for Test
+ * @author Rita
+ *
+ */
 @Entity
 @Table(name = "test_table")
-public class Test {
+public class Test implements Serializable{
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "test_id")
@@ -32,6 +39,7 @@ public class Test {
 	@Column(name = "number_of_attempts")
 	private int numberOfAttempts;
 
+	//implementing constructors
 	public Test() {
 		super();
 	}
@@ -45,6 +53,7 @@ public class Test {
 		this.numberOfAttempts = numberOfAttempts;
 	}
 
+	//implementing getters and setters
 	public int getTestId() {
 		return testId;
 	}
@@ -85,6 +94,7 @@ public class Test {
 		this.numberOfAttempts = numberOfAttempts;
 	}
 
+	//implement toString()
 	@Override
 	public String toString() {
 		return "Test [testId=" + testId + ", testName=" + testName + ", question=" + question + ", score=" + score
