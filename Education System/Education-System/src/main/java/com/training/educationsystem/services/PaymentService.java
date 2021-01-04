@@ -5,9 +5,16 @@ import java.util.List;
 import com.training.educationsystem.entities.Payment;
 import com.training.educationsystem.exceptions.PaymentException;
 
+/**
+ * 
+ * @author Anisha
+ *
+ */
 public interface PaymentService {
-	public Payment addPayment(Payment payment);
-	public Payment getPaymentById(int id) throws PaymentException;
-	public List<Payment> viewPayment() throws PaymentException;
+	Payment addPayment(Payment payment);
+
+	Payment getPaymentById(int paymentId) throws PaymentException;
+
+	List<Payment> viewPayment() throws PaymentException;
 
 }

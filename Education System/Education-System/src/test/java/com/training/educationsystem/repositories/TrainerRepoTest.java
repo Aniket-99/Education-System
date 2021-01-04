@@ -21,7 +21,7 @@ import com.training.educationsystem.repositories.TrainerRepository;
 public class TrainerRepoTest {
 
 	@Autowired
-	TrainerRepository trainerRepository;
+	private TrainerRepository trainerRepository;
 	
 	@Test
 	public void testSaveTrainer() {

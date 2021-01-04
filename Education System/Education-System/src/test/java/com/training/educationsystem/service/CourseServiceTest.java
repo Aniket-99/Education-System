@@ -35,10 +35,10 @@ import com.training.educationsystem.services.CourseService;
 public class CourseServiceTest {
 	
 	@InjectMocks
-	private CourseService CourseService;
+	private CourseService courseService;
 	
 	@MockBean
-	private CourseRepository CourseRepo;
+	private CourseRepository courseRepo;
 	
 	@MockBean 
 	private StudentRepository studentRepo;
@@ -61,8 +61,8 @@ public class CourseServiceTest {
 		course.setCourseName("JavaEE");
 		course.setHours(12);
 		
-		Mockito.when(CourseRepo.save(course)).thenReturn(course);
-		assertThat(CourseService.addCourse(course)).isEqualTo(course);
+		Mockito.when(courseRepo.save(course)).thenReturn(course);
+		assertThat(courseService.addCourse(course)).isEqualTo(course);
 	}
 	
 	@Test
@@ -79,8 +79,8 @@ public class CourseServiceTest {
 		courses.add(c1);
 		courses.add(c2);
 		
-		Mockito.when(CourseRepo.findAll()).thenReturn(courses);
-		assertThat(CourseService.viewAllCourses()).isEqualTo(courses);
+		Mockito.when(courseRepo.findAll()).thenReturn(courses);
+		assertThat(courseService.viewAllCourses()).isEqualTo(courses);
 		}
 
 	@Test
@@ -90,8 +90,8 @@ public class CourseServiceTest {
 		course.setCourseName("Python");
 		course.setHours(4);
 		
-		Mockito.when(CourseRepo.getOne(1)).thenReturn(course);
-		assertThat(CourseRepo.getOne(1)).isEqualTo(course);
+		Mockito.when(courseRepo.getOne(1)).thenReturn(course);
+		assertThat(courseRepo.getOne(1)).isEqualTo(course);
 		
 	}
 	
@@ -102,9 +102,9 @@ public class CourseServiceTest {
 		course.setCourseName("DBMS");
 		course.setHours(5);
 		
-		Mockito.when(CourseRepo.getOne(1)).thenReturn(course);
-		Mockito.when(CourseRepo.existsById(course.getCourseId())).thenReturn(false);
-		assertFalse(CourseRepo.existsById(course.getCourseId()));
+		Mockito.when(courseRepo.getOne(1)).thenReturn(course);
+		Mockito.when(courseRepo.existsById(course.getCourseId())).thenReturn(false);
+		assertFalse(courseRepo.existsById(course.getCourseId()));
 	}
 	
 	
@@ -124,8 +124,8 @@ public class CourseServiceTest {
 		
 		course.setPayment(payment);
 		
-		Mockito.when(CourseRepo.getOne(1)).thenReturn(course);
-		assertThat(CourseService.updateCourseForPayment(course.getCourseId(), payment.getTransactionId())).isEqualTo(course);
+		Mockito.when(courseRepo.getOne(1)).thenReturn(course);
+		assertThat(courseService.updateCourseForPayment(course.getCourseId(), payment.getTransactionId())).isEqualTo(course);
 		
 	}
 	
@@ -143,8 +143,8 @@ public class CourseServiceTest {
 		
 		course.setProgress(progress);
 		
-		Mockito.when(CourseRepo.getOne(1)).thenReturn(course);
-		assertThat(CourseService.updateCourseForProgress(course.getCourseId(), progress.getProgressId())).isEqualTo(course);
+		Mockito.when(courseRepo.getOne(1)).thenReturn(course);
+		assertThat(courseService.updateCourseForProgress(course.getCourseId(), progress.getProgressId())).isEqualTo(course);
 		
 	}
 	

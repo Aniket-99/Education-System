@@ -24,103 +24,102 @@ import com.training.educationsystem.services.FeedbackService;
 
 @RestController
 @RequestMapping("/api/educationsystem/feedback")
-public class FeedbackController	{ 
-	private static final Logger logger=LoggerFactory.getLogger(FeedbackController.class);
+public class FeedbackController {
+	private static final Logger LOGGER = LoggerFactory.getLogger(FeedbackController.class);
 	/**
 	 * 
 	 */
 	@Autowired
 	private FeedbackService service;
-	
-/**
-*Shows all list of feedback data
-*@return feedback list
-*@throws InvalidFeedbackException
-*  
-*/
-		@GetMapping("/view-all-feedback")
-		public List<Feedback> getAllFeedback() throws InvalidFeedbackException{
-			logger.info("Fetching all feedback data in feedback controller -START");
-			List<Feedback> feedbackList=service.getAllFeedback();
-			logger.info("Done in feedback controller -END");
-			return feedbackList;	
-	}
-	
-/**
-*Adds feedback into the database
-*@param sname
-*@param feedback
-*@return feedback
-*@throws InvalidFeedbackException
-* 
-*/
-		@PostMapping("/add-feedback")
-		public Feedback addFeedback(@RequestParam("sname")String sname,@RequestParam("feedback")String feedback) 
-				throws InvalidFeedbackException		{
-			logger.info("for adding feedback-START");
-			String pattern="^[a-zA-Z0-9]*$";
-			String namePattern="^[a-zA-Z]+$";
-			
-			if (sname=="") {
-				logger.error("name cannot be empty");
-				throw new InvalidFeedbackException("name cannot be empty");
-			}
-			if (!(sname.matches(namePattern))) {
-				logger.error("Name cannot contain special symbol and numbers");
-				throw new InvalidFeedbackException("sname cannot contain special symbol and numbers");
-			}
-			if (feedback=="") {
-				logger.error("feedback cannot be negative");
-				throw new InvalidFeedbackException("feedback cannot be empty");
-			}
-			if (!(feedback.matches(pattern))) {
-				logger.error("feedback cannot contain special symbol");
-				throw new InvalidFeedbackException("feedback cannot contain special symbol");
-			}
-			else {
-				logger.info("feedback added succesfully..-END");
-				return service.addFeedback(sname,feedback);
-			}
-	}
-		@ResponseStatus(HttpStatus.NOT_FOUND)
-		@ExceptionHandler(InvalidFeedbackException.class)
-		ErrorDetails exceptionHabler(InvalidFeedbackException e)
-		{
-			return new ErrorDetails("400",e.message); 	
-		}
-		 
-/**
-*Adds reply to feedback by feedback id
-*@param id
-*@param reply
-*@return addReply
-*@throws InvalidFeedbackException 
-* 
-*/
-		@PatchMapping("/add-reply")
-		public Feedback updateFeedbackForReply(@RequestParam("id")int id,@RequestParam("reply")String reply)
-				throws InvalidFeedbackException
-	{
-			logger.info("Updating reply in feedback controller-START");
-			Feedback addReply=service.updateFeedbackForReply(id, reply);
-			logger.info("Done in feedback controller-END");
-			return addReply;
-	}
-	
 
-/**
-*Shows reply of feedback by id
-*@param id
-*@return reply
-* 
-*/
-		@GetMapping("/view-reply/{id}")
-		public String viewReply(@PathVariable("id")int id )
-				throws InvalidFeedbackException
-	{
-			logger.info("Showing reply in feedback controller-START");
-			String reply=service.viewReply(id);
-			logger.info("Done in feedback controller-END");
-			return reply;
+	/**
+	 * Shows all list of feedback data
+	 * 
+	 * @return feedback list
+	 * @throws InvalidFeedbackException
+	 * 
+	 */
+	@GetMapping("/view-all-feedback")
+	public List<Feedback> getAllFeedback() throws InvalidFeedbackException {
+		LOGGER.info("Fetching all feedback data in feedback controller -START");
+		final List<Feedback> feedbackList = service.getAllFeedback();
+		LOGGER.info("Done in feedback controller -END");
+		return feedbackList;
+	}
+
+	/**
+	 * Adds feedback into the database
+	 * 
+	 * @param sname
+	 * @param feedback
+	 * @return feedback
+	 * @throws InvalidFeedbackException
+	 * 
+	 */
+	@PostMapping("/add-feedback")
+	public Feedback addFeedback(@RequestParam("sname") final String sname,
+			@RequestParam("feedback") final String feedback) throws InvalidFeedbackException {
+		LOGGER.info("for adding feedback-START");
+		final String pattern = "^[a-zA-Z0-9]*$";
+		final String namePattern = "^[a-zA-Z]+$";
+
+		if (sname == "") {
+			LOGGER.error("name cannot be empty");
+			throw new InvalidFeedbackException("name cannot be empty");
+		}
+		if (!(sname.matches(namePattern))) {
+			LOGGER.error("Name cannot contain special symbol and numbers");
+			throw new InvalidFeedbackException("sname cannot contain special symbol and numbers");
+		}
+		if (feedback == "") {
+			LOGGER.error("feedback cannot be negative");
+			throw new InvalidFeedbackException("feedback cannot be empty");
+		}
+		if (!(feedback.matches(pattern))) {
+			LOGGER.error("feedback cannot contain special symbol");
+			throw new InvalidFeedbackException("feedback cannot contain special symbol");
+		} else {
+			LOGGER.info("feedback added succesfully..-END");
+			return service.addFeedback(sname, feedback);
+		}
+	}
+
+	@ResponseStatus(HttpStatus.NOT_FOUND)
+	@ExceptionHandler(InvalidFeedbackException.class)
+	public ErrorDetails exceptionHabler(final InvalidFeedbackException ex) {
+		return new ErrorDetails("400", ex.message);
+	}
+
+	/**
+	 * Adds reply to feedback by feedback id
+	 * 
+	 * @param id
+	 * @param reply
+	 * @return addReply
+	 * @throws InvalidFeedbackException
+	 * 
+	 */
+	@PatchMapping("/add-reply")
+	public Feedback updateFeedbackForReply(@RequestParam("id") final int replyId, @RequestParam("reply") final String reply)
+			throws InvalidFeedbackException {
+		LOGGER.info("Updating reply in feedback controller-START");
+		final Feedback addReply = service.updateFeedbackForReply(replyId, reply);
+		LOGGER.info("Done in feedback controller-END");
+		return addReply;
+	}
+
+	/**
+	 * Shows reply of feedback by id
+	 * 
+	 * @param id
+	 * @return reply
+	 * 
+	 */
+	@GetMapping("/view-reply/{id}")
+	public String viewReply(@PathVariable("id") final int replyId) throws InvalidFeedbackException {
+		LOGGER.info("Showing reply in feedback controller-START");
+		final String reply = service.viewReply(replyId);
+		LOGGER.info("Done in feedback controller-END");
+		return reply;
 	}
 }

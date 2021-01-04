@@ -311,9 +311,7 @@ class StudentServiceTest {
 		List<Course> listOfCourse = new ArrayList<Course>();
 		listOfCourse.add(course);
 		listOfCourse.add(course2);
-		System.out.println(course);
 		student.setCourses(listOfCourse);
-		System.out.println(student);
 		
 		when(studentRepository.getOne(1)).thenReturn(student);
 		assertNotNull(student);
@@ -321,7 +319,7 @@ class StudentServiceTest {
 	}
 
 	@Test
-	final void testViewStudentById_StudentNotFoundException()
+	final void testViewStudentByIdStudentNotFoundException()
 	{
 		when(studentRepository.getOne(anyInt())).thenReturn(null);
 
@@ -331,7 +329,7 @@ class StudentServiceTest {
 	}
 
 	@Test
-	final void testViewStudentById_EntityNotFoundException()
+	final void testViewStudentByIdEntityNotFoundException()
 	{
 		when(studentRepository.getOne(anyInt())).thenReturn(null);
 

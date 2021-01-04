@@ -4,6 +4,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * 
+ * @author aniket
+ *
+ */
 @RestController
 @RequestMapping("/api/educationsystem")
 public class EducationSystemController {

@@ -5,10 +5,15 @@ import java.util.List;
 import com.training.educationsystem.entities.Grievance;
 import com.training.educationsystem.exceptions.InvalidGrievanceException;
 
+/**
+ * 
+ * @author Prajakta
+ *
+ */
 public interface IGrievanceService {
 
-	public Grievance addGrievance(String sname, String grievance);
-	public List<Grievance> getAllGrievance() throws InvalidGrievanceException;
-	public Grievance updateGrievanceForReply(int id,String reply) throws InvalidGrievanceException;
-	public String viewReply(int id ) throws InvalidGrievanceException;
+	 Grievance addGrievance(String sname, String grievance);
+	 List<Grievance> getAllGrievance() throws InvalidGrievanceException;
+	 Grievance updateGrievanceForReply(int id,String reply) throws InvalidGrievanceException;
+	 String viewReply(int id ) throws InvalidGrievanceException;
 }

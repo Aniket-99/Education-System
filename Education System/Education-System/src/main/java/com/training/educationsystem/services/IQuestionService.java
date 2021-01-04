@@ -22,29 +22,28 @@ import com.training.educationsystem.repositories.QuestionRepository;
 @Transactional
 @Service
 public class IQuestionService {
-	private static Logger logger = LoggerFactory.getLogger(IQuestionService.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(IQuestionService.class);
 
 	@Autowired
-	QuestionRepository questionRepo;
+	private QuestionRepository questionRepo;
 
 	/***
 	 * Add Question to question_table
-	 * 
 	 * @param question
 	 * @return question
 	 * @throws EmptyInputException
 	 */
-	public Question addQuestion(Question question) throws EmptyInputException {
-		logger.info("Inside Service Layer for Adding Questions...START");
+	public Question addQuestion(final Question question) throws EmptyInputException {
+		LOGGER.info("Inside Service Layer for Adding Questions...START");
 		if (question.getQuestion() != null && question.getOption1() != null && question.getOption2() != null
 				&& question.getOption3() != null && question.getOption4() != null
 				&& question.getCorrectAnswer() != null) {
-			logger.info("Question Added Sucessfully...END");
+			LOGGER.info("Question Added Sucessfully...END");
 			questionRepo.save(question);
-			logger.info("");
+			LOGGER.info("");
 			return question;
 		} else {
-			logger.error("EmptyInputException occured!..END");
+			LOGGER.error("EmptyInputException occured!..END");
 			throw new EmptyInputException("Input provided are empty!");
 		}
 	}
@@ -56,15 +55,15 @@ public class IQuestionService {
 	 * @return question
 	 * @throws QuestionException
 	 */
-	public Question viewQuestionById(int id) throws QuestionException {
-		logger.info("Inside Service Layer for viewing Question By Id...START");
-		Question question = questionRepo.findById(id).orElse(null);
-		if (question != null) {
-			logger.info("View Question By Id...END");
-			return question;
-		} else {
-			logger.error("QuestionException occured!..END");
+	public Question viewQuestionById(final int id) throws QuestionException {
+		LOGGER.info("Inside Service Layer for viewing Question By Id...START");
+		final Question question = questionRepo.findById(id).orElse(null);
+		if (question == null) {
+			LOGGER.error("QuestionException occured!..END");
 			throw new QuestionException("Questions not found!!");
+		} else {
+			LOGGER.info("View Question By Id...END");
+			return question;
 		}
 	}
 
@@ -74,9 +73,8 @@ public class IQuestionService {
 	 * @return list
 	 */
 	public List<Question> viewAllQuestions() {
-		logger.info("Inside Service Layer for viewing All Questions...");
-		List<Question> questionList = questionRepo.findAll();
-		return questionList;
+		LOGGER.info("Inside Service Layer for viewing All Questions..."); 
+		return questionRepo.findAll();
 	}
 
 	/***
@@ -86,12 +84,12 @@ public class IQuestionService {
 	 * @return Question
 	 * @throws EmptyInputException
 	 */
-	public Question updateQuestion(Question question) throws EmptyInputException {
-		logger.info("Inside Service Layer for Adding Questions...START");
+	public Question updateQuestion(final Question question) throws EmptyInputException {
+		LOGGER.info("Inside Service Layer for Adding Questions...START");
 		if (question.getQuestion() != null && question.getOption1() != null && question.getOption2() != null
 				&& question.getOption3() != null && question.getOption4() != null
 				&& question.getCorrectAnswer() != null) {
-			logger.info("Updating Question...END");
+			LOGGER.info("Updating Question...END");
 			return questionRepo.findById(question.getQuestionId()).map(ques -> {
 				ques.setQuestion(question.getQuestion());
 				ques.setOption1(question.getOption1());
@@ -99,15 +97,15 @@ public class IQuestionService {
 				ques.setOption3(question.getOption3());
 				ques.setOption4(question.getOption4());
 				ques.setCorrectAnswer(question.getCorrectAnswer());
-				logger.info("Saving the Updated Question...END");
+				LOGGER.info("Saving the Updated Question...END");
 				return questionRepo.save(question);
 			}).orElseGet(() -> {
 				question.setQuestionId(question.getQuestionId());
-				logger.info("Updating the question by new questionId");
+				LOGGER.info("Updating the question by new questionId");
 				return questionRepo.save(question);
 			});
 		} else {
-			logger.error("EmptyInputException occured!..END");
+			LOGGER.error("EmptyInputException occured!..END");
 			throw new EmptyInputException("Input provided are empty!");
 		}
 	}
@@ -119,17 +117,17 @@ public class IQuestionService {
 	 * @return question
 	 * @throws TestException
 	 */
-	public Question deleteQuestionById(int id) throws QuestionException {
-		logger.info("Inside Service Layer for removing Question By Id...START");
-		Question question = questionRepo.findById(id).orElse(null);
-		if (question != null) {
+	public Question deleteQuestionById(final int id) throws QuestionException {
+		LOGGER.info("Inside Service Layer for removing Question By Id...START");
+	    Question question = questionRepo.findById(id).orElse(null);
+		if (question == null) {
+			LOGGER.error("QuestionException occured...END");
+			throw new QuestionException("Test cannot be found!");
+		} else {
 			question = questionRepo.getOne(id);
 			questionRepo.delete(question);
-			logger.info("Deleted Question Sucessfully...END");
+			LOGGER.info("Deleted Question Sucessfully...END");
 			return question;
-		} else {
-			logger.error("QuestionException occured...END");
-			throw new QuestionException("Test cannot be found!");
 		}
 	}
 }

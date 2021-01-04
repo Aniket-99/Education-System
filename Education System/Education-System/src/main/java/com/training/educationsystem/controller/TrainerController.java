@@ -38,10 +38,10 @@ import com.training.educationsystem.services.ITrainerService;
 @RequestMapping("/api/educationsystem/trainer")
 public class TrainerController {
 
-	private static final Logger logger = LoggerFactory.getLogger(CourseController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(CourseController.class);
 
 	@Autowired
-	ITrainerService service;
+	private ITrainerService service;
 
 	/**
 	 * This method adds Trainer in the System
@@ -51,21 +51,21 @@ public class TrainerController {
 	 * @throws InvalidTrainerException
 	 */
 	@PostMapping("/add-trainer")
-	public Trainer addTrainer(@RequestBody Trainer trainer) throws InvalidTrainerException {
-		logger.info("Add trainer  (Service) - START");
-		String namePattern = "^[a-zA-Z]+$";
+	public Trainer addTrainer(@RequestBody final Trainer trainer) throws InvalidTrainerException {
+		LOGGER.info("Add trainer  (Service) - START");
+		final String namePattern = "^[a-zA-Z]+$";
 		if (trainer.getFirstName() == "" || trainer.getMiddleName() == "" || trainer.getLastName() == "") {
-			logger.error("First name, middle name and last name cannot be Empty!");
+			LOGGER.error("First name, middle name and last name cannot be Empty!");
 			throw new InvalidTrainerException("First name, middle name and last name cannot be Empty!");
 		} else if (!(Pattern.matches(namePattern, trainer.getFirstName()))
 				|| (!Pattern.matches(namePattern, trainer.getMiddleName()))
 				|| (!Pattern.matches(namePattern, trainer.getLastName()))) {
-			logger.error("First name, middle name and last name must contain alphabets only!");
+			LOGGER.error("First name, middle name and last name must contain alphabets only!");
 			throw new InvalidTrainerException("First name, middle name and last name must contain alphabets only!");
 		} else {
-			logger.info("Adding Trainer");
-			Trainer addedTrainer = service.addTrainer(trainer);
-			logger.info("Add trainer  (Service) - END");
+			LOGGER.info("Adding Trainer");
+			final Trainer addedTrainer = service.addTrainer(trainer);
+			LOGGER.info("Add trainer  (Service) - END");
 			return addedTrainer;
 		}
 	}
@@ -78,8 +78,8 @@ public class TrainerController {
 	 */
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(InvalidTrainerException.class)
-	ErrorMessages exceptionHandler(InvalidTrainerException e) {
-		return new ErrorMessages("400", e.message);
+	public ErrorMessages exceptionHandler(final InvalidTrainerException ex) {
+		return new ErrorMessages("400", ex.message);
 	}
 
 	/**
@@ -90,8 +90,8 @@ public class TrainerController {
 	 */
 	@ResponseStatus(HttpStatus.NOT_FOUND)
 	@ExceptionHandler(TrainerNotFoundException.class)
-	ErrorMessages exceptionHandler(TrainerNotFoundException e) {
-		return new ErrorMessages("404", e.message);
+	public ErrorMessages exceptionHandler(final TrainerNotFoundException ex) {
+		return new ErrorMessages("404", ex.message);
 	}
 
 	/**
@@ -102,8 +102,8 @@ public class TrainerController {
 	 */
 	@ResponseStatus(HttpStatus.NOT_FOUND)
 	@ExceptionHandler(ListEmptyException.class)
-	ErrorMessages exceptionHandler(ListEmptyException e) {
-		return new ErrorMessages("404", e.message);
+	public ErrorMessages exceptionHandler(final ListEmptyException ex) {
+		return new ErrorMessages("404", ex.message);
 	}
 
 	/**
@@ -114,8 +114,8 @@ public class TrainerController {
 	 */
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(AlreadyExistsException.class)
-	ErrorMessages exceptionHandler(AlreadyExistsException e) {
-		return new ErrorMessages("400", e.message);
+	public ErrorMessages exceptionHandler(final AlreadyExistsException ex) {
+		return new ErrorMessages("400", ex.message);
 	}
 
 	/**
@@ -126,11 +126,11 @@ public class TrainerController {
 	 * @throws TrainerNotFoundException 
 	 */
 	@DeleteMapping("/delete-trainer/{trainerId}")
-	public String deleteTrainer(@PathVariable("trainerId") int trainerId) throws TrainerNotFoundException {
-		logger.info("Delete trainer  (Service) - START");
-		logger.info("Deleting Trainer");
+	public String deleteTrainer(@PathVariable("trainerId") final int trainerId) throws TrainerNotFoundException {
+		LOGGER.info("Delete trainer  (Service) - START");
+		LOGGER.info("Deleting Trainer");
 		service.deleteTrainer(trainerId);
-		logger.info("Delete trainer  (Service) - END");
+		LOGGER.info("Delete trainer  (Service) - END");
 		return "Trainer Deleted!";
 	}
 
@@ -142,11 +142,11 @@ public class TrainerController {
 	 * @throws TrainerNotFoundException
 	 */
 	@GetMapping("/view-trainer/{trainerId}")
-	public Trainer viewTrainer(@PathVariable("trainerId") int trainerId ) throws TrainerNotFoundException {
-		logger.info("View Trainer (Service) -START");
-		logger.info("Fetching Trainer");
-		Trainer trainer = service.viewTrainer(trainerId);
-		logger.info("View Trainer (Service) -END");
+	public Trainer viewTrainer(@PathVariable("trainerId") final int trainerId ) throws TrainerNotFoundException {
+		LOGGER.info("View Trainer (Service) -START");
+		LOGGER.info("Fetching Trainer");
+		final Trainer trainer = service.viewTrainer(trainerId);
+		LOGGER.info("View Trainer (Service) -END");
 		return trainer;
 	}
 
@@ -158,10 +158,10 @@ public class TrainerController {
 	 */
 	@GetMapping("/view-all-trainers")
 	public List<Trainer> viewAllTrainers() throws ListEmptyException {
-		logger.info("View All Trainers  (Service) -START");
-		logger.info("Fetching Trainers");
-		List<Trainer> trainerList = service.viewAllTrainers();
-		logger.info("View All Trainers  (Service) -END");
+		LOGGER.info("View All Trainers  (Service) -START");
+		LOGGER.info("Fetching Trainers");
+		final List<Trainer> trainerList = service.viewAllTrainers();
+		LOGGER.info("View All Trainers  (Service) -END");
 		return trainerList;
 	}
 
@@ -173,11 +173,11 @@ public class TrainerController {
 	 * @throws ListEmptyException
 	 */
 	@GetMapping("/view-study-material/{trainerId}")
-	public List<StudyMaterial> viewStudyMaterial(@PathVariable("trainerId") int trainerId) throws ListEmptyException {
-		logger.info("View Study Materials  (Service) -START!");
-		logger.info("Fetching Study Materials");
-		List<StudyMaterial> studyMaterial = service.viewStudyMaterial(trainerId);
-		logger.info("View Study Materials  (Service) -END!");
+	public List<StudyMaterial> viewStudyMaterial(@PathVariable("trainerId") final int trainerId) throws ListEmptyException {
+		LOGGER.info("View Study Materials  (Service) -START!");
+		LOGGER.info("Fetching Study Materials");
+		final List<StudyMaterial> studyMaterial = service.viewStudyMaterial(trainerId);
+		LOGGER.info("View Study Materials  (Service) -END!");
 		return studyMaterial;
 	}
 
@@ -190,12 +190,12 @@ public class TrainerController {
 	 * @throws TrainerNotFoundException
 	 */
 	@PatchMapping("/update-study-material")
-	public Trainer updateTrainerForStudyMaterial(@RequestParam("trainerId") int trainerId,
-			@RequestParam("content") String content) throws TrainerNotFoundException {
-		logger.info("Update Trainer for Study Material  (Service) -START");
-		logger.info("Adding Study Material");
-		Trainer trainer = service.updateTrainerForStudyMaterial(trainerId, content);
-		logger.info("Update Trainer for Study Material  (Service) -END");
+	public Trainer updateTrainerForStudyMaterial(@RequestParam("trainerId") final int trainerId,
+			@RequestParam("content") final String content) throws TrainerNotFoundException {
+		LOGGER.info("Update Trainer for Study Material  (Service) -START");
+		LOGGER.info("Adding Study Material");
+		final Trainer trainer = service.updateTrainerForStudyMaterial(trainerId, content);
+		LOGGER.info("Update Trainer for Study Material  (Service) -END");
 		return trainer;
 	}
 }

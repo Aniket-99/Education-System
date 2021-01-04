@@ -17,15 +17,20 @@ import com.training.educationsystem.repositories.MessageRepository;
  * message service implementation class to implement 
  * all the methods of service interface and provide its defintion
  */
+/**
+ * 
+ * @author Aarzoo
+ *
+ */
 @Transactional
 @Service
 public class MessageServiceImp implements MessageService{
 
-	// declaring logger
-	private static final Logger logger = LoggerFactory.getLogger(MessageServiceImp.class);
+	// declaring LOGGER
+	private static final Logger LOGGER = LoggerFactory.getLogger(MessageServiceImp.class);
 
 	@Autowired
-	MessageRepository messageRepo; // autowiring repository interface
+	private MessageRepository messageRepo; // autowiring repository interface
 	
 	
 	/*
@@ -35,12 +40,12 @@ public class MessageServiceImp implements MessageService{
 	 * @return message saved in the database
 	 */
 	@Override
-	public Message addMessage(LocalDate messageDate, String messageDescription) throws InvalidMessageException{
-		logger.info("MessageServiceImp class's addMessage method called-START");
-		Message message=new Message();
+	public Message addMessage(final LocalDate messageDate, final String messageDescription) throws InvalidMessageException{
+		LOGGER.info("MessageServiceImp class's addMessage method called-START");
+		final Message message=new Message();
 		message.setMessageDate(messageDate);
 		message.setMessageDescription(messageDescription);
-		logger.info("saving and returning the message-END");
+		LOGGER.info("saving and returning the message-END");
 		return messageRepo.save(message);
 	}
 
@@ -51,14 +56,14 @@ public class MessageServiceImp implements MessageService{
 	 */
 	@Override
 	public List<Message> viewAllMessages() throws InvalidMessageException{
-		logger.info("MessageServiceImp class's viewAllMessages method called-START");
-		logger.info("finding and returning all the messages");
+		LOGGER.info("MessageServiceImp class's viewAllMessages method called-START");
+		LOGGER.info("finding and returning all the messages");
 		if(messageRepo.findAll().size()>0) {
-			logger.info("returning all the messages-END");
+			LOGGER.info("returning all the messages-END");
 			return messageRepo.findAll();
 		}
 		else {
-			logger.error("throwing no messages exception");
+			LOGGER.error("throwing no messages exception");
 			throw new InvalidMessageException("No messages found!");
 		}
 	}
@@ -70,15 +75,15 @@ public class MessageServiceImp implements MessageService{
 	 * @return the message after finding 
 	 */
 	@Override
-	public Message viewMessage(int messageId) throws InvalidMessageException {
-		logger.info("MessageServiceImp class's viewMessage method called-START");
-		logger.info("finding and returning the message.....");	
+	public Message viewMessage(final int messageId) throws InvalidMessageException {
+		LOGGER.info("MessageServiceImp class's viewMessage method called-START");
+		LOGGER.info("finding and returning the message.....");	
 		if(messageRepo.existsById(messageId)) {
-			logger.info("returning all the messages-END");
+			LOGGER.info("returning all the messages-END");
 			return messageRepo.getOne(messageId);
 		}
 		else {
-			logger.error("throwing message with id  not found exception");
+			LOGGER.error("throwing message with id  not found exception");
 			throw new InvalidMessageException("No such message found with id : "+messageId);
 		}				
 	}

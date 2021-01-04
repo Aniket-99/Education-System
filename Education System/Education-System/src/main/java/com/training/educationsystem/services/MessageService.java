@@ -6,14 +6,16 @@ import java.util.List;
 
 import com.training.educationsystem.entities.Message;
 
-/*
- * message service interface to declare all the methods
+/**
+ * 
+ * @author Aarzoo
+ *
  */
 public interface MessageService {
 
-	public Message addMessage(LocalDate localDate, String messageDescription);
+	 Message addMessage(LocalDate localDate, String messageDescription);
 	
-	public Message  viewMessage(int messageId);
+	 Message  viewMessage(int messageId);
 	
-	public List<Message> viewAllMessages();
+	 List<Message> viewAllMessages();
 }

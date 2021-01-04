@@ -20,12 +20,12 @@ import com.training.educationsystem.services.ProgressService;
 @RequestMapping("/educationsystem/progress")
 public class ProgressController {
 	
-	//declaring logger
-	private static final Logger logger=LoggerFactory.getLogger(ProgressController.class);
+	//declaring LOGGER
+	private static final Logger LOGGER = LoggerFactory.getLogger(ProgressController.class);
 			
 	// autowiring ProgressService service interfaces
 	@Autowired
-	ProgressService progressService;
+	private ProgressService progressService;
 
 	/*
 	 * @param completedhours
@@ -34,22 +34,22 @@ public class ProgressController {
 	 * throws exception if the field is invalid
 	 */
 	@PostMapping("/add-progress")
-	public Progress addProgress(@RequestParam("completedHours") int hours) throws InvalidProgressException {
-		//logger for adding progress
-		logger.info("adding progress-START");
+	public Progress addProgress(@RequestParam("completedHours") final int hours) throws InvalidProgressException {
+		//LOGGER for adding progress
+		LOGGER.info("adding progress-START");
 		if (hours < 0) {
-			logger.error("progress hours negative error thrown.....");
+			LOGGER.error("progress hours negative error thrown.....");
 			throw new InvalidInputException("Progress hours cannot be negative :" + hours);
 		}
 		if (hours == 0) {
-			logger.error("progress hours zero error thrown.....");
+			LOGGER.error("progress hours zero error thrown.....");
 			throw new InvalidInputException("Progress hours cannot be zero :" + hours);
 		}
 		if (hours > 10) {
-			logger.error("progress hours invalid error thrown.....");
+			LOGGER.error("progress hours invalid error thrown.....");
 			throw new InvalidInputException("Progress hours cannot be greater than 9999 :" + hours);
 		} else {
-			logger.info("progress added successfully-END");
+			LOGGER.info("progress added successfully-END");
 			return progressService.addProgress(hours);
 		}
 	}
@@ -61,23 +61,23 @@ public class ProgressController {
 	 * throws exception if the fields are invalid
 	 */
 	@GetMapping("/view-progress")
-	public Progress viewProgress(@RequestParam("progressId") int id) throws InvalidProgressException {
-		//logger for viewing progress
-		logger.info("viewing progress-START");
-		if (id < 0) {
-			logger.error("progress id negative error.....");
-			throw new InvalidInputException("Progress id cannot be negative :" + id);
+	public Progress viewProgress(@RequestParam("progressId") final int progressId) throws InvalidProgressException {
+		//LOGGER for viewing progress
+		LOGGER.info("viewing progress-START");
+		if (progressId < 0) {
+			LOGGER.error("progress id negative error.....");
+			throw new InvalidInputException("Progress id cannot be negative :" + progressId);
 		}
-		if (id == 0) {
-			logger.error("progress id zero error.....");
-			throw new InvalidInputException("Progress id cannot be zero :" + id);
+		if (progressId == 0) {
+			LOGGER.error("progress id zero error.....");
+			throw new InvalidInputException("Progress id cannot be zero :" + progressId);
 		}
-		if (id > 9999) {
-			logger.error("progress id invalid error.....");
-			throw new InvalidInputException("Progress id cannot be greater than 9999 :" + id);
+		if (progressId > 9999) {
+			LOGGER.error("progress id invalid error.....");
+			throw new InvalidInputException("Progress id cannot be greater than 9999 :" + progressId);
 		} else {
-			logger.info("progress viewed-END");
-			return progressService.viewProgress(id);
+			LOGGER.info("progress viewed-END");
+			return progressService.viewProgress(progressId);
 		}
 
 	}
@@ -88,8 +88,8 @@ public class ProgressController {
 	 */
 	@GetMapping("/view-all-progresses")
 	public List<Progress> viewAllProgresses() throws InvalidProgressException {
-		//logger for viewing all the progresses
-		logger.info("viewing all the progresses-START-END");
+		//LOGGER for viewing all the progresses
+		LOGGER.info("viewing all the progresses-START-END");
 		return progressService.viewAllProgresses();
 	}
 

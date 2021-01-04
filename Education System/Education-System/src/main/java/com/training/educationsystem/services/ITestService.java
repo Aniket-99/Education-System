@@ -25,13 +25,13 @@ import com.training.educationsystem.repositories.TestRepository;
 @Transactional
 @Service
 public class ITestService {
-	private static Logger logger = LoggerFactory.getLogger(ITestService.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(ITestService.class);
 
 	@Autowired
-	TestRepository testRepo;
+	private TestRepository testRepo;
 
 	@Autowired
-	QuestionRepository questionRepo;
+	private QuestionRepository questionRepo;
 
 	/***
 	 * Add Test in test-table
@@ -40,14 +40,14 @@ public class ITestService {
 	 * @return test
 	 * @throws EmptyInputException
 	 */
-	public Test addTest(Test test) throws EmptyInputException {
-		logger.info("Inside Service Layer for Adding Test...START");
+	public Test addTest(final Test test) throws EmptyInputException {
+		LOGGER.info("Inside Service Layer for Adding Test...START");
 		if (test.getNumberOfAttempts() != 0 && test.getScore() != 0 && test.getTestName() != null) {
-			logger.info("Test Added Sucessfully...END");
+			LOGGER.info("Test Added Sucessfully...END");
 			testRepo.save(test);
 			return test;
 		} else {
-			logger.error("EmptyInputException occured!....END");
+			LOGGER.error("EmptyInputException occured!....END");
 			throw new EmptyInputException("Input provided are empty!");
 		}
 
@@ -60,15 +60,16 @@ public class ITestService {
 	 * @return test
 	 * @throws TestException
 	 */
-	public Test getTestById(int id) throws TestException {
-		logger.info("Inside Service Layer for viewing Test By Id...START");
-		Test test = testRepo.findById(id).orElse(null);
-		if (test != null) {
-			logger.info("Displaying Test..END");
-			return test;
-		} else {
-			logger.error("TestException occured!....END");
+	public Test getTestById(final int id) throws TestException {
+		LOGGER.info("Inside Service Layer for viewing Test By Id...START");
+		final Test test = testRepo.findById(id).orElse(null);
+		if (test == null) {
+			LOGGER.error("TestException occured!....END");
 			throw new TestException("Test cannot be found!");
+				
+		} else {
+			LOGGER.info("Displaying Test..END");
+			return test;
 		}
 	}
 
@@ -78,9 +79,9 @@ public class ITestService {
 	 * @return test list
 	 */
 	public List<Test> getAllList() {
-		logger.info("Inside Service Layer for viewing all the Test...START");
-		List<Test> testList = testRepo.findAll();
-		logger.info("Inside Service Layer for viewing all the Test...END");
+		LOGGER.info("Inside Service Layer for viewing all the Test...START");
+		final List<Test> testList = testRepo.findAll();
+		LOGGER.info("Inside Service Layer for viewing all the Test...END");
 		return testList;
 	}
 
@@ -91,21 +92,21 @@ public class ITestService {
 	 * @return test
 	 * @throws TestException
 	 */
-	public Test updateTestforQuestion(int tid, int qid) throws TestException {
-		logger.info("Inside Service Layer for Updating the Test for Questions...START");
-		Test test = testRepo.findById(tid).orElse(null);
-		if (test != null) {
-			logger.info("Updating Test By Adding Question...END");
+	public Test updateTestforQuestion(final int tid,final int qid) throws TestException {
+		LOGGER.info("Inside Service Layer for Updating the Test for Questions...START");
+		 Test test = testRepo.findById(tid).orElse(null);
+		if (test == null) {
+			LOGGER.error("TestException occured...END");
+			throw new TestException("Test cannot be found!");
+		} else {
+			LOGGER.info("Updating Test By Adding Question...END");
 			test = testRepo.getOne(tid);
 			Question question = questionRepo.getOne(qid);
 			List<Question> q = new LinkedList<Question>(Arrays.asList(question));
 			test.setQuestion(q);
 			testRepo.save(test);
-			logger.info("Saving the test..END");
+			LOGGER.info("Saving the test..END");
 			return test;
-		} else {
-			logger.error("TestException occured...END");
-			throw new TestException("Test cannot be found!");
 		}
 	}
 
@@ -116,18 +117,18 @@ public class ITestService {
 	 * @return test
 	 * @throws TestException
 	 */
-	public Test removeTest(int id) throws TestException {
-		logger.info("Inside Service Layer for removing Test By Id...START");
-		Test test = testRepo.findById(id).orElse(null);
-		if (test != null) {
-			logger.info("Removed Test Sucessfully..END");
+	public Test removeTest(final int id) throws TestException {
+		LOGGER.info("Inside Service Layer for removing Test By Id...START");
+		 Test test = testRepo.findById(id).orElse(null);
+		if (test  == null) {
+			LOGGER.error("TestException occured...END");
+			throw new TestException("Test cannot be found!");
+		} else {
+			LOGGER.info("Removed Test Sucessfully..END");
 			test = testRepo.getOne(id);
 			testRepo.delete(test);
-			logger.info("Deleted Test...END");
+			LOGGER.info("Deleted Test...END");
 			return test;
-		} else {
-			logger.error("TestException occured...END");
-			throw new TestException("Test cannot be found!");
 		}
 	}
 

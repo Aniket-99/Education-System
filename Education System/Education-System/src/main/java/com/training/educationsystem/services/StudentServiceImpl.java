@@ -24,10 +24,15 @@ import com.training.educationsystem.exceptions.UserNameExistException;
 import com.training.educationsystem.repositories.CourseRepository;
 import com.training.educationsystem.repositories.StudentRepository;
 
+/**
+ * 
+ * @author Aniket
+ *
+ */
 @Service
 public class StudentServiceImpl implements IStudentService {
 
-	private final Logger logger = LoggerFactory.getLogger(StudentServiceImpl.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(StudentServiceImpl.class);
 
 	@Autowired
 	private StudentRepository studentRepository;
@@ -45,26 +50,26 @@ public class StudentServiceImpl implements IStudentService {
 	 */
 
 	@Override
-	public boolean requestRegistration(Student student)
+	public boolean requestRegistration(final Student student)
 			throws EmailAlreadyExistsException, UserNameExistException, PasswordAndConfirmPasswordNotMatchException
 	{
 
-		logger.info("Inside the requestRegistration method of service layer - START");
+		LOGGER.info("Inside the requestRegistration method of service layer - START");
 		boolean isRequestMade = false;
 
 		if (studentRepository.findByEmailId(student.getEmailId()) != null)
 		{
-			logger.warn("Email already taken!! Please use other email");
+			LOGGER.warn("Email already taken!! Please use other email");
 			throw new EmailAlreadyExistsException("Email already taken!! Please use other email");
 		}
 		else if (studentRepository.findByUserName(student.getUserName()) != null)
 		{
-			logger.warn("Username already taken!! Please use other username");
+			LOGGER.warn("Username already taken!! Please use other username");
 			throw new UserNameExistException("Username already taken!! Please use other username");
 		}
 		else if (!(student.getPassword().equals(student.getConfirmPassword())))
 		{
-			logger.warn("Password and Confirm password doesn't matched");
+			LOGGER.warn("Password and Confirm password doesn't matched");
 			throw new PasswordAndConfirmPasswordNotMatchException("Password and Confirm password doesn't matched");
 		}
 		else
@@ -73,7 +78,7 @@ public class StudentServiceImpl implements IStudentService {
 			isRequestMade = true;
 		}
 		
-		logger.info("End of the requestRegistration method of service layer - END");
+		LOGGER.info("End of the requestRegistration method of service layer - END");
 		return isRequestMade;
 
 	}
@@ -86,24 +91,22 @@ public class StudentServiceImpl implements IStudentService {
 	@Override
 	public List<Student> getAllStudentsRegistrationRequest()
 	{
-		logger.info("Inside the getAllStudentsRegistrationRequest method of service layer - START");
-		List<Student> getAllRegistrationRequest = studentRepository.findByIsValidateFalse();
+		LOGGER.info("Inside the getAllStudentsRegistrationRequest method of service layer - START");
+		final List<Student> getAllRegistrationRequest = studentRepository.findByIsValidateFalse();
 		
 		if(getAllRegistrationRequest.isEmpty())
 		{	
-			logger.info("End of the getAllStudentsRegistrationRequest method of service layer and returning null - END");
+			LOGGER.info("End of the getAllStudentsRegistrationRequest method of service layer and returning null - END");
 			return null;
 			
 		}
 		else
 		{
-			logger.info("End of the getAllStudentsRegistrationRequest method of service layer - END");
+			LOGGER.info("End of the getAllStudentsRegistrationRequest method of service layer - END");
 			return getAllRegistrationRequest;
 			
 		}
 		
-		
-
 	}
 
 	/**
@@ -115,10 +118,10 @@ public class StudentServiceImpl implements IStudentService {
 	 */
 
 	@Override
-	public boolean getStudentByIdForValidatingRegistration(int id) throws EntityNotFoundException
+	public boolean getStudentByIdForValidatingRegistration(final int id) throws EntityNotFoundException
 	{
-		logger.info("Inside the getStudentByIdForValidatingRegistration method of service layer - START");
-		Student studentObj = studentRepository.getOne(id);
+		LOGGER.info("Inside the getStudentByIdForValidatingRegistration method of service layer - START");
+		final Student studentObj = studentRepository.getOne(id);
 		boolean validated = false;
 
 		if (!(studentObj.isValidate()))
@@ -135,7 +138,7 @@ public class StudentServiceImpl implements IStudentService {
 			
 		}
 		
-		logger.info("End of the getStudentByIdForValidatingRegistration method of service layer - END ");
+		LOGGER.info("End of the getStudentByIdForValidatingRegistration method of service layer - END ");
 		return validated;
 	}
 
@@ -149,19 +152,19 @@ public class StudentServiceImpl implements IStudentService {
 	 */
 
 	@Override
-	public boolean validateStudentLogin(String userName, String password)
+	public boolean validateStudentLogin(final String userName,final String password)
 			throws StudentNotFoundException, RegistrationRequestNotApprovedException
 	{
 
-		logger.info("Inside the validateStudentLogin method of the service layer - START");
+		LOGGER.info("Inside the validateStudentLogin method of the service layer - START");
 		boolean isAuthorized = false;
-		Student studentObj = studentRepository.findByUserName(userName);
+		final Student studentObj = studentRepository.findByUserName(userName);
 		
 		if (studentObj != null)
 		{
 			if (!(studentObj.isValidate()))
 			{
-				logger.warn(
+				LOGGER.warn(
 						"You are not allowed to login because you're registration request haven't been approved yet");
 				throw new RegistrationRequestNotApprovedException(
 						"You are not allowed to login because you're registration request haven't been approved yet");
@@ -169,7 +172,7 @@ public class StudentServiceImpl implements IStudentService {
 			}
 			else
 			{
-				Student student = studentRepository.findByUserNameAndPassword(userName, password);
+				final Student student = studentRepository.findByUserNameAndPassword(userName, password);
 				
 				if (student != null)
 				{
@@ -183,34 +186,33 @@ public class StudentServiceImpl implements IStudentService {
 		} 
 		else
 		{
-			logger.warn("Student not exists!!");
+			LOGGER.warn("Student not exists!!");
 			throw new StudentNotFoundException("Student not exists!!");
 			
 		}
 		
-		logger.info("End of the validateStudentLogin method of service layer - END");
+		LOGGER.info("End of the validateStudentLogin method of service layer - END");
 		return isAuthorized;
 	}
 
 	/**
-	 * 
 	 * @return list of all the Student details who are validated when this method is called
 	 */
 
 	@Override
 	public List<Student> viewAllStudentDetails()
 	{
-		logger.info("Inside the viewAllStudentDetails method of the service layer - START");
-		List<Student> studentList = studentRepository.findByIsValidateTrue();
+		LOGGER.info("Inside the viewAllStudentDetails method of the service layer - START");
+		final List<Student> studentList = studentRepository.findByIsValidateTrue();
 		
 		if(studentList != null)
 		{
-			logger.info("End of the viewAllStudentDetails method of the service layer - END");
+			LOGGER.info("End of the viewAllStudentDetails method of the service layer - END");
 			return studentList;
 		}
 		else
 		{
-			logger.info("End of the viewAllStudentDetails method of the service layer and returning null is i.e no student available - END");
+			LOGGER.info("End of the viewAllStudentDetails method of the service layer and returning null is i.e no student available - END");
 			return null;
 		}
 		
@@ -227,30 +229,30 @@ public class StudentServiceImpl implements IStudentService {
 	 */
 
 	@Override
-	public Student viewStudentById(int id)
+	public Student viewStudentById(final int id)
 			throws EntityNotFoundException, StudentNotFoundException, RegistrationRequestNotApprovedException
 	{
-		logger.info("Inside the viewStudentById method of the service layer - START");
-		Student studentObj = studentRepository.getOne(id);
+		LOGGER.info("Inside the viewStudentById method of the service layer - START");
+		final Student studentObj = studentRepository.getOne(id);
 		
 		if (studentObj != null)
 		{
 			if (!(studentObj.isValidate()))
 			{
-				logger.warn("This student details can't be shown because it is not validated yet!!");
+				LOGGER.warn("This student details can't be shown because it is not validated yet!!");
 				throw new RegistrationRequestNotApprovedException(
 						"This student details can't be shown because it is not validated yet!!");
 				
 			} else
 			{
-				logger.info("End of the viewStudentById method of the service layer - END");
+				LOGGER.info("End of the viewStudentById method of the service layer - END");
 				return studentObj;
 				
 			}
 		}
 		else
 		{
-			logger.warn("Student with given id is not available");
+			LOGGER.warn("Student with given id is not available");
 			throw new StudentNotFoundException("Student with given id is not available");
 			
 		}
@@ -267,15 +269,15 @@ public class StudentServiceImpl implements IStudentService {
 	 */
 
 	@Override
-	public Student updateStudentDetails(int id, StudentDTO studentDTO)
+	public Student updateStudentDetails(final int id,final StudentDTO studentDTO)
 			throws EntityNotFoundException, StudentNotFoundException, RegistrationRequestNotApprovedException
 	{
-		logger.info("Inside the updateStudentDetails method of the service layer - START");
-		Student student = studentRepository.getOne(id);
+		LOGGER.info("Inside the updateStudentDetails method of the service layer - START");
+		final Student student = studentRepository.getOne(id);
 		
 		if (!(student.isValidate()))
 		{
-			logger.warn("This student details can't be shown because it is not validated yet!!");
+			LOGGER.warn("This student details can't be shown because it is not validated yet!!");
 			throw new RegistrationRequestNotApprovedException(
 					"This student details can't be shown because it is not validated yet!!");
 			
@@ -291,7 +293,7 @@ public class StudentServiceImpl implements IStudentService {
 			
 			Student updateStudentObj = studentRepository.save(student);
 			
-			logger.info("End of the updateStudentDetails method of the service layer - END");
+			LOGGER.info("End of the updateStudentDetails method of the service layer - END");
 			return updateStudentObj;
 			
 		}
@@ -306,15 +308,15 @@ public class StudentServiceImpl implements IStudentService {
 	 */
 
 	@Override
-	public List<Course> viewCourseForStudent(int id)
+	public List<Course> viewCourseForStudent(final int id)
 			throws EntityNotFoundException, StudentNotFoundException, RegistrationRequestNotApprovedException, CourseNotFoundException
 	{
-		logger.info("Inside the viewCourseForStudent method of the service layer - START");
-		Student student = studentRepository.getOne(id);
+		LOGGER.info("Inside the viewCourseForStudent method of the service layer - START");
+		final Student student = studentRepository.getOne(id);
 
 		if (!(student.isValidate()))
 		{
-			logger.warn("This student details can't be shown because it is not validated yet!!");
+			LOGGER.warn("This student details can't be shown because it is not validated yet!!");
 			throw new RegistrationRequestNotApprovedException(
 					"This student details can't be shown because it is not validated yet!!");
 			
@@ -323,12 +325,12 @@ public class StudentServiceImpl implements IStudentService {
 		{
 			if (student.getCourses().isEmpty())
 			{
-				logger.info("End of the viewCourseForStudent method of the service layer adn retuning null i.e no courses enrolled- END");
+				LOGGER.info("End of the viewCourseForStudent method of the service layer adn retuning null i.e no courses enrolled- END");
 				throw new CourseNotFoundException("No courses enrolled by student yet!!");
 				
 			}
 			
-			logger.info("End of the viewCourseForStudent method of the service layer - END");
+			LOGGER.info("End of the viewCourseForStudent method of the service layer - END");
 			return student.getCourses();
 			
 		}
@@ -346,37 +348,37 @@ public class StudentServiceImpl implements IStudentService {
 	 */
 
 	@Override
-	public Student updateStudentForCourse(int id, String name) throws EntityNotFoundException, StudentNotFoundException,
+	public Student updateStudentForCourse(final int id,final String name) throws EntityNotFoundException, StudentNotFoundException,
 			RegistrationRequestNotApprovedException, CourseNotFoundException, AlreadyEnrolledInCourseException
 	{
-		logger.info("Inside the updateStudentForCourse method of the service layer - START");
-		Student student = studentRepository.getOne(id);
+		LOGGER.info("Inside the updateStudentForCourse method of the service layer - START");
+		final Student student = studentRepository.getOne(id);
 
 		if (student != null)
 		{
 			if (!(student.isValidate()))
 			{
-				logger.warn("This student details can't be shown because it is not validated yet!!");
+				LOGGER.warn("This student details can't be shown because it is not validated yet!!");
 				throw new RegistrationRequestNotApprovedException(
 						"This student details can't be shown because it is not validated yet!!");
 				
 			}
 			else
 			{
-				List<Course> listOfCourses = student.getCourses();
-				List<String> courseNameList = listOfCourses.stream().map(e -> e.getCourseName())
+				final List<Course> listOfCourses = student.getCourses();
+				final List<String> courseNameList = listOfCourses.stream().map(e -> e.getCourseName())
 						.collect(Collectors.toList());
 				
 				if (courseNameList.contains(name))
 				{
-					logger.warn("Already enrolled in the given course!!");
+					LOGGER.warn("Already enrolled in the given course!!");
 					throw new AlreadyEnrolledInCourseException("Already enrolled in the given course!!");
 					
 				}
 				else
 				{
-					List<Course> courseList = new ArrayList<Course>();
-					Course course = courseRepository.findByCourseName(name);
+					final List<Course> courseList = new ArrayList<Course>();
+					final Course course = courseRepository.findByCourseName(name);
 					
 					if (course != null)
 					{
@@ -385,13 +387,13 @@ public class StudentServiceImpl implements IStudentService {
 						student.setCourses(courseList);
 						studentRepository.save(student);
 						
-						logger.info("End of the updateStudentForCourse method of the service layer - END");
+						LOGGER.info("End of the updateStudentForCourse method of the service layer - END");
 						return student;
 						
 					}
 					else
 					{
-						logger.warn("Course with the given name is not available!!");
+						LOGGER.warn("Course with the given name is not available!!");
 						throw new CourseNotFoundException("Course with the given name is not available!!");
 						
 					}
@@ -401,7 +403,7 @@ public class StudentServiceImpl implements IStudentService {
 		}
 		else
 		{
-			logger.warn("Student with the given ID is not available");
+			LOGGER.warn("Student with the given ID is not available");
 			throw new StudentNotFoundException("Student with the given ID is not available");
 			
 		}

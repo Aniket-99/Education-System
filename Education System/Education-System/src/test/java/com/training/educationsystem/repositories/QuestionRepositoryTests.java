@@ -22,13 +22,13 @@ import com.training.educationsystem.entities.Question;
 @DataJpaTest
 
 public class QuestionRepositoryTests {
-	
+
 	@Autowired
 	private TestEntityManager entityManager;
-	
+
 	@Autowired
 	private QuestionRepository questionRepo;
-	
+
 	public Question getQuestion() {
 		Question question = new Question();
 		question.setQuestion("Which of these is long data type literal");
@@ -39,31 +39,31 @@ public class QuestionRepositoryTests {
 		question.setCorrectAnswer("0x99fffL");
 		return question;
 	}
-	
+
 	@Test
 	public void testSaveQuestion() {
 		Question question = getQuestion();
-		Question savedquestion=entityManager.persist(question);
-		Question getFromDb=questionRepo.getOne(savedquestion.getQuestionId());
+		Question savedquestion = entityManager.persist(question);
+		Question getFromDb = questionRepo.getOne(savedquestion.getQuestionId());
 		assertThat(getFromDb).isEqualTo(savedquestion);
 	}
-	
+
 	@Test
 
-	public void getAllQuestions(){
-		List<Question> questionList=questionRepo.findAll();
+	public void getAllQuestions() {
+		List<Question> questionList = questionRepo.findAll();
 		assertThat(questionList).size().isGreaterThan(0);
 	}
-	
+
 	@Test
 
 	public void updateQuestions() {
-		Question savedquestion=questionRepo.getOne(5);
+		Question savedquestion = questionRepo.getOne(5);
 		savedquestion.setOption3("0x98ffa");
-		Question updateQuestion=questionRepo.save(savedquestion);
-		assertThat(updateQuestion).isNotEqualTo(savedquestion);	
+		Question updateQuestion = questionRepo.save(savedquestion);
+		assertThat(updateQuestion).isNotEqualTo(savedquestion);
 	}
-	
+
 	@Test
 	public void testDeleteTest() {
 		Question question = getQuestion();
@@ -73,12 +73,12 @@ public class QuestionRepositoryTests {
 		question.setOption3("javac filename");
 		question.setOption4("java filename");
 		question.setCorrectAnswer("java filename");
-		Question q1 =questionRepo.save(question);
+		Question q1 = questionRepo.save(question);
 		questionRepo.deleteById(q1.getQuestionId());
 		assertFalse(questionRepo.existsById(12));
-		
+
 	}
-	
+
 	@Test
 	public void testFindAllTest() {
 		Question question = getQuestion();

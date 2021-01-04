@@ -13,12 +13,17 @@ import com.training.educationsystem.entities.Grievance;
 import com.training.educationsystem.exceptions.InvalidGrievanceException;
 import com.training.educationsystem.repositories.GrievanceRepository;
 
+/**
+ * 
+ * @author Prajakta
+ *
+ */
 @Transactional
 @Service
 public class GrievanceService implements IGrievanceService  {
-	private static final Logger logger=LogManager.getLogger(GrievanceService.class);
+	private static final Logger LOGGER=LogManager.getLogger(GrievanceService.class);
 	@Autowired
-	GrievanceRepository grievancerepo;
+	private GrievanceRepository grievancerepo;
 
 /** 
 *adding grievance 
@@ -29,13 +34,13 @@ public class GrievanceService implements IGrievanceService  {
 */
 		//adding grievance 
 		@Override
-		public Grievance addGrievance(String sname, String grievance) {
-			logger.info("adding grievance data in grievance service");
-			Grievance grievance1=new Grievance();
+		public Grievance addGrievance(final String sname,final String grievance) {
+			LOGGER.info("adding grievance data in grievance service");
+			final Grievance grievance1=new Grievance();
 			grievance1.setSname(sname);
 			grievance1.setGrievance(grievance);
-			Grievance addedGrievance=grievancerepo.save(grievance1);
-			logger.info("done in grievance service");
+			final Grievance addedGrievance=grievancerepo.save(grievance1);
+			LOGGER.info("done in grievance service");
 			return addedGrievance;
 		}
 
@@ -49,18 +54,18 @@ public class GrievanceService implements IGrievanceService  {
 */
 		//updating the reply for given id
 		@Override
-		public Grievance updateGrievanceForReply(int id, String reply) throws InvalidGrievanceException {
-			logger.info("Updating reply in grievance service-START");
-			Grievance aadReply=grievancerepo.getOne(id);
-			if(aadReply!=null) {
+		public Grievance updateGrievanceForReply(final int id,final String reply) throws InvalidGrievanceException {
+			LOGGER.info("Updating reply in grievance service-START");
+			final Grievance aadReply=grievancerepo.getOne(id);
+			if(aadReply==null) {
+				LOGGER.error("Grievance of mentioned Id cannot be FOUND");
+				throw new InvalidGrievanceException("Grievance of mentioned Id cannot be found");
+			}
+			else {
 				aadReply.setReply(reply);
 				Grievance grievance=grievancerepo.save(aadReply);
-				logger.info("Done in grievance service-END");
-				return grievance;
-			}
-			else
-				logger.error("Grievance of mentioned Id cannot be FOUND");
-				throw new InvalidGrievanceException("Grievance of mentioned Id cannot be found");
+				LOGGER.info("Done in grievance service-END");
+				return grievance;}
 		}
 		
 /**
@@ -71,15 +76,15 @@ public class GrievanceService implements IGrievanceService  {
 */
 		@Override
 		public List<Grievance> getAllGrievance() throws InvalidGrievanceException {
-			logger.info("Fetching all grievance data in grievance service-START");
-			List<Grievance> grievanceList=grievancerepo.findAll();
+			LOGGER.info("Fetching all grievance data in grievance service-START");
+			final List<Grievance> grievanceList=grievancerepo.findAll();
 			if(grievanceList.size()>0) {
-				logger.info("Done in grievance service-END");
+				LOGGER.info("Done in grievance service-END");
 				return grievanceList;
 			}
-			else
-				logger.error("NO grievance to show");
-				throw new InvalidGrievanceException("NO grievance to show");
+			else {
+				LOGGER.error("NO grievance to show");
+				throw new InvalidGrievanceException("NO grievance to show");}
 		}
 
 /** 
@@ -89,17 +94,17 @@ public class GrievanceService implements IGrievanceService  {
 * 
 */
 		@Override
-		public String viewReply(int id) throws InvalidGrievanceException {
-			logger.info("Showing reply in grievance service-START");
-			Grievance viewReply=grievancerepo.findById(id).orElse(null);
-			if(viewReply!=null) {
-				String reply=viewReply.getReply();
-				logger.info("Done in grievance service-END");
-				return reply;
-			}
-			else
-				logger.error("Reply of mentioned Id cannot be FOUND");
+		public String viewReply(final int id) throws InvalidGrievanceException {
+			LOGGER.info("Showing reply in grievance service-START");
+			final Grievance viewReply=grievancerepo.findById(id).orElse(null);
+			if(viewReply==null) {
+				LOGGER.error("Reply of mentioned Id cannot be FOUND");
 				throw new InvalidGrievanceException("Reply of mentioned Id cannot be FOUND");
+			}
+			else {
+				String reply=viewReply.getReply();
+				LOGGER.info("Done in grievance service-END");
+				return reply;}
 		}
 		
 

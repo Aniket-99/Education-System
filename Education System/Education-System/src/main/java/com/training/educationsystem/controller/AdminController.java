@@ -15,44 +15,48 @@ import com.training.educationsystem.services.AdminService;
 @RestController
 @RequestMapping("/educationsystem/admin")
 public class AdminController {
-	
-	//declaring logger
-	private static final Logger logger=LoggerFactory.getLogger(AdminController.class);
-	
-	//autowiring AdminService service interfaces	 
+
+	// declaring logger
+	private static final Logger LOGGER = LoggerFactory.getLogger(AdminController.class); // Initializing Logger
+
+	// autowiring AdminService service interfaces
 	@Autowired
-	AdminService adminService;
-	
+	private AdminService adminService;
+
 	/*
 	 * @param adminUername
-	 * @param adminPassword
-	 * admin logs into the system using user name and password
-	 * @return the message successful if the username and password is present in the admin table
-	 * throws invalidInputException if the fields are not valid
+	 * 
+	 * @param adminPassword admin logs into the system using user name and password
+	 * 
+	 * @return successful when throws invalidInputException if the fields are not
+	 * valid
 	 */
 	@GetMapping("/admin-login")
-	public String adminLogin(@RequestParam("adminUsername") String username,
-			@RequestParam("adminPassword") String password) throws InvalidAdminException{
-		//logger for admin logging
-		logger.info("admin is logging-START");
-		
-		String pattern = "^[a-zA-Z0-9]*$";
+	public String adminLogin(@RequestParam("adminUsername") final String username,
+			@RequestParam("adminPassword") final String password) throws InvalidAdminException {
+		// LOGGER for admin logging
+		LOGGER.info("admin is logging-START");
+
+		final String pattern = "^[a-zA-Z0-9]*$";
 		if (username == "") {
-			logger.error("username empty error thrown.....");
+			LOGGER.error("username empty error thrown.....");
 			throw new InvalidInputException("Username cannot be null :");
-		} if(password == "") {
-			logger.error("password empty error thrown.....");
+		}
+		else if (password == "") {
+			LOGGER.error("password empty error thrown.....");
 			throw new InvalidInputException("Password cannot be null :");
-		}if (!(username.matches(pattern))) {
-			logger.error("username not valid error thrown.....");
+		}
+		else if (!(username.matches(pattern))) {
+			LOGGER.error("username not valid error thrown.....");
 			throw new InvalidInputException("Username can only contain alphanumeric characters ");
-		} if(!(password.matches(pattern))){
-			logger.error("password not valid error thrown.....");
+		}
+		else if (!(password.matches(pattern))) {
+			LOGGER.error("password not valid error thrown.....");
 			throw new InvalidInputException("Password can only contain alphanumeric characters ");
-		}else {
-			logger.info("admin logged in successfully-END");
+		} else {
+			LOGGER.info("admin logged in successfully-END");
 			return adminService.adminLogin(username, password);
-		}		
+		}
 	}
 
 }

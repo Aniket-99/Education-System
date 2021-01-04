@@ -27,10 +27,10 @@ import com.training.educationsystem.entities.Student;
 public class StudentRepositoryTest {
 
 	@Autowired
-	StudentRepository studentRepository;
+	private StudentRepository studentRepository;
 
 	@Autowired
-	CourseRepository courseRepository;
+	private CourseRepository courseRepository;
 
 	@Test
 	public void setupTest() {

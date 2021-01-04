@@ -34,9 +34,9 @@ import com.training.educationsystem.services.IPaymentService;
 @RestController
 @RequestMapping("/api/educationsystem")
 public class PaymentController {
-	private static final Logger logger = LoggerFactory.getLogger(PaymentController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(PaymentController.class);
 	@Autowired
-	IPaymentService paymentService;
+	private IPaymentService paymentService;
 
 	/**
 	 * This method adds Payment for the course after enrollment
@@ -45,15 +45,15 @@ public class PaymentController {
 	 * @return Payment
 	 * @throws InvalidPaymentException
 	 */
-	@PostMapping(value = "/add-Payment")
+	@PostMapping("/add-Payment")
 	public Payment addPayment(@RequestBody Payment payment) throws InvalidPaymentException,DateException {
-		logger.info("adding payment details - start");
+		LOGGER.info("adding payment details - start");
 
-		String alphaPattern = "[a-zA-Z]+";
-		String cardNoPattern = "[0-9]{9}";
-		String datePattern = "^(1[0-2]|0[1-9])/(3[01]"
+		final String alphaPattern = "[a-zA-Z]+";
+		final String cardNoPattern = "[0-9]{9}";
+		final String datePattern = "^(1[0-2]|0[1-9])/(3[01]"
                 + "|[12][0-9]|0[1-9])/[0-9]{4}$";
-		List<String> bankNameList = new ArrayList<>();
+		final List<String> bankNameList = new ArrayList<>();
 		bankNameList.add("Axis");
 		bankNameList.add("HDFC");
 		bankNameList.add("ICICI");
@@ -62,30 +62,30 @@ public class PaymentController {
 		
 
 		if (!(Pattern.matches(alphaPattern, payment.getCardType()))) {
-			logger.error("Card type or bank name cannot contain integer values or should not be null");
+			LOGGER.error("Card type or bank name cannot contain integer values or should not be null");
 			throw new InvalidPaymentException(
 					"Card type or bank name cannot contain integer values or should not be null");
 		}
 		else if(!(bankNameList.contains(payment.getBankName())))
 		{
-			logger.error("Please enter from the following list: Axis, HDFC, ICICI, Citi, Saraswat");
+			LOGGER.error("Please enter from the following list: Axis, HDFC, ICICI, Citi, Saraswat");
 			throw new InvalidPaymentException("Please enter from the following list: Axis, HDFC, ICICI, Citi, Saraswat");
 		}
 
 		else if (!(Pattern.matches(cardNoPattern, String.valueOf(payment.getCardNumber())))) {
-			logger.error("Card Number should be of length 9");
+			LOGGER.error("Card Number should be of length 9");
 			throw new InvalidPaymentException("Card Number should be of length 9");
 		} else if (payment.getAmount() == 0 || payment.getDescription() == null) {
-			logger.error("Amount and Description cannot contain null values");
+			LOGGER.error("Amount and Description cannot contain null values");
 			throw new InvalidPaymentException("Amount and Description cannot contain null values");
 		} else if (!(Pattern.matches(datePattern, payment.getPaymentDate()))) {
-			logger.error("Please enter in the format dd/mm/yyyy");
+			LOGGER.error("Please enter in the format dd/mm/yyyy");
 			throw new DateException("Please enter in the format dd/mm/yyyy");
 		}
 
 		else {
-			Payment addPayment = paymentService.addPayment(payment);
-			logger.info("adding payment details - end");
+			final Payment addPayment = paymentService.addPayment(payment);
+			LOGGER.info("adding payment details - end");
 			return addPayment;
 
 		}
@@ -93,20 +93,20 @@ public class PaymentController {
 
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(InvalidPaymentException.class)
-	ErrorMessages exceptionHandler(InvalidPaymentException e) {
-		return new ErrorMessages("400", e.str);
+	public ErrorMessages exceptionHandler(final InvalidPaymentException ex) {
+		return new ErrorMessages("400", ex.str);
 	}
 	
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(PaymentException.class)
-	ErrorMessages exceptionHandler(PaymentException e) {
-		return new ErrorMessages("404", e.str);
+	public ErrorMessages exceptionHandler(PaymentException ex) {
+		return new ErrorMessages("404", ex.str);
 	}
 	
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(DateException.class)
-	ErrorMessages exceptionHandler(DateException e) {
-		return new ErrorMessages("400", e.str);
+	public ErrorMessages exceptionHandler(final DateException ex) {
+		return new ErrorMessages("400", ex.str);
 	}
 
 	/**
@@ -117,11 +117,11 @@ public class PaymentController {
 	 * @throws PaymentException
 	 */
 
-	@GetMapping(value = "/get-Payment/{transactionId}")
-	public Payment getPaymentById(@PathVariable("transactionId") int id) throws PaymentException {
-		logger.info("viewing payment by id - start");
-		Payment getPayment = paymentService.getPaymentById(id);
-		logger.info("viewing payment by id - end");
+	@GetMapping("/get-Payment/{transactionId}")
+	public Payment getPaymentById(@PathVariable("transactionId") final int transactionId) throws PaymentException {
+		LOGGER.info("viewing payment by id - start");
+		final Payment getPayment = paymentService.getPaymentById(transactionId);
+		LOGGER.info("viewing payment by id - end");
 		return getPayment;
 	}
 
@@ -131,11 +131,11 @@ public class PaymentController {
 	 * @throws PaymentException
 	 */
 
-	@GetMapping(value = "/view-Payment")
+	@GetMapping("/view-Payment")
 	public List<Payment> viewPayment() throws PaymentException {
-		logger.info("viewing payment list - start");
-		List<Payment> getPaymentList = paymentService.viewPayment();
-		logger.info("viewing payment list - end");
+		LOGGER.info("viewing payment list - start");
+		final List<Payment> getPaymentList = paymentService.viewPayment();
+		LOGGER.info("viewing payment list - end");
 		return getPaymentList;
 	}
 

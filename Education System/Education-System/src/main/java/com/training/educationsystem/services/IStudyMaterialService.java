@@ -20,10 +20,10 @@ import com.training.educationsystem.repositories.StudyMaterialRepository;
 @Transactional
 @Service
 public class IStudyMaterialService implements StudyMaterialService{
-	private static final Logger logger = LoggerFactory.getLogger(IStudyMaterialService.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(IStudyMaterialService.class);
 	
 	@Autowired
-	StudyMaterialRepository studyRepo;
+	private StudyMaterialRepository studyRepo;
 
 	/**
 	 * This method adds the study material details after enrollment
@@ -31,10 +31,10 @@ public class IStudyMaterialService implements StudyMaterialService{
 	 * @return StudyMaterial
 	 */
 	@Override
-	public StudyMaterial addStudyMaterial(StudyMaterial studymaterial) {
-		logger.info("service adding study material details-start");
+	public StudyMaterial addStudyMaterial(final StudyMaterial studymaterial) {
+		LOGGER.info("service adding study material details-start");
 		studyRepo.save(studymaterial);
-		logger.info("service adding study material details-start");
+		LOGGER.info("service adding study material details-start");
 		return studymaterial;
 	}
 	
@@ -44,17 +44,17 @@ public class IStudyMaterialService implements StudyMaterialService{
 	 * @return void
 	 */
 	@Override
-	public void deleteStudyMaterial(int id) throws StudyMaterialException{
-		logger.info("service deleting study material details by id-start");
+	public void deleteStudyMaterial(final int id) throws StudyMaterialException{
+		LOGGER.info("service deleting study material details by id-start");
 		if(studyRepo.existsById(id))
 		{
 			studyRepo.deleteById(id);
-			logger.info("Study Material deleted successfully!");
-			logger.info("service deleted study material - end");
+			LOGGER.info("Study Material deleted successfully!");
+			LOGGER.info("service deleted study material - end");
 		}
 		else
 		{
-			logger.error("No such study material with the mentioned Id!");
+			LOGGER.error("No such study material with the mentioned Id!");
 			throw new StudyMaterialException("No such study material with the mentioned Id!");
 		}
 	}
@@ -66,17 +66,17 @@ public class IStudyMaterialService implements StudyMaterialService{
 	 */
 	@Override
 	public List<StudyMaterial> viewStudyMaterial() throws StudyMaterialException{
-		logger.info("service viewing study material list - start");
-		List<StudyMaterial> materialList = studyRepo.findAll();
+		LOGGER.info("service viewing study material list - start");
+		final List<StudyMaterial> materialList = studyRepo.findAll();
 		if(materialList.size() > 0 )
 		{
-			logger.info("service viewing study material list - end");
+			LOGGER.info("service viewing study material list - end");
 			return materialList;
 		}
 		else
 		{
-			logger.error("Study Material not found");
-			throw new StudyMaterialException("Study Material not found");
+			LOGGER.error("Study Material cannnot be found");
+			throw new StudyMaterialException("Study Material cannot be found");
 		}
 	}
 
@@ -87,18 +87,18 @@ public class IStudyMaterialService implements StudyMaterialService{
 	 * @return StudyMaterial
 	 */
 	@Override
-	public StudyMaterial getStudyMaterialById(int id) throws StudyMaterialException{
-		logger.info("service viewing study material details by id - start");
-		StudyMaterial studyMaterial = studyRepo.findById(id).orElse(null);
-		if(studyMaterial!=null)
+	public StudyMaterial getStudyMaterialById(final int id) throws StudyMaterialException{
+		LOGGER.info("service viewing study material details by id - start");
+		final StudyMaterial studyMaterial = studyRepo.findById(id).orElse(null);
+		if(studyMaterial==null)
 		{
-			logger.info("service viewing study material details by id - end");
-			return studyMaterial;
+			LOGGER.error("Study Material not found");
+			throw new StudyMaterialException("Study Material not found");
 		}
 		else
 		{
-			logger.error("Study Material not found");
-			throw new StudyMaterialException("Study Material not found");
+			LOGGER.info("service viewing study material details by id - end");
+			return studyMaterial;
 		}
 		
 		

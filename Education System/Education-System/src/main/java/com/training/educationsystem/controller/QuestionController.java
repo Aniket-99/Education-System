@@ -32,10 +32,10 @@ import com.training.educationsystem.services.IQuestionService;
 @RestController
 @RequestMapping("/api/educationsystem/question")
 public class QuestionController {
-private static Logger logger = LoggerFactory.getLogger(EducationSystemController.class);
+private static final Logger LOGGER = LoggerFactory.getLogger(EducationSystemController.class);
 
 	@Autowired
-	IQuestionService questionService;
+	private IQuestionService questionService;
 	
 	/***
 	 * Implementing EmptyInputException
@@ -44,7 +44,7 @@ private static Logger logger = LoggerFactory.getLogger(EducationSystemController
 	 */
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(EmptyInputException.class)
-	ErrorResponse handlingEmptyException(EmptyInputException e) {
+	public ErrorResponse handlingEmptyException(final EmptyInputException ex) {
 		return new ErrorResponse("Input provided are empty!", "400");
 	}
 	
@@ -56,7 +56,7 @@ private static Logger logger = LoggerFactory.getLogger(EducationSystemController
 	 */
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(QuestionException.class)
-	ErrorResponse handlingException(QuestionException e) {
+	public ErrorResponse handlingException(final QuestionException e) {
 		return new ErrorResponse("Questions not found!", "404");
 	}
 
@@ -66,10 +66,10 @@ private static Logger logger = LoggerFactory.getLogger(EducationSystemController
 	 * @return Response Entity
 	 * @throws EmptyInputException 
 	 */
-	@PostMapping(value="/addQuestion")
-	public ResponseEntity<Question> addQuestion(@RequestBody Question question) throws EmptyInputException{
-		Question addquestion = questionService.addQuestion(question);
-		logger.info("Adding Questions...");
+	@PostMapping("/addQuestion")
+	public ResponseEntity<Question> addQuestion(@RequestBody final Question question) throws EmptyInputException{
+		final Question addquestion = questionService.addQuestion(question);
+		LOGGER.info("Adding Questions...");
 		return new ResponseEntity<Question>(addquestion, HttpStatus.OK);
 	}
 	
@@ -79,10 +79,10 @@ private static Logger logger = LoggerFactory.getLogger(EducationSystemController
 	 * @return Question 
 	 * @throws QuestionException
 	 */
-	@GetMapping(value="/getQId")	
-	public Question getQuestion(@RequestParam("id") int id) throws QuestionException{
-		Question getById = questionService.viewQuestionById(id);
-		logger.info("Displaying Question For Id: " + id);
+	@GetMapping("/getQId")	
+	public Question getQuestion(@RequestParam("id") int questionId) throws QuestionException{
+		final Question getById = questionService.viewQuestionById(questionId);
+		LOGGER.info("Displaying Question by Id:");
 		return getById;
 	}
 	
@@ -91,10 +91,10 @@ private static Logger logger = LoggerFactory.getLogger(EducationSystemController
 	 * @return Response Entity
 	 * @throws TestException 
 	 */
-	@GetMapping(value="/getlistQuestion")
+	@GetMapping("/getlistQuestion")
 	public List<Question> getList() throws QuestionException{
-		List<Question> getlist = questionService.viewAllQuestions();
-		logger.info("Displaying All Question...");
+		final List<Question> getlist = questionService.viewAllQuestions();
+		LOGGER.info("Displaying All Question...");
 		if(getlist == null) {
 			throw new QuestionException("No question found");
 		}
@@ -107,10 +107,10 @@ private static Logger logger = LoggerFactory.getLogger(EducationSystemController
 	 * @return Response Entity
 	 * @throws EmptyInputException
 	 */
-	@PostMapping(value="/updatequestion")
-	public ResponseEntity<Question> updateQuestion(@RequestBody Question question) throws EmptyInputException{
-		Question updatequestion = questionService.updateQuestion(question);
-		logger.info("Updating Question Records for Id: ");
+	@PostMapping("/updatequestion")
+	public ResponseEntity<Question> updateQuestion(@RequestBody final Question question) throws EmptyInputException{
+		final Question updatequestion = questionService.updateQuestion(question);
+		LOGGER.info("Updating Question Records for Id");
 		return new ResponseEntity<Question>(updatequestion, HttpStatus.OK);
 	}
 	
@@ -120,10 +120,10 @@ private static Logger logger = LoggerFactory.getLogger(EducationSystemController
 	 * @return
 	 * @throws TestException 
 	 */
-	@DeleteMapping(value="/removeQuestion")
-	public Question removeQuestions(@RequestParam("id") int id) throws QuestionException{
-		Question removeQuestion = questionService.deleteQuestionById(id);
-		logger.info("Removing Question For Id: "+ id);
+	@DeleteMapping("/removeQuestion")
+	public Question removeQuestions(@RequestParam("id") int questionId) throws QuestionException{
+		final Question removeQuestion = questionService.deleteQuestionById(questionId);
+		LOGGER.info("Removing Question by Id");
 		return removeQuestion;
 	}
 }

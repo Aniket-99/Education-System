@@ -1,7 +1,5 @@
 package com.training.educationsystem.repositories;
 
-
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
@@ -19,13 +17,12 @@ import com.training.educationsystem.entities.Payment;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
-@AutoConfigureTestDatabase(replace=Replace.NONE)
+@AutoConfigureTestDatabase(replace = Replace.NONE)
 public class PaymentRepositoryTest {
 	@Autowired
 	private PaymentRepository paytestRepo;
-	
-	public Payment getPayment()
-	{
+
+	public Payment getPayment() {
 		Payment pay = new Payment();
 		pay.setCardNumber(2345);
 		pay.setCardType("debit");
@@ -35,25 +32,20 @@ public class PaymentRepositoryTest {
 		pay.setPaymentDate("29/07/2020");
 		return pay;
 	}
-	
+
 	@Test
 	@Rollback(false)
-	public void testAddPayment()
-	{
+	public void testAddPayment() {
 		Payment payment = getPayment();
 		Payment addPay = paytestRepo.save(payment);
 		Payment getPay = paytestRepo.getOne(addPay.getTransactionId());
 		assertThat(getPay).isEqualTo(addPay);
 	}
-	
+
 	@Test
-	public void getAllPayment()
-	{
+	public void getAllPayment() {
 		List<Payment> payList = paytestRepo.findAll();
 		assertThat(payList).size().isGreaterThan(0);
 	}
-	
-	
-	
-	
+
 }

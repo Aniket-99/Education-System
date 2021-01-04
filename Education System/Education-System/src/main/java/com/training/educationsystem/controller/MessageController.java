@@ -21,12 +21,12 @@ import com.training.educationsystem.services.MessageService;
 @RequestMapping("/educationsystem/message")
 public class MessageController {
 
-	// declaring logger
-	private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
+	// declaring LOGGER
+	private static final Logger LOGGER = LoggerFactory.getLogger(AdminController.class);
 
 	// autowiring MessageService service interfaces
 	@Autowired
-	MessageService messageService;
+	private MessageService messageService;
 
 	/*
 	 * @param messageDate 
@@ -38,23 +38,23 @@ public class MessageController {
 	 * the fields are invalid
 	 */
 	@PostMapping("/add-message")
-	public Message addMessage(@RequestParam("messageDate") String date,
-			@RequestParam("messageDescription") String description) throws InvalidMessageException {
-		// logger for admin broadcasting message
-		logger.info("admin is adding message-START");
+	public Message addMessage(@RequestParam("messageDate") final String date,
+			@RequestParam("messageDescription") final String description) throws InvalidMessageException {
+		// LOGGER for admin broadcasting message
+		LOGGER.info("admin is adding message-START");
 		if (date.isEmpty()) {
-			logger.error("date empty error thrown.....");
+			LOGGER.error("date empty error thrown.....");
 			throw new InvalidInputException("Date cannot be null");
 		}
 		if (!(date.matches("^\\d{4}-\\d{2}-\\d{2}$"))) {
-			logger.error("date invalid error thrown.....");
+			LOGGER.error("date invalid error thrown.....");
 			throw new InvalidInputException("Date is invalid");
 		}
 		if (description.isEmpty()) {
-			logger.error("description invalid error thrown.....");
+			LOGGER.error("description invalid error thrown.....");
 			throw new InvalidInputException("Description cannot be empty ");
 		} else {
-			logger.info("admin added message successfully-END");
+			LOGGER.info("admin added message successfully-END");
 			return messageService.addMessage(LocalDate.parse(date), description);
 		}
 
@@ -66,8 +66,8 @@ public class MessageController {
 	 */
 	@GetMapping("/view-all-messages")
 	public List<Message> viewAllMessages() throws InvalidMessageException {
-		// logger for viewing all the messages
-		logger.info("viewing all the messages-START-END");
+		// LOGGER for viewing all the messages
+		LOGGER.info("viewing all the messages-START-END");
 		return messageService.viewAllMessages();
 	}
 
@@ -77,23 +77,23 @@ public class MessageController {
 	 * @return message by messageId
 	 */
 	@GetMapping("/view-message")
-	public Message viewMessage(@RequestParam("messageId") int id) throws InvalidMessageException {
-		// logger for viewing message
-		logger.info("viewing message-START");
-		if (id < 0) {
-		    logger.error("message id negative error is thrown.....");
-			throw new InvalidInputException("Message id cannot be negative :" + id);
+	public Message viewMessage(@RequestParam("messageId") final int messageId) throws InvalidMessageException {
+		// LOGGER for viewing message
+		LOGGER.info("viewing message-START");
+		if (messageId < 0) {
+		    LOGGER.error("message id negative error is thrown.....");
+			throw new InvalidInputException("Message id cannot be negative :" + messageId);
 		}
-		if (id == 0) {
-			logger.error("message id zero error is thrown.....");
-			throw new InvalidInputException("Message id cannot be zero :" + id);
+		if (messageId == 0) {
+			LOGGER.error("message id zero error is thrown.....");
+			throw new InvalidInputException("Message id cannot be zero :" + messageId);
 		}
-		if (id > 9999) {
-			logger.error("message id invalid error is thrown.....");
-			throw new InvalidInputException("Message id cannot be greater than 9999 :" + id);
+		if (messageId > 9999) {
+			LOGGER.error("message id invalid error is thrown.....");
+			throw new InvalidInputException("Message id cannot be greater than 9999 :" + messageId);
 		} else {
-			logger.info("message is viewed-END");
-			return messageService.viewMessage(id);
+			LOGGER.info("message is viewed-END");
+			return messageService.viewMessage(messageId);
 		}
 	}
 

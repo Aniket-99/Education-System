@@ -4,14 +4,16 @@ import java.util.List;
 
 import com.training.educationsystem.entities.Progress;
 
-/*
+/**
  * progress service interface to declare all the methods
+ * @author Aarzoo
+ *
  */
 public interface ProgressService {
 	
-	public Progress addProgress(int completedHours);
+	 Progress addProgress(int completedHours);
 
-	public Progress  viewProgress(int progressId);
+	 Progress  viewProgress(int progressId);
 
-	public List<Progress> viewAllProgresses();
+	 List<Progress> viewAllProgresses();
 }

@@ -13,12 +13,17 @@ import com.training.educationsystem.entities.Feedback;
 import com.training.educationsystem.exceptions.InvalidFeedbackException;
 import com.training.educationsystem.repositories.FeedbackRepository;
 
+/**
+ * 
+ * @author Prajakta
+ *
+ */
 @Transactional
 @Service
 public  class FeedbackService implements IFeedbackService {
-	private static final Logger logger=LogManager.getLogger(FeedbackService.class);
+	private static final Logger LOGGER=LogManager.getLogger(FeedbackService.class);
 	@Autowired
-	FeedbackRepository feedbackRepo;
+	transient private FeedbackRepository feedbackRepo;
 
 		
 /**
@@ -29,13 +34,13 @@ public  class FeedbackService implements IFeedbackService {
 * 
 */
 		@Override
-		public Feedback addFeedback(String sname, String feedback) {
-			logger.info("Adding data in feedback service-START");
-			Feedback feedback1=new Feedback();
+		public Feedback addFeedback(final String sname, final String feedback) {
+			LOGGER.info("Adding data in feedback service-START");
+			final Feedback feedback1=new Feedback();
 			feedback1.setSname(sname);
 			feedback1.setFeedback(feedback);
-			Feedback addFeedback=feedbackRepo.save(feedback1);
-			logger.info("Done in feedback service-END");
+			final Feedback addFeedback=feedbackRepo.save(feedback1);
+			LOGGER.info("Done in feedback service-END");
 			return addFeedback;	
 		}
 			
@@ -48,18 +53,18 @@ public  class FeedbackService implements IFeedbackService {
  * 
  */
 		@Override
-		public Feedback updateFeedbackForReply(int id, String reply) throws InvalidFeedbackException {
-			Feedback addReply=feedbackRepo.findById(id).orElse(null);
-			logger.info("updating feedbackreply in feedback service");
-			if(addReply!=null) {
+		public Feedback updateFeedbackForReply(final int id,final String reply) throws InvalidFeedbackException {
+			final Feedback addReply=feedbackRepo.findById(id).orElse(null);
+			LOGGER.info("updating feedbackreply in feedback service");
+			if(addReply==null) {
+				LOGGER.error("Reply of the mentioned Id cannot be FOUND");
+				throw new InvalidFeedbackException("Feedback of the mentioned Id cannot be found");
+			}
+			else {
 				addReply.setReply(reply);
 				Feedback updateFeedback=feedbackRepo.save(addReply);
-				logger.info("done in feedback service");
-				return updateFeedback;
-			}
-			else 
-				logger.error("Reply of the mentioned Id cannot be FOUND");
-				throw new InvalidFeedbackException("Feedback of the mentioned Id cannot be found");
+				LOGGER.info("done in feedback service");
+				return updateFeedback;}
 			}
 	
 /**
@@ -70,15 +75,15 @@ public  class FeedbackService implements IFeedbackService {
 */
 		@Override
 		public List<Feedback> getAllFeedback() throws InvalidFeedbackException {
-			logger.info("getting all feedback data in feedback service");
-			List<Feedback> feedbackList=feedbackRepo.findAll();
+			LOGGER.info("getting all feedback data in feedback service");
+			final List<Feedback> feedbackList=feedbackRepo.findAll();
 			if(feedbackList.size()>0) {
-				logger.info("done in feedback service");
+				LOGGER.info("done in feedback service");
 				return feedbackList;
 			}
-			else
-				logger.error("NO Feedback to show");
-				throw new InvalidFeedbackException("No Feedbacks to show");
+			else {
+				LOGGER.error("NO Feedback to show");
+				throw new InvalidFeedbackException("No Feedbacks to show");}
 	}
 
 /**
@@ -88,17 +93,17 @@ public  class FeedbackService implements IFeedbackService {
 * 
 */
 		@Override
-		public String viewReply(int id) throws InvalidFeedbackException {
-			logger.info("Showing reply in feedback service-START");
-			Feedback viewReply=feedbackRepo.findById(id).orElse(null);
-			if(viewReply!=null) {
-				String reply=viewReply.getReply();
-				logger.info("Done in feedback service-END");
-				return reply;
-			}
-			else 
-				logger.error("Reply of the mentioned Id cannot be FOUND");
+		public String viewReply(final int id) throws InvalidFeedbackException {
+			LOGGER.info("Showing reply in feedback service-START");
+			final Feedback viewReply=feedbackRepo.findById(id).orElse(null);
+			if(viewReply==null) {
+				LOGGER.error("Reply of the mentioned Id cannot be FOUND");
 				throw new InvalidFeedbackException("Reply of the mentioned Id cannot be FOUND");
+			}
+			else {
+				String reply=viewReply.getReply();
+				LOGGER.info("Done in feedback service-END");
+				return reply;}
 				
 				
 	}

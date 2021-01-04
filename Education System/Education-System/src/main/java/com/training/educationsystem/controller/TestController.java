@@ -32,11 +32,11 @@ import com.training.educationsystem.services.ITestService;
 @RequestMapping("/api/educationsystem/test")
 public class TestController {
 
-private static Logger logger = LoggerFactory.getLogger(EducationSystemController.class);
+private static final Logger LOGGER = LoggerFactory.getLogger(EducationSystemController.class);
 
 	
 	@Autowired
-	ITestService testService;
+	private ITestService testService;
 	
 	
 	/***
@@ -46,7 +46,7 @@ private static Logger logger = LoggerFactory.getLogger(EducationSystemController
 	 */
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(TestException.class)
-	ErrorResponse handlingException(TestException e) {
+	public ErrorResponse handlingException(final TestException ex) {
 		return new ErrorResponse("Test Not Found", "404");
 	}
 	
@@ -57,7 +57,7 @@ private static Logger logger = LoggerFactory.getLogger(EducationSystemController
 	 */
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(EmptyInputException.class)
-	ErrorResponse handlingEmptyException(EmptyInputException e) {
+	public ErrorResponse handlingEmptyException(final EmptyInputException ex) {
 		return new ErrorResponse("Input provided are empty!", "400");
 	}
 	
@@ -68,10 +68,10 @@ private static Logger logger = LoggerFactory.getLogger(EducationSystemController
 	 * @throws EmptyInputException 
 	 * @throws Exception 
 	 */
-	@PostMapping(value= "/addTest")
-	public ResponseEntity<Test> addTest(@RequestBody Test test) throws EmptyInputException{
-		logger.info("Add Test Method..");
-		Test addtest = testService.addTest(test);
+	@PostMapping("/addTest")
+	public ResponseEntity<Test> addTest(@RequestBody final Test test) throws EmptyInputException{
+		LOGGER.info("Add Test Method..");
+		final Test addtest = testService.addTest(test);
 		return new ResponseEntity<Test>(addtest, HttpStatus.OK);
 	}
 	
@@ -81,10 +81,10 @@ private static Logger logger = LoggerFactory.getLogger(EducationSystemController
 	 * @return Test
 	 * @throws TestException 
 	 */
-	@GetMapping(value="/get-test-ById")	
-	public Test getTest(@RequestParam("id") int id) throws TestException {
-		Test getById = testService.getTestById(id);
-		logger.info("Displaying Test For Id: " + id);
+	@GetMapping("/get-test-ById")	
+	public Test getTest(@RequestParam("id") final int testId) throws TestException {
+		final Test getById = testService.getTestById(testId);
+		LOGGER.info("Displaying Test by Id");
 		return getById;
 	}
 	
@@ -93,14 +93,14 @@ private static Logger logger = LoggerFactory.getLogger(EducationSystemController
 	 * @return list
 	 * @throws TestException 
 	 */
-	@GetMapping(value="/getlist")	
+	@GetMapping("/getlist")	
 	public List<Test> getTestList() throws TestException{
-		List<Test> gettestlist = testService.getAllList();
+		final List<Test> gettestlist = testService.getAllList();
 		if(gettestlist == null) {
-			logger.error("Test Not Found");
+			LOGGER.error("Test Not Found");
 			throw new TestException("Test Not Found");
 		}
-		logger.info("Displaying Test list.....");
+		LOGGER.info("Displaying Test list.....");
 		return gettestlist;
 	}
 	
@@ -110,10 +110,10 @@ private static Logger logger = LoggerFactory.getLogger(EducationSystemController
 	 * @return Test 
 	 * @throws TestException 
 	 */
-	@DeleteMapping(value="/remove")
-	public ResponseEntity<Test> removeTest(@RequestParam("id") int id) throws TestException{
-		Test removeTest = testService.removeTest(id);
-		logger.info("Removing Test For Id: "+ id);
+	@DeleteMapping("/remove")
+	public ResponseEntity<Test> removeTest(@RequestParam("id") final int testId) throws TestException{
+		final Test removeTest = testService.removeTest(testId);
+		LOGGER.info("Removing Test by Id");
 		return new ResponseEntity<Test>(removeTest,HttpStatus.OK);
 	}
 	
@@ -124,9 +124,9 @@ private static Logger logger = LoggerFactory.getLogger(EducationSystemController
 	 * @throws TestException 
 	 */
 	@PatchMapping("/update-question")
-	public Test updateTestForQuestion(@RequestParam("testId") int testId, @RequestParam("quesId") int quesId) throws TestException {
-		Test updateTest = testService.updateTestforQuestion(testId, quesId);
-		logger.info("Updating Test for Each Question...");
+	public Test updateTestForQuestion(@RequestParam("testId") final int testId, @RequestParam("quesId") final int quesId) throws TestException {
+		final Test updateTest = testService.updateTestforQuestion(testId, quesId);
+		LOGGER.info("Updating Test for Each Question...");
 		return updateTest;
 	}
 }

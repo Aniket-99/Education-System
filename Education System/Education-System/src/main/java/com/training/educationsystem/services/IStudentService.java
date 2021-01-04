@@ -14,31 +14,35 @@ import com.training.educationsystem.exceptions.PasswordAndConfirmPasswordNotMatc
 import com.training.educationsystem.exceptions.RegistrationRequestNotApprovedException;
 import com.training.educationsystem.exceptions.StudentNotFoundException;
 import com.training.educationsystem.exceptions.UserNameExistException;
-
+/**
+ * 
+ * @author Aniket
+ *
+ */
 public interface IStudentService
 {
-	public boolean requestRegistration(Student student)
+	 boolean requestRegistration(Student student)
 			throws EmailAlreadyExistsException, UserNameExistException, PasswordAndConfirmPasswordNotMatchException;
 
-	public List<Student> getAllStudentsRegistrationRequest();
+	 List<Student> getAllStudentsRegistrationRequest();
 
-	public boolean getStudentByIdForValidatingRegistration(int id) throws EntityNotFoundException;
+	 boolean getStudentByIdForValidatingRegistration(int id) throws EntityNotFoundException;
 
-	public boolean validateStudentLogin(String userName, String password)
+	 boolean validateStudentLogin(String userName, String password)
 			throws StudentNotFoundException, RegistrationRequestNotApprovedException;
 
-	public List<Student> viewAllStudentDetails();
+	 List<Student> viewAllStudentDetails();
 
-	public Student viewStudentById(int id)
+	 Student viewStudentById(int id)
 			throws EntityNotFoundException, StudentNotFoundException, RegistrationRequestNotApprovedException;
 
-	public Student updateStudentDetails(int id, StudentDTO studentDTO)
+	 Student updateStudentDetails(int id, StudentDTO studentDTO)
 			throws EntityNotFoundException, StudentNotFoundException, RegistrationRequestNotApprovedException;
 
-	public List<Course> viewCourseForStudent(int id)
+	 List<Course> viewCourseForStudent(int id)
 			throws EntityNotFoundException, StudentNotFoundException, RegistrationRequestNotApprovedException, CourseNotFoundException;
 
-	public Student updateStudentForCourse(int id, String name) throws EntityNotFoundException, StudentNotFoundException,
+	 Student updateStudentForCourse(int id, String name) throws EntityNotFoundException, StudentNotFoundException,
 			RegistrationRequestNotApprovedException, CourseNotFoundException, AlreadyEnrolledInCourseException;
 
 }

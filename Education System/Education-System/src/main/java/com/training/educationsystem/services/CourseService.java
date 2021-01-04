@@ -41,25 +41,25 @@ import com.training.educationsystem.repositories.TrainerRepository;
 @Service
 public class CourseService implements ICourseService {
 
-	private static final Logger logger = LoggerFactory.getLogger(CourseController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(CourseController.class);
 
 	@Autowired
-	CourseRepository courseRepo;
+	private CourseRepository courseRepo;
 
 	@Autowired
-	TrainerRepository trainerRepo;
+	private TrainerRepository trainerRepo;
 
 	@Autowired
-	StudentRepository studentRepo;
+	private StudentRepository studentRepo;
 
 	@Autowired
-	PaymentRepository paymentRepo;
+	private PaymentRepository paymentRepo;
 
 	@Autowired
-	TestRepository testRepo;
+	private TestRepository testRepo;
 
 	@Autowired
-	ProgressRepository progressRepo;
+	private ProgressRepository progressRepo;
 
 	/**
 	 * This method adds the course in the System
@@ -70,11 +70,11 @@ public class CourseService implements ICourseService {
 	 * @throws InvalidCourseException
 	 */
 	@Override
-	public Course addCourse(Course course) {
-		logger.info("Add Course (Service) - START");
+	public Course addCourse(final Course course) {
+		LOGGER.info("Add Course (Service) - START");
 		courseRepo.save(course);
-		logger.info("Course Added Successfully!");
-		logger.info("Add Course (Service) - END");
+		LOGGER.info("Course Added Successfully!");
+		LOGGER.info("Add Course (Service) - END");
 		return course;
 	}
 
@@ -86,15 +86,15 @@ public class CourseService implements ICourseService {
 	 * @throws NotFoundException 
 	 */
 	@Override
-	public void deleteCourse(int courseId) throws NotFoundException {
-		logger.info("Delete Course (Service) - START");
+	public void deleteCourse(final int courseId) throws NotFoundException {
+		LOGGER.info("Delete Course (Service) - START");
 		if(courseRepo.existsById(courseId)){
 		courseRepo.deleteById(courseId);
-		logger.info("Course Deleted Successfully!");
-		logger.info("Delete Course (Service) - END");}
+		LOGGER.info("Course Deleted Successfully!");
+		LOGGER.info("Delete Course (Service) - END");}
 		else
 		{
-			logger.error("Course cannot be deleted as this Course cannot be found");
+			LOGGER.error("Course cannot be deleted as this Course cannot be found");
 			throw new NotFoundException("Course cannot be deleted as this Course cannot be found");
 		}
 	}
@@ -107,16 +107,16 @@ public class CourseService implements ICourseService {
 	 * @throws NotFoundException
 	 */
 	@Override
-	public Course viewCourse(int courseId) throws NotFoundException {
-		logger.info("View Course (Service) -START!");
-		Course course = courseRepo.findById(courseId).orElse(null);
-		if (course != null) {
-			logger.info("Displaying Course!");
-			logger.info("View Course  (Service) -END!");
-			return course;
-		} else {
-			logger.error("Course cannot be Found!");
+	public Course viewCourse(final int courseId) throws NotFoundException {
+		LOGGER.info("View Course (Service) -START!");
+		final Course course = courseRepo.findById(courseId).orElse(null);
+		if (course == null) {
+			LOGGER.error("Course cannot be Found!");
 			throw new NotFoundException("Course cannot be Found!");
+		} else {
+			LOGGER.info("Displaying Course!");
+			LOGGER.info("View Course  (Service) -END!");
+			return course;
 		}
 
 	}
@@ -129,21 +129,20 @@ public class CourseService implements ICourseService {
 	 */
 	@Override
 	public List<Course> viewAllCourses() throws ListEmptyException {
-		logger.info("View All Courses (Service) -START!");
-		List<Course> courseList = courseRepo.findAll();
+		LOGGER.info("View All Courses (Service) -START!");
+		final List<Course> courseList = courseRepo.findAll();
 		if (courseList.size() > 0) {
-			logger.info("Displaying Courses!");
-			logger.info("View All Courses  (Service) -END!");
+			LOGGER.info("Displaying Courses!");
+			LOGGER.info("View All Courses  (Service) -END!");
 			return courseList;
 		} else {
-			logger.error("No Courses to Display");
+			LOGGER.error("No Courses to Display");
 			throw new ListEmptyException("No Courses to Display");
 		}
 	}
 
 	/**
 	 * This method adds Trainers in the Course specified
-	 * 
 	 * @param courseId
 	 * @param firstName
 	 * @return Course 
@@ -151,29 +150,29 @@ public class CourseService implements ICourseService {
 	 * @throws AlreadyExistsException
 	 */
 	@Override
-	public Course updateCourseForTrainers(int courseId, String firstName)
+	public Course updateCourseForTrainers(final int courseId, final String firstName)
 			throws NotFoundException, AlreadyExistsException {
-		logger.info("Updating Course for Trainers (Service) -START!");
-		Course course = courseRepo.findById(courseId).orElse(null);
+		LOGGER.info("Updating Course for Trainers (Service) -START!");
+		final Course course = courseRepo.findById(courseId).orElse(null);
 		if (course != null) {
-			List<Trainer> trainerList = course.getTrainers();
-			List<String> nameList = trainerList.stream().map(e -> e.getFirstName()).collect(Collectors.toList());
+			final List<Trainer> trainerList = course.getTrainers();
+			final List<String> nameList = trainerList.stream().map(e -> e.getFirstName()).collect(Collectors.toList());
 			if (nameList.contains(firstName)) {
-				logger.warn("Trainer Already assigned in Course ");
+				LOGGER.warn("Trainer Already assigned in Course ");
 				throw new AlreadyExistsException("Trainer Already assigned in Course ");
 			} else {
-				List<Trainer> tlist = new ArrayList<Trainer>();
-				Trainer trainer = trainerRepo.findByFirstName(firstName);
+				final List<Trainer> tlist = new ArrayList<>();
+				final Trainer trainer = trainerRepo.findByFirstName(firstName);
 
 				tlist.add(trainer);
 				course.setTrainers(tlist);
 				courseRepo.save(course);
-				logger.info("Adding Trainer!");
-				logger.info("Updating Course for Trainers (Service) -END!");
+				LOGGER.info("Adding Trainer!");
+				LOGGER.info("Updating Course for Trainers (Service) -END!");
 				return course;
 			}
 		} else {
-			logger.error("Trainer cannot be added!");
+			LOGGER.error("Trainer cannot be added!");
 			throw new NotFoundException("Trainer cannot be added!");
 		}
 
@@ -181,7 +180,6 @@ public class CourseService implements ICourseService {
 
 	/**
 	 * This method adds students who have enrolled in the course
-	 * 
 	 * @param courseId
 	 * @param userName
 	 * @return Course object
@@ -191,28 +189,28 @@ public class CourseService implements ICourseService {
 	@Override
 	public Course updateCourseForStudents(int courseId, String userName)
 			throws NotFoundException, AlreadyExistsException {
-		logger.info("Updating Course for Students (Service) -START!");
+		LOGGER.info("Updating Course for Students (Service) -START!");
 		Course course = courseRepo.findById(courseId).orElse(null);
 		if (course != null) {
-			List<Student> studentList = course.getStudents();
+			final List<Student> studentList = course.getStudents();
 
-			List<String> usernameList = studentList.stream().map(e -> e.getUserName()).collect(Collectors.toList());
+			final List<String> usernameList = studentList.stream().map(e -> e.getUserName()).collect(Collectors.toList());
 			if (usernameList.contains(userName)) {
-				logger.warn("Student Already Enrolled in Course ");
+				LOGGER.warn("Student Already Enrolled in Course ");
 				throw new AlreadyExistsException("Student Already Enrolled in Course ");
 			} else {
-				List<Student> slist = new ArrayList<Student>();
-				Student student = studentRepo.findByUserName(userName);
+				final List<Student> slist = new ArrayList<Student>();
+				final Student student = studentRepo.findByUserName(userName);
 
 				slist.add(student);
 				course.setStudents(slist);
 				courseRepo.save(course);
-				logger.info("Adding Student!");
-				logger.info("Updating Course for Students (Service) -END!");
+				LOGGER.info("Adding Student!");
+				LOGGER.info("Updating Course for Students (Service) -END!");
 				return course;
 			}
 		} else {
-			logger.error("Student cannot be added");
+			LOGGER.error("Student cannot be added");
 			throw new NotFoundException("Student cannot be added");
 		}
 
@@ -228,19 +226,19 @@ public class CourseService implements ICourseService {
 	 */
 
 	@Override
-	public Course updateCourseForPayment(int courseId, int transactionId) throws NotFoundException {
-		logger.info("Updating Course  for Payment (Service) -START!");
-		Payment payment = paymentRepo.getOne(transactionId);
-		Course course = courseRepo.getOne(courseId);
-		if (course != null) {
+	public Course updateCourseForPayment(final int courseId, final int transactionId) throws NotFoundException {
+		LOGGER.info("Updating Course  for Payment (Service) -START!");
+		final Payment payment = paymentRepo.getOne(transactionId);
+		final Course course = courseRepo.getOne(courseId);
+		if (course == null) {
+			LOGGER.error("Payment cannot be added");
+			throw new NotFoundException("Payment cannot be added");
+		} else {
 			course.setPayment(payment);
 			courseRepo.save(course);
-			logger.info("Adding Payment!");
-			logger.info("Updating Course for Payment (Service) -END!");
+			LOGGER.info("Adding Payment!");
+			LOGGER.info("Updating Course for Payment (Service) -END!");
 			return course;
-		} else {
-			logger.error("Payment cannot be added");
-			throw new NotFoundException("Payment cannot be added");
 		}
 
 	}
@@ -252,16 +250,16 @@ public class CourseService implements ICourseService {
 	 * @throws ListEmptyException
 	 */
 	@Override
-	public List<Trainer> viewTrainers(int courseId) throws ListEmptyException {
-		logger.info("View Trainers (Service) -START!");
-		Course course = courseRepo.getOne(courseId);
-		List<Trainer> trainerList = course.getTrainers();
+	public List<Trainer> viewTrainers(final int courseId) throws ListEmptyException {
+		LOGGER.info("View Trainers (Service) -START!");
+		final Course course = courseRepo.getOne(courseId);
+		final List<Trainer> trainerList = course.getTrainers();
 		if (trainerList.size() > 0) {
-			logger.info("Displaying Trainers!");
-			logger.info("View Trainers (Service) -END!");
+			LOGGER.info("Displaying Trainers!");
+			LOGGER.info("View Trainers (Service) -END!");
 			return trainerList;
 		} else {
-			logger.error("No Trainers to show !");
+			LOGGER.error("No Trainers to show !");
 			throw new ListEmptyException("No Trainers to show!");
 		}
 
@@ -276,16 +274,16 @@ public class CourseService implements ICourseService {
 	 */
 
 	@Override
-	public List<Student> viewStudents(int courseId) throws ListEmptyException {
-		logger.info("View Students (Service) -START!");
-		Course course = courseRepo.getOne(courseId);
-		List<Student> students = course.getStudents();
+	public List<Student> viewStudents(final int courseId) throws ListEmptyException {
+		LOGGER.info("View Students (Service) -START!");
+		final Course course = courseRepo.getOne(courseId);
+		final List<Student> students = course.getStudents();
 		if (students.size() > 0) {
-			logger.info("Displaying Studnets!");
-			logger.info("View Students (Service) -END!");
+			LOGGER.info("Displaying Studnets!");
+			LOGGER.info("View Students (Service) -END!");
 			return students;
 		} else {
-			logger.error("No students to show!");
+			LOGGER.error("No students to show!");
 			throw new ListEmptyException("No students to show!");
 		}
 
@@ -300,18 +298,18 @@ public class CourseService implements ICourseService {
 	 * @throws CourseNotFoundException
 	 */
 	@Override
-	public Course updateCourseForTest(int courseId, int testId) throws NotFoundException {
-		logger.info("Updating Course for  Test (Service) -START!");
-		Test test = testRepo.getOne(testId);
-		Course course = courseRepo.getOne(courseId);
+	public Course updateCourseForTest(final int courseId,final int testId) throws NotFoundException {
+		LOGGER.info("Updating Course for  Test (Service) -START!");
+		final Test test = testRepo.getOne(testId);
+		final Course course = courseRepo.getOne(courseId);
 		if (course != null) {
 			course.setTest(test);
 			courseRepo.save(course);
-			logger.info("Adding Test!");
-			logger.info("Updating Course for Test  (Service) -END!");
+			LOGGER.info("Adding Test!");
+			LOGGER.info("Updating Course for Test  (Service) -END!");
 			return course;
 		} else {
-			logger.error("Test cannot be added");
+			LOGGER.error("Test cannot be added");
 			throw new NotFoundException("Test cannot be added");
 		}
 
@@ -325,16 +323,16 @@ public class CourseService implements ICourseService {
 	 * @throws TestNotFoundException
 	 */
 	@Override
-	public Test viewTest(int courseId) throws TestNotFoundException {
-		logger.info("View Test (Service) -START!");
-		Course course = courseRepo.getOne(courseId);
-		if (course != null) {
-			logger.info("Displaying Test!");
-			logger.info("View Test  (Service) -END!");
-			return course.getTest();
-		} else {
-			logger.error("Test cannot be found!");
+	public Test viewTest(final int courseId) throws TestNotFoundException {
+		LOGGER.info("View Test (Service) -START!");
+		final Course course = courseRepo.getOne(courseId);
+		if (course == null) {
+			LOGGER.error("Test cannot be found!");
 			throw new TestNotFoundException("Test cannot be found!");
+		} else {
+			LOGGER.info("Displaying Test!");
+			LOGGER.info("View Test  (Service) -END!");
+			return course.getTest();
 		}
 
 	}
@@ -347,19 +345,19 @@ public class CourseService implements ICourseService {
 	 * @throws CourseNotFoundException
 	 */
 	@Override
-	public Course updateCourseForProgress(int courseId, int progressId) throws NotFoundException {
-		logger.info("Updating Course for Progress (Service) -START!");
-		Progress progress = progressRepo.getOne(progressId);
-		Course course = courseRepo.getOne(courseId);
-		if (course != null) {
+	public Course updateCourseForProgress(final int courseId, int progressId) throws NotFoundException {
+		LOGGER.info("Updating Course for Progress (Service) -START!");
+	    final  Progress progress = progressRepo.getOne(progressId);
+		final Course course = courseRepo.getOne(courseId);
+		if (course == null) {
+			LOGGER.error("Progress cannot be added");
+			throw new NotFoundException("Progress cannot be added");
+		} else {
 			course.setProgress(progress);
 			courseRepo.save(course);
-			logger.info("Adding Progress!");
-			logger.info("Updating Course for Progress (Service) -END!");
+			LOGGER.info("Adding Progress!");
+			LOGGER.info("Updating Course for Progress (Service) -END!");
 			return course;
-		} else {
-			logger.error("Progress cannot be added");
-			throw new NotFoundException("Progress cannot be added");
 		}
 	}
 

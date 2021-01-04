@@ -23,8 +23,6 @@ import com.training.educationsystem.exceptions.InvalidStudyMaterialException;
 import com.training.educationsystem.exceptions.StudyMaterialException;
 import com.training.educationsystem.services.IStudyMaterialService;
 
-
-
 /**
  * 
  * @author Anisha
@@ -33,7 +31,7 @@ import com.training.educationsystem.services.IStudyMaterialService;
 @RestController
 @RequestMapping("/api/educationsystem")
 public class StudyMaterialController {
-	private static final Logger logger = LoggerFactory.getLogger(StudyMaterialController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(StudyMaterialController.class);
 	@Autowired
 	public IStudyMaterialService studymaterialService;
 
@@ -43,19 +41,19 @@ public class StudyMaterialController {
 	 * @param studymaterial
 	 * @return StudyMaterial
 	 */
-	@PostMapping(value = "/add-Studymaterial")
-	public StudyMaterial addStudyMaterial(@RequestBody StudyMaterial studymaterial)
+	@PostMapping("/add-Studymaterial")
+	public StudyMaterial addStudyMaterial(@RequestBody final StudyMaterial studymaterial)
 			throws InvalidStudyMaterialException {
-		logger.info("adding study material details - start");
+		LOGGER.info("adding study material details - start");
 
-		String materialPattern = "[a-zA-Z0-9\\s]+";
+		final String materialPattern = "[a-zA-Z0-9\\s]+";
 		if (!(Pattern.matches(materialPattern, studymaterial.getContent()))) {
-			logger.error("Checking for content type");
+			LOGGER.error("Checking for content type");
 			throw new InvalidStudyMaterialException(
 					"Content should not be null and should contain alphanumeric values only");
 		} else {
 			StudyMaterial addStud = studymaterialService.addStudyMaterial(studymaterial);
-			logger.info("adding study material details - end");
+			LOGGER.info("adding study material details - end");
 			return addStud;
 
 		}
@@ -64,14 +62,14 @@ public class StudyMaterialController {
 
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(InvalidStudyMaterialException.class)
-	ErrorMessages exceptionHandler(InvalidStudyMaterialException e) {
-		return new ErrorMessages("400", e.str);
+	public ErrorMessages exceptionHandler(final InvalidStudyMaterialException ex) {
+		return new ErrorMessages("400", ex.str);
 	}
 
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(StudyMaterialException.class)
-	ErrorMessages exceptionHandler(StudyMaterialException e) {
-		return new ErrorMessages("400", e.str);
+	public ErrorMessages exceptionHandler(final StudyMaterialException ex) {
+		return new ErrorMessages("400", ex.str);
 	}
 
 	/**
@@ -80,11 +78,11 @@ public class StudyMaterialController {
 	 * @param id
 	 * @return StudyMaterial
 	 */
-	@GetMapping(value = "/get-Material/{materialId}")
-	public StudyMaterial getStudyMaterialById(@PathVariable("materialId") int id) throws StudyMaterialException {
-		logger.info("viewing study material details by id - start");
-		StudyMaterial getStudyMaterial = studymaterialService.getStudyMaterialById(id);
-		logger.info("viewing study material details by id - end");
+	@GetMapping("/get-Material/{materialId}")
+	public StudyMaterial getStudyMaterialById(@PathVariable("materialId") final int id) throws StudyMaterialException {
+		LOGGER.info("viewing study material details by id - start");
+		final StudyMaterial getStudyMaterial = studymaterialService.getStudyMaterialById(id);
+		LOGGER.info("viewing study material details by id - end");
 		return getStudyMaterial;
 	}
 
@@ -93,11 +91,11 @@ public class StudyMaterialController {
 	 * 
 	 * @return List
 	 */
-	@GetMapping(value = "/view-Studymaterial")
+	@GetMapping("/view-Studymaterial")
 	public List<StudyMaterial> viewStudyMaterial() throws StudyMaterialException {
-		logger.info("viewing study material list - start");
-		List<StudyMaterial> getStudyMaterialList = studymaterialService.viewStudyMaterial();
-		logger.info("viewing study material list - end");
+		LOGGER.info("viewing study material list - start");
+		final List<StudyMaterial> getStudyMaterialList = studymaterialService.viewStudyMaterial();
+		LOGGER.info("viewing study material list - end");
 		return getStudyMaterialList;
 	}
 
@@ -106,15 +104,14 @@ public class StudyMaterialController {
 	 * 
 	 * @param id
 	 * @return String Message
-	 * @throws StudyMaterialException 
+	 * @throws StudyMaterialException
 	 */
-	@DeleteMapping(value = "/remove-Studymaterial/{materialId}")
-	public String deleteStudyMaterial(@PathVariable("materialId") int id) throws StudyMaterialException {
-		logger.info("deleting study material details by id - start");
-		studymaterialService.deleteStudyMaterial(id);
-		logger.info("deleting study material details by id - end");
+	@DeleteMapping("/remove-Studymaterial/{materialId}")
+	public String deleteStudyMaterial(@PathVariable("materialId") final int materialId) throws StudyMaterialException {
+		LOGGER.info("deleting study material details by id - start");
+		studymaterialService.deleteStudyMaterial(materialId);
+		LOGGER.info("deleting study material details by id - end");
 		return "Study Material removes!";
 	}
-
 
 }

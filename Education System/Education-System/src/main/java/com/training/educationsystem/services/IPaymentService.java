@@ -24,9 +24,9 @@ import com.training.educationsystem.repositories.PaymentRepository;
 @Transactional
 @Service
 public class IPaymentService implements PaymentService{
-	private static final Logger logger = LoggerFactory.getLogger(IPaymentService.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(IPaymentService.class);
 	@Autowired 
-	PaymentRepository paymentRepository;
+	private PaymentRepository paymentRepository;
 	
 
 	/**
@@ -36,10 +36,10 @@ public class IPaymentService implements PaymentService{
 	 * @throws InvalidPaymentException
 	 */
 	@Override
-	public Payment addPayment(Payment payment){
-		logger.info("service adding payment details - start");
+	public Payment addPayment(final Payment payment){
+		LOGGER.info("service adding payment details - start");
 		paymentRepository.save(payment);
-		logger.info("service adding payment details - end");
+		LOGGER.info("service adding payment details - end");
 		return payment;
 	}
 	
@@ -50,18 +50,18 @@ public class IPaymentService implements PaymentService{
 	 */
 
 	@Override
-	public Payment getPaymentById(int id) throws PaymentException{
-		logger.info("service viewing payment by id - start");
-		Payment payment = paymentRepository.findById(id).orElse(null);
-		if(payment!=null)
+	public Payment getPaymentById(final int id) throws PaymentException{
+		LOGGER.info("service viewing payment by id - start");
+		final Payment payment = paymentRepository.findById(id).orElse(null);
+		if(payment==null)
 		{
-			logger.info("service viewing payment by id - end");
-			return payment;
+			LOGGER.error("Payment details not found");
+			throw new PaymentException("Payment details not found");
 		}
 		else
 		{
-			logger.error("Payment details not found");
-			throw new PaymentException("Payment details not found");
+			LOGGER.info("service viewing payment by id - end");
+			return payment;
 		}
 		
 	}
@@ -74,16 +74,16 @@ public class IPaymentService implements PaymentService{
 
 	@Override
 	public List<Payment> viewPayment() throws PaymentException{
-		logger.info("service viewing payment list - start");
-		List<Payment> paymentList = paymentRepository.findAll();
+		LOGGER.info("service viewing payment list - start");
+		final List<Payment> paymentList = paymentRepository.findAll();
 		if(paymentList.size()>0)
 		{
-			logger.info("service viewing payment list - end");
+			LOGGER.info("service viewing payment list - end");
 			return paymentList;
 		}
 		else
 		{
-			logger.error("Payment details not found");
+			LOGGER.error("Payment details not found");
 			throw new PaymentException("Payment details not found");
 		}
 		

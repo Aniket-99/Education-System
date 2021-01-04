@@ -20,11 +20,11 @@ import com.training.educationsystem.repositories.ProgressRepository;
 @Service
 public class ProgressServiceImp implements ProgressService{
 	
-	// declaring logger
-	private static final Logger logger = LoggerFactory.getLogger(ProgressServiceImp.class);
+	// declaring LOGGER
+	private static final Logger LOGGER = LoggerFactory.getLogger(ProgressServiceImp.class);
 	
 	@Autowired
-	ProgressRepository progressRepo; // autowiring repository interface
+	private ProgressRepository progressRepo; // autowiring repository interface
 	
 	/*
 	 * @param completedHours
@@ -33,11 +33,11 @@ public class ProgressServiceImp implements ProgressService{
 	 * @return the progress after saving it 
 	 */
 	@Override
-	public Progress addProgress(int completedHours) throws InvalidProgressException {
-		logger.info("ProgressServiceImp class's addProgress method called-START");
-		Progress progress=new Progress();
+	public Progress addProgress(final int completedHours) throws InvalidProgressException {
+		LOGGER.info("ProgressServiceImp class's addProgress method called-START");
+		final Progress progress=new Progress();
 		progress.setCompletedHours(completedHours);
-		logger.info("saving and returning the progress-END");
+		LOGGER.info("saving and returning the progress-END");
 		return progressRepo.save(progress);
 	}
 	
@@ -48,15 +48,15 @@ public class ProgressServiceImp implements ProgressService{
 	 * @return the progress in the database 
 	 */
 	@Override
-	public Progress viewProgress(int progressId) throws InvalidProgressException {		
-		logger.info("ProgressServiceImp class's viewProgress method called-START");
-		logger.info("finding and returning the progress.....");
+	public Progress viewProgress(final int progressId) throws InvalidProgressException {		
+		LOGGER.info("ProgressServiceImp class's viewProgress method called-START");
+		LOGGER.info("finding and returning the progress.....");
 		if(progressRepo.existsById(progressId)) {
-			logger.info("returning the progress-END");
+			LOGGER.info("returning the progress-END");
 			return progressRepo.getOne(progressId);
 		}
 		else {
-			logger.error("throwing progress with id not found exception");
+			LOGGER.error("throwing progress with id not found exception");
 			throw new InvalidProgressException("No such progress found with this id : " + progressId);
 		}
 	}
@@ -68,14 +68,14 @@ public class ProgressServiceImp implements ProgressService{
 	 */
 	@Override
 	public List<Progress> viewAllProgresses() throws InvalidProgressException {
-		logger.info("ProgressServiceImp class's viewAllProgresses method called-START");
-		logger.info("finding and returning all the progresses.....");
+		LOGGER.info("ProgressServiceImp class's viewAllProgresses method called-START");
+		LOGGER.info("finding and returning all the progresses.....");
 		if(progressRepo.findAll().size()>0) {
-			logger.info("returning all the progress-END");
+			LOGGER.info("returning all the progress-END");
 			return progressRepo.findAll();
 		}
 		else {
-			logger.error("throwing progress not found exception");
+			LOGGER.error("throwing progress not found exception");
 			throw new InvalidProgressException("No progresses found!");
 		}
 	}

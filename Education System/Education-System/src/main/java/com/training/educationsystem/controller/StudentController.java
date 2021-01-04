@@ -34,7 +34,7 @@ import com.training.educationsystem.services.StudentServiceImpl;
 @RequestMapping("/api/educationsystem")
 public class StudentController {
 
-	private final Logger logger = LoggerFactory.getLogger(StudentController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(StudentController.class);
 
 	@Autowired
 	private StudentServiceImpl studentService;
@@ -49,23 +49,23 @@ public class StudentController {
 	 * @throws UserNameExistException
 	 */
 
-	@PostMapping(value = "/request-registration")
+	@PostMapping("/request-registration")
 	public ResponseEntity<String> makeRegistration(@Valid @RequestBody final Student student)
 			throws EmailAlreadyExistsException, UserNameExistException, PasswordAndConfirmPasswordNotMatchException
 	{
-		logger.info(
+		LOGGER.info(
 				"This is inside the makeRegistration method of the controller which will let the student to make registration request in education system application- START");
-		boolean isRequestMade = studentService.requestRegistration(student);
+		final boolean isRequestMade = studentService.requestRegistration(student);
 		
 		if (isRequestMade) {
 			
-			logger.info("End of makeRegistration method- END");
+			LOGGER.info("End of makeRegistration method- END");
 			return new ResponseEntity<String>("Registration request has been made", HttpStatus.OK);
 			
 		} 
 		else 
 		{
-			logger.info("End of makeRegistration method - END");
+			LOGGER.info("End of makeRegistration method - END");
 			return new ResponseEntity<String>("Registration request cannot be made", HttpStatus.BAD_REQUEST);
 			
 		}
@@ -79,15 +79,15 @@ public class StudentController {
 	 * @return List of Student entity
 	 */
 
-	@GetMapping(value = "/get-all-students")
+	@GetMapping("/get-all-students")
 	public ResponseEntity<List<Student>> getAllRegistrationRequest() 
 	{
-		logger.info("Inside the getAllRegistrationRequest method of student controller - START");
-		logger.info(
+		LOGGER.info("Inside the getAllRegistrationRequest method of student controller - START");
+		LOGGER.info(
 				"This method will let the admin to see which student had made an request to registration in education system");
-		List<Student> listOfStudent = studentService.getAllStudentsRegistrationRequest();
+		final List<Student> listOfStudent = studentService.getAllStudentsRegistrationRequest();
 		
-		logger.info("End of getAllRegistrationRequest controller method - END");
+		LOGGER.info("End of getAllRegistrationRequest controller method - END");
 		return new ResponseEntity<List<Student>>(listOfStudent, HttpStatus.OK);
 		
 	}
@@ -100,21 +100,21 @@ public class StudentController {
 	 * @throws EntityNotFoundException
 	 */
 
-	@PatchMapping(value = "/approve-student-request/{id}")
-	public ResponseEntity<String> approveStudentRequest(@PathVariable("id") int id) throws EntityNotFoundException 
+	@PatchMapping("/approve-student-request/{id}")
+	public ResponseEntity<String> approveStudentRequest(@PathVariable("id") final int studentId) throws EntityNotFoundException 
 	{
-		logger.info("Inside the approveStudentRequest method - START");
-		boolean approveStudentRequest = studentService.getStudentByIdForValidatingRegistration(id);
+		LOGGER.info("Inside the approveStudentRequest method - START");
+		final boolean approveStudentRequest = studentService.getStudentByIdForValidatingRegistration(studentId);
 		
 		if (approveStudentRequest)
 		{
-			logger.info("Student is valid user controller method - END");
-			return new ResponseEntity<String>("Student with Id: " + id + " is validated!", HttpStatus.OK);
+			LOGGER.info("Student is valid user controller method - END");
+			return new ResponseEntity<String>("Student with Id: " + studentId + " is validated!", HttpStatus.OK);
 			
 		} 
 		else
 		{
-			logger.info("Student is already validated controller method - END");
+			LOGGER.info("Student is already validated controller method - END");
 			return new ResponseEntity<String>("Student is already validated!", HttpStatus.OK);
 			
 		}
@@ -130,23 +130,23 @@ public class StudentController {
 	 * @throws RegistrationRequestNotApprovedException
 	 */
 
-	@GetMapping(value = "/student-login")
-	public ResponseEntity<String> studentLogin(@RequestParam("username") String username,
-			@RequestParam("password") String password)
+	@GetMapping("/student-login")
+	public ResponseEntity<String> studentLogin(@RequestParam("username") final String username,
+			@RequestParam("password") final  String password)
 			throws StudentNotFoundException, RegistrationRequestNotApprovedException
 	{
-		logger.info("Inside the studentLogin method - START");
-		boolean validateLogin = studentService.validateStudentLogin(username, password);
+		LOGGER.info("Inside the studentLogin method - START");
+		final boolean validateLogin = studentService.validateStudentLogin(username, password);
 		
 		if (validateLogin)
 		{
-			logger.info("Login is successsful controller method... - END");
+			LOGGER.info("Login is successsful controller method... - END");
 			return new ResponseEntity<String>("Login Successful!! Welcome to the education system!!", HttpStatus.OK);
 			
 		} 
 		else
 		{
-			logger.info("Login Failed controller method - END");
+			LOGGER.info("Login Failed controller method - END");
 			return new ResponseEntity<String>("Invalid username and password!", HttpStatus.BAD_REQUEST);
 			
 		}
@@ -158,13 +158,13 @@ public class StudentController {
 	 * @return List of students which are registered in the education system
 	 */
 	
-	@GetMapping(value = "/view-all-students")
+	@GetMapping("/view-all-students")
 	public ResponseEntity<List<Student>> viewAllStudentDetails()
 	{
-		logger.info("Inside the viewAllStudentDetails method - START");
-		List<Student> listofStudent = studentService.viewAllStudentDetails();
+		LOGGER.info("Inside the viewAllStudentDetails method - START");
+		final List<Student> listofStudent = studentService.viewAllStudentDetails();
 		
-		logger.info("Returning the Student Entity controller method - END");
+		LOGGER.info("Returning the Student Entity controller method - END");
 		return new ResponseEntity<List<Student>>(listofStudent, HttpStatus.OK);
 		
 	}
@@ -178,13 +178,13 @@ public class StudentController {
 	 * @throws RegistrationRequestNotApprovedException
 	 */
 
-	@GetMapping(value = "/view-single-validated-student/{id}")
-	public ResponseEntity<StudentDTO> getIndividualValidatedStudentDetails(@PathVariable("id") int id)
+	@GetMapping("/view-single-validated-student/{id}")
+	public ResponseEntity<StudentDTO> getIndividualValidatedStudentDetails(@PathVariable("id") final int studentId)
 			throws EntityNotFoundException, StudentNotFoundException, RegistrationRequestNotApprovedException
 	{
-		logger.info(
+		LOGGER.info(
 				"This is inside the view single validated method which will get the individual student details who have validated - START");
-		Student student = studentService.viewStudentById(id);
+		Student student = studentService.viewStudentById(studentId);
 		
 		StudentDTO studentDTO = new StudentDTO();
 		studentDTO.setStudentId(student.getStudentId());
@@ -194,7 +194,7 @@ public class StudentController {
 		studentDTO.setEmailId(student.getEmailId());
 		studentDTO.setContactNumber(student.getContactNumber());
 		
-		logger.info("End of view validated method and returning the student object controller method - END");
+		LOGGER.info("End of view validated method and returning the student object controller method - END");
 		return new ResponseEntity<StudentDTO>(studentDTO, HttpStatus.OK);
 		
 	}
@@ -209,15 +209,15 @@ public class StudentController {
 	 * @throws RegistrationRequestNotApprovedException
 	 */
 
-	@PatchMapping(value = "/update-student-details/{id}")
-	public ResponseEntity<Student> updateStudentDetails(@PathVariable("id") int id, @RequestBody StudentDTO studentDTO)
+	@PatchMapping("/update-student-details/{id}")
+	public ResponseEntity<Student> updateStudentDetails(@PathVariable("id") final int studentId, @RequestBody final StudentDTO studentDTO)
 			throws EntityNotFoundException, StudentNotFoundException, RegistrationRequestNotApprovedException
 	{
 
-		logger.info("Inside the updateStudentDetails method - START");
-		Student student = studentService.updateStudentDetails(id, studentDTO);
+		LOGGER.info("Inside the updateStudentDetails method - START");
+		final Student student = studentService.updateStudentDetails(studentId, studentDTO);
 		
-		logger.info("Returning the Student response Entity from updateStudentDetails controller method - END");
+		LOGGER.info("Returning the Student response Entity from updateStudentDetails controller method - END");
 		return new ResponseEntity<Student>(student, HttpStatus.OK);
 		
 	}
@@ -231,14 +231,14 @@ public class StudentController {
 	 * @throws RegistrationRequestNotApprovedException
 	 */
 
-	@GetMapping(value = "/get-courses-enrolled/{id}")
-	public List<Course> getCourseEnrolledByStudent(@PathVariable("id") int id)
+	@GetMapping("/get-courses-enrolled/{id}")
+	public List<Course> getCourseEnrolledByStudent(@PathVariable("id") final int studentId)
 			throws EntityNotFoundException, StudentNotFoundException, RegistrationRequestNotApprovedException, CourseNotFoundException
 	{
-		logger.info("Inside the getCourseEnrolledByStudent method - START");
-		List<Course> listOfCourses = studentService.viewCourseForStudent(id);
+		LOGGER.info("Inside the getCourseEnrolledByStudent method - START");
+		final List<Course> listOfCourses = studentService.viewCourseForStudent(studentId);
 		
-		logger.info("Returning the list of courses from getCoursesEnrolledByStudent method controller method- END");
+		LOGGER.info("Returning the list of courses from getCoursesEnrolledByStudent method controller method- END");
 		return listOfCourses;
 	
 	}
@@ -254,15 +254,15 @@ public class StudentController {
 	 * @throws AlreadyEnrolledInCourseException
 	 */
 
-	@PatchMapping(value = "/update-student-course")
-	public List<Course> updateStudentCourse(@RequestParam("studentId") int id, @RequestParam("courseName") String name)
+	@PatchMapping("/update-student-course")
+	public List<Course> updateStudentCourse(@RequestParam("studentId") final int studentId, @RequestParam("courseName") final String name)
 			throws EntityNotFoundException, StudentNotFoundException, RegistrationRequestNotApprovedException,
 			CourseNotFoundException, AlreadyEnrolledInCourseException
 	{
-		logger.info("Inside the updateStudentCourse method - START");
-		Student updateCourse = studentService.updateStudentForCourse(id, name);
+		LOGGER.info("Inside the updateStudentCourse method - START");
+		final Student updateCourse = studentService.updateStudentForCourse(studentId, name);
 		
-		logger.info("Returning the list of courses from updateStudentCourse controller method - END");
+		LOGGER.info("Returning the list of courses from updateStudentCourse controller method - END");
 		return updateCourse.getCourses();
 		
 	}

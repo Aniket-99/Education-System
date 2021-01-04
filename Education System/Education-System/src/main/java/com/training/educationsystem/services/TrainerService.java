@@ -28,13 +28,13 @@ import com.training.educationsystem.repositories.TrainerRepository;
 @Service
 public class TrainerService implements ITrainerService {
 
-	private static final Logger logger = LoggerFactory.getLogger(CourseController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(CourseController.class);
 
 	@Autowired
-	TrainerRepository trainerRepo;
+	private TrainerRepository trainerRepo;
 
 	@Autowired
-	StudyMaterialRepository studyRepo;
+	private StudyMaterialRepository studyRepo;
 
 	/**
 	 * This method adds Trainer in the System
@@ -43,11 +43,11 @@ public class TrainerService implements ITrainerService {
 	 * @return Trainer
 	 */
 	@Override
-	public Trainer addTrainer(Trainer trainer) {
-		logger.info("Add trainer  (Service) - START");
+	public Trainer addTrainer(final Trainer trainer) {
+		LOGGER.info("Add trainer  (Service) - START");
 		trainerRepo.save(trainer);
-		logger.info("Trainer Added Successfully!");
-		logger.info("Add trainer  (Service) - END");
+		LOGGER.info("Trainer Added Successfully!");
+		LOGGER.info("Add trainer  (Service) - END");
 		return trainer;
 	}
 
@@ -59,14 +59,14 @@ public class TrainerService implements ITrainerService {
 	 * @throws TrainerNotFoundException
 	 */
 	@Override
-	public void deleteTrainer(int id) throws TrainerNotFoundException {
-		logger.info("Delete trainer  (Service) - START");
+	public void deleteTrainer(final int id) throws TrainerNotFoundException {
+		LOGGER.info("Delete trainer  (Service) - START");
 		if (trainerRepo.existsById(id)) {
 			trainerRepo.deleteById(id);
-			logger.info("Trainer Deleted Successfully!");
-			logger.info("Delete trainer  (Service) - END");
+			LOGGER.info("Trainer Deleted Successfully!");
+			LOGGER.info("Delete trainer  (Service) - END");
 		} else {
-			logger.error("Trainer cannot be deletes as this trainer is not found!");
+			LOGGER.error("Trainer cannot be deletes as this trainer is not found!");
 			throw new TrainerNotFoundException("Trainer cannot be deletes as this trainer is not found!");
 		}
 	}
@@ -79,16 +79,16 @@ public class TrainerService implements ITrainerService {
 	 * @throws TrainerNotFoundException
 	 */
 	@Override
-	public Trainer viewTrainer(int trainerId) throws TrainerNotFoundException {
-		logger.info("View Trainer (Service) -START");
-		Trainer trainer = trainerRepo.findById(trainerId).orElse(null);
-		if (trainer != null) {
-			logger.info("Displaying Trainer!");
-			logger.info("View Trainer (Service) -END");
-			return trainer;
-		} else {
-			logger.error("Trainer cannot be found!");
+	public Trainer viewTrainer(final int trainerId) throws TrainerNotFoundException {
+		LOGGER.info("View Trainer (Service) -START");
+		final Trainer trainer = trainerRepo.findById(trainerId).orElse(null);
+		if (trainer == null) {
+			LOGGER.error("Trainer cannot be found!");
 			throw new TrainerNotFoundException("Trainer cannot be found!");
+		} else {
+			LOGGER.info("Displaying Trainer!");
+			LOGGER.info("View Trainer (Service) -END");
+			return trainer;
 		}
 
 	}
@@ -101,14 +101,14 @@ public class TrainerService implements ITrainerService {
 	 */
 	@Override
 	public List<Trainer> viewAllTrainers() throws ListEmptyException {
-		logger.info("View All Trainers  (Service) -START");
-		List<Trainer> trainerList = trainerRepo.findAll();
+		LOGGER.info("View All Trainers  (Service) -START");
+		final List<Trainer> trainerList = trainerRepo.findAll();
 		if (trainerList.size() > 0) {
-			logger.info("Displaying Trainers!");
-			logger.info("View All Trainers  (Service) -END");
+			LOGGER.info("Displaying Trainers!");
+			LOGGER.info("View All Trainers  (Service) -END");
 			return trainerList;
 		} else {
-			logger.error("No Trainers to show!");
+			LOGGER.error("No Trainers to show!");
 			throw new ListEmptyException("No Trainers to show!");
 		}
 
@@ -123,23 +123,23 @@ public class TrainerService implements ITrainerService {
 	 * @throws TrainerNotFoundException
 	 */
 	@Override
-	public Trainer updateTrainerForStudyMaterial(int trainerId, String content) throws TrainerNotFoundException {
-		logger.info("Update Trainer for Study Material  (Service) -START");
-		Trainer trainer = trainerRepo.findById(trainerId).orElse(null);
-		StudyMaterial studyMaterial = new StudyMaterial();
-		List<StudyMaterial> studyMaterialList = new ArrayList<StudyMaterial>();
-		if (trainer != null) {
+	public Trainer updateTrainerForStudyMaterial(final int trainerId,final String content) throws TrainerNotFoundException {
+		LOGGER.info("Update Trainer for Study Material  (Service) -START");
+		final Trainer trainer = trainerRepo.findById(trainerId).orElse(null);
+		final StudyMaterial studyMaterial = new StudyMaterial();
+		final List<StudyMaterial> studyMaterialList = new ArrayList<StudyMaterial>();
+		if (trainer == null) {
+			LOGGER.error("Study Material cannot be added as Trainer cannot be found!");
+			throw new TrainerNotFoundException("Study Material cannot be added as Trainer cannot be found!");
+		} else {
 			studyMaterialList.add(studyMaterial);
 			studyMaterial.setContent(content);
 			studyRepo.save(studyMaterial);
 			trainer.setStudyMaterial(studyMaterialList);
 			trainerRepo.save(trainer);
-			logger.info("Study Material Added Successfully!");
-			logger.info("Update Trainer for Study Material  (Service) -END");
+			LOGGER.info("Study Material Added Successfully!");
+			LOGGER.info("Update Trainer for Study Material  (Service) -END");
 			return trainer;
-		} else {
-			logger.error("Study Material cannot be added as Trainer cannot be found!");
-			throw new TrainerNotFoundException("Study Material cannot be added as Trainer cannot be found!");
 		}
 
 	}
@@ -152,16 +152,16 @@ public class TrainerService implements ITrainerService {
 	 * @throws ListEmptyException
 	 */
 	@Override
-	public List<StudyMaterial> viewStudyMaterial(int trainerId) throws ListEmptyException {
-		logger.info("View Study Materials  (Service) -START!");
-		Trainer trainer = trainerRepo.getOne(trainerId);
-		List<StudyMaterial> studyMaterialList = trainer.getStudyMaterial();
+	public List<StudyMaterial> viewStudyMaterial(final int trainerId) throws ListEmptyException {
+		LOGGER.info("View Study Materials  (Service) -START!");
+		final Trainer trainer = trainerRepo.getOne(trainerId);
+		final List<StudyMaterial> studyMaterialList = trainer.getStudyMaterial();
 		if (studyMaterialList.size() > 0) {
-			logger.info("Displaying Study Materials!");
-			logger.info("View Study Materials  (Service) -END!");
+			LOGGER.info("Displaying Study Materials!");
+			LOGGER.info("View Study Materials  (Service) -END!");
 			return studyMaterialList;
 		} else {
-			logger.error("No Study Materials to show!");
+			LOGGER.error("No Study Materials to show!");
 			throw new ListEmptyException("No Study Materials to show!");
 		}
 
