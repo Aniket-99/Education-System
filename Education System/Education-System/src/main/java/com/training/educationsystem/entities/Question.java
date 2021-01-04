@@ -1,5 +1,7 @@
 package com.training.educationsystem.entities;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,9 +9,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ * Entity class for Question
+ * @author Rita
+ *
+ */
 @Entity
 @Table(name = "question_table")
-public class Question {
+public class Question implements Serializable{
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@Column(name = "question_id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -33,6 +42,7 @@ public class Question {
 	@Column(name = "correct_answer")
 	private String correctAnswer;
 
+	//implementing constructors
 	public Question() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -50,6 +60,7 @@ public class Question {
 		this.correctAnswer = correctAnswer;
 	}
 
+	//implementing getters and setters
 	public int getQuestionId() {
 		return questionId;
 	}
@@ -106,6 +117,7 @@ public class Question {
 		this.correctAnswer = correctAnswer;
 	}
 
+	//implement toString()
 	@Override
 	public String toString() {
 		return "Question [questionId=" + questionId + ", question=" + question + ", option1=" + option1 + ", option2="
