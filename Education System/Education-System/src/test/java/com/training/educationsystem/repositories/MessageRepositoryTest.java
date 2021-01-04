@@ -6,10 +6,7 @@ import static org.junit.Assert.assertNotNull;
 import java.time.LocalDate;
 import java.util.List;
 
-import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -17,13 +14,12 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
+
 import com.training.educationsystem.entities.Message;
-import com.training.educationsystem.repositories.MessageRepository;
 
 @RunWith(SpringRunner.class)
 @AutoConfigureTestDatabase(replace= Replace.NONE)
 @DataJpaTest
-@TestMethodOrder(OrderAnnotation.class)
 class MessageRepositoryTest {
 	
 	@Autowired
@@ -41,7 +37,6 @@ class MessageRepositoryTest {
 	
 	@Test
 	@Rollback(false)
-	@Order(1)
 	public void testAddMessage() {	//test for adding message
 		Message m=viewMessage();
 		Message actual=messageRepository.save(m);
@@ -52,7 +47,6 @@ class MessageRepositoryTest {
 	
 	
 	@Test
-	@Order(2)
 	public void testViewMessage()	//test for viewing message
 	{
 		Message m=viewMessage();
@@ -65,7 +59,6 @@ class MessageRepositoryTest {
 	}
 	
 	@Test
-	@Order(3)
 	public void testViewAllMessage()	//test for viewing all messages
 	{
 		List<Message> messageList=messageRepository.findAll();

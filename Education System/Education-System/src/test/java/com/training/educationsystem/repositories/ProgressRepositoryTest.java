@@ -5,10 +5,7 @@ import static org.junit.Assert.assertNotNull;
 
 import java.util.List;
 
-import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -16,13 +13,12 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
+
 import com.training.educationsystem.entities.Progress;
-import com.training.educationsystem.repositories.ProgressRepository;
 
 @RunWith(SpringRunner.class)
 @AutoConfigureTestDatabase(replace= Replace.NONE)
 @DataJpaTest
-@TestMethodOrder(OrderAnnotation.class)
 class ProgressRepositoryTest {
 	
 	@Autowired
@@ -39,7 +35,6 @@ class ProgressRepositoryTest {
 	
 	@Test
 	@Rollback(false)
-	@Order(1)
 	public void testAddProgress() {
 		Progress p=viewProgress();
 		Progress actual=progressRepository.save(p);
@@ -49,7 +44,6 @@ class ProgressRepositoryTest {
 	
 	
 	@Test
-	@Order(2)
 	public void testViewProgress()
 	{
 		Progress p=viewProgress();
@@ -61,7 +55,6 @@ class ProgressRepositoryTest {
 	}
 	
 	@Test
-	@Order(3)
 	public void testViewAllProgress()
 	{
 		List<Progress> progressList=progressRepository.findAll();

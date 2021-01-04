@@ -20,11 +20,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import com.training.educationsystem.entities.Course;
 import com.training.educationsystem.entities.Payment;
 import com.training.educationsystem.entities.Progress;
-import com.training.educationsystem.entities.Student;
-import com.training.educationsystem.entities.Trainer;
-import com.training.educationsystem.exception.AlreadyExistsException;
-import com.training.educationsystem.exception.CourseNotFoundException;
-import com.training.educationsystem.exception.ListEmptyException;
+import com.training.educationsystem.exceptions.ListEmptyException;
+import com.training.educationsystem.exceptions.NotFoundException;
 import com.training.educationsystem.repositories.CourseRepository;
 import com.training.educationsystem.repositories.PaymentRepository;
 import com.training.educationsystem.repositories.ProgressRepository;
@@ -87,7 +84,7 @@ public class CourseServiceTest {
 		}
 
 	@Test
-	public void testViewCourse() throws CourseNotFoundException {
+	public void testViewCourse() throws NotFoundException {
 		Course course=new Course();
 		course.setCourseId(1);
 		course.setCourseName("Python");
@@ -110,60 +107,9 @@ public class CourseServiceTest {
 		assertFalse(CourseRepo.existsById(course.getCourseId()));
 	}
 	
+	
 	@Test
-	public void testUpdateCourseForStudents() throws CourseNotFoundException, AlreadyExistsException {
-        Course course=new Course();
-		
-        course.setCourseId(1);
-		course.setCourseName("DBMS");
-		course.setHours(5);
-		
-		Student student=new Student();
-		student.setStudentId(3);
-		student.setFirstName("Afeeda");
-		student.setMiddleName("Abdul");
-		student.setLastName("Hameed");
-		student.setUserName("Afeeda A.H");
-		student.setPassword("Afeeda&123");
-		student.setEmailId("afeedahameed@gmail.com");
-		
-		List<Student> students=new ArrayList<>();
-		students.add(student);
-		
-		course.setStudents(students);
-		
-		Mockito.when(CourseRepo.getOne(1)).thenReturn(course);
-		assertThat(CourseService.updateCourseForStudents(course.getCourseId(), student.getFirstName())).isEqualTo(course);
-		
-	}
-
-	@Test
-	public void testUpdateCourseForTrainers() throws CourseNotFoundException, AlreadyExistsException {
-        Course course=new Course();
-		
-        course.setCourseId(1);
-		course.setCourseName("DBMS");
-		course.setHours(5);
-		
-		Trainer trainer=new Trainer();
-		
-		trainer.setTrainerId(4);
-		trainer.setFirstName("Rehan");
-		trainer.setMiddleName("Preet");
-		trainer.setLastName("Singh");	
-		
-		List<Trainer> trainers=new ArrayList<>();
-		trainers.add(trainer);
-		
-		course.setTrainers(trainers);
-		
-		Mockito.when(CourseRepo.getOne(1)).thenReturn(course);
-		assertThat(CourseService.updateCourseForTrainers(course.getCourseId(), trainer.getFirstName())).isEqualTo(course);
-		
-	}
-
-	@Test
-	public void testUpdateCourseForPayment() throws  CourseNotFoundException {
+	public void testUpdateCourseForPayment() throws  NotFoundException {
         Course course=new Course();
 		
         course.setCourseId(1);
@@ -184,7 +130,7 @@ public class CourseServiceTest {
 	}
 	
 	@Test
-	public void testUpdateCourseForProgress() throws  CourseNotFoundException {
+	public void testUpdateCourseForProgress() throws NotFoundException {
         Course course=new Course();
 		
         course.setCourseId(1);
@@ -202,55 +148,5 @@ public class CourseServiceTest {
 		
 	}
 	
-	@Test
-	public void testViewStudents() throws ListEmptyException
-	{
-		Course course=new Course();
-		
-        course.setCourseId(1);
-		course.setCourseName("DBMS");
-		course.setHours(5);
-		
-		Student student=new Student();
-		student.setStudentId(3);
-		student.setFirstName("Afeeda");
-		student.setMiddleName("Abdul");
-		student.setLastName("Hameed");
-		student.setUserName("Afeeda A.H");
-		student.setPassword("Afeeda&123");
-		student.setEmailId("afeedahameed@gmail.com");
-		
-		List<Student> students=new ArrayList<>();
-		students.add(student);
-		
-		course.setStudents(students);
-		
-		Mockito.when(CourseRepo.getOne(1)).thenReturn(course);
-		assertThat(CourseService.viewStudents(1)).isEqualTo(students);
-	}
 	
-	@Test
-	public void testViewTrainers() throws ListEmptyException
-	{
-		Course course=new Course();
-		
-        course.setCourseId(1);
-		course.setCourseName("DBMS");
-		course.setHours(5);
-		
-		Trainer trainer=new Trainer();
-		
-		trainer.setTrainerId(4);
-		trainer.setFirstName("Ravinder");
-		trainer.setMiddleName("Krishna");
-		trainer.setLastName("Gurav");	
-		
-		List<Trainer> trainers=new ArrayList<>();
-		trainers.add(trainer);
-		
-		course.setTrainers(trainers);
-		
-		Mockito.when(CourseRepo.getOne(1)).thenReturn(course);
-		assertThat(CourseService.viewTrainers(1)).isEqualTo(trainers);
-	}
 }

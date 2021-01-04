@@ -13,8 +13,8 @@ import org.springframework.stereotype.Service;
 import com.training.educationsystem.controller.CourseController;
 import com.training.educationsystem.entities.StudyMaterial;
 import com.training.educationsystem.entities.Trainer;
-import com.training.educationsystem.exception.ListEmptyException;
-import com.training.educationsystem.exception.TrainerNotFoundException;
+import com.training.educationsystem.exceptions.ListEmptyException;
+import com.training.educationsystem.exceptions.TrainerNotFoundException;
 import com.training.educationsystem.repositories.StudyMaterialRepository;
 import com.training.educationsystem.repositories.TrainerRepository;
 

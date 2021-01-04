@@ -4,8 +4,8 @@ import java.util.List;
 
 import com.training.educationsystem.entities.StudyMaterial;
 import com.training.educationsystem.entities.Trainer;
-import com.training.educationsystem.exception.ListEmptyException;
-import com.training.educationsystem.exception.TrainerNotFoundException;
+import com.training.educationsystem.exceptions.ListEmptyException;
+import com.training.educationsystem.exceptions.TrainerNotFoundException;
 
 public interface ITrainerService {
 		public Trainer addTrainer(Trainer trainer);

@@ -23,12 +23,13 @@ import com.training.educationsystem.entities.Course;
 import com.training.educationsystem.entities.Student;
 import com.training.educationsystem.entities.Test;
 import com.training.educationsystem.entities.Trainer;
-import com.training.educationsystem.exception.AlreadyExistsException;
-import com.training.educationsystem.exception.CourseNotFoundException;
-import com.training.educationsystem.exception.ErrorMessage;
-import com.training.educationsystem.exception.InvalidCourseException;
-import com.training.educationsystem.exception.ListEmptyException;
-import com.training.educationsystem.exception.TestNotFoundException;
+import com.training.educationsystem.exceptions.AlreadyExistsException;
+import com.training.educationsystem.exceptions.CourseNotFoundException;
+import com.training.educationsystem.exceptions.ErrorMessages;
+import com.training.educationsystem.exceptions.InvalidCourseException;
+import com.training.educationsystem.exceptions.ListEmptyException;
+import com.training.educationsystem.exceptions.NotFoundException;
+import com.training.educationsystem.exceptions.TestNotFoundException;
 import com.training.educationsystem.services.ICourseService;
 
 /**
@@ -82,8 +83,8 @@ public class CourseController {
 	 */
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(InvalidCourseException.class)
-	ErrorMessage exceptionHandler(InvalidCourseException e) {
-		return new ErrorMessage("400", e.str);
+	ErrorMessages exceptionHandler(InvalidCourseException e) {
+		return new ErrorMessages("400", e.str);
 	}
 
 	/**
@@ -93,9 +94,9 @@ public class CourseController {
 	 * @return Error Message
 	 */
 	@ResponseStatus(HttpStatus.NOT_FOUND)
-	@ExceptionHandler(CourseNotFoundException.class)
-	ErrorMessage exceptionHandler(CourseNotFoundException e) {
-		return new ErrorMessage("404", e.message);
+	@ExceptionHandler(NotFoundException.class)
+	ErrorMessages exceptionHandler(NotFoundException e) {
+		return new ErrorMessages("404", e.message);
 	}
 
 	/**
@@ -106,8 +107,8 @@ public class CourseController {
 	 */
 	@ResponseStatus(HttpStatus.NOT_FOUND)
 	@ExceptionHandler(ListEmptyException.class)
-	ErrorMessage exceptionHandler(ListEmptyException e) {
-		return new ErrorMessage("404", e.message);
+	ErrorMessages exceptionHandler(ListEmptyException e) {
+		return new ErrorMessages("404", e.message);
 	}
 
 	/**
@@ -118,8 +119,8 @@ public class CourseController {
 	 */
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(AlreadyExistsException.class)
-	ErrorMessage exceptionHandler(AlreadyExistsException e) {
-		return new ErrorMessage("400", e.message);
+	ErrorMessages exceptionHandler(AlreadyExistsException e) {
+		return new ErrorMessages("400", e.message);
 	}
 
 	/**
@@ -130,8 +131,8 @@ public class CourseController {
 	 */
 	@ResponseStatus(HttpStatus.NOT_FOUND)
 	@ExceptionHandler(TestNotFoundException.class)
-	ErrorMessage exceptionHandler(TestNotFoundException e) {
-		return new ErrorMessage("404", e.message);
+	ErrorMessages exceptionHandler(TestNotFoundException e) {
+		return new ErrorMessages("404", e.message);
 	}
 
 	/**
@@ -139,10 +140,10 @@ public class CourseController {
 	 * 
 	 * @param courseId
 	 * @return Course 
-	 * @throws CourseNotFoundException
+	 * @throws NotFoundException
 	 */
 	@GetMapping("/view-course/{courseId}")
-	public Course viewCourse(@PathVariable("courseId") int courseId) throws CourseNotFoundException {
+	public Course viewCourse(@PathVariable("courseId") int courseId) throws NotFoundException {
 		logger.info("View Course (Controller) -START!");
 		logger.info("Fetching Course");
 		Course course = service.viewCourse(courseId);
@@ -155,10 +156,10 @@ public class CourseController {
 	 * 
 	 * @param courseId
 	 * @return String
-	 * @throws CourseNotFoundException 
+	 * @throws NotFoundException 
 	 */
 	@DeleteMapping("/delete-course/{courseId}")
-	public String deleteCourse(@PathVariable("courseId") int courseId) throws CourseNotFoundException {
+	public String deleteCourse(@PathVariable("courseId") int courseId) throws NotFoundException {
 		logger.info("Delete Course (Controller) - START");
 		logger.info("Deleting Course");
 		service.deleteCourse(courseId);
@@ -236,12 +237,12 @@ public class CourseController {
 	 * @param firstName
 	 * @return Course 
 	 * @throws InvalidCourseException
-	 * @throws CourseNotFoundException
+	 * @throws NotFoundException
 	 * @throws AlreadyExistsException
 	 */
 	@PatchMapping("/update-trainers")
 	public Course updateCourseForTrainers(@RequestParam("courseId") int courseId, @RequestParam("firstName") String firstName)
-			throws CourseNotFoundException, InvalidCourseException, AlreadyExistsException {
+			throws NotFoundException, InvalidCourseException, AlreadyExistsException {
 		logger.info("View All Courses  (Controller) -END!");
 		String namePattern = "^[a-zA-Z]+$";
 		if (!(Pattern.matches(namePattern, firstName))) {
@@ -261,12 +262,12 @@ public class CourseController {
 	 * @param userName
 	 * @return Course object
 	 * @throws InvalidCourseException
-	 * @throws CourseNotFoundException
+	 * @throws NotFoundException
 	 * @throws AlreadyExistsException
 	 */
 	@PatchMapping("/update-students")
 	public Course updateCourseForStudents(@RequestParam("courseId") int courseId, @RequestParam("userName") String userName)
-			throws InvalidCourseException, CourseNotFoundException, AlreadyExistsException {
+			throws InvalidCourseException, NotFoundException, AlreadyExistsException {
 		logger.info("Updating Course for Students (Controller) -START!");
 		String namePattern = "^[a-zA-Z]+$";
 		if (!(Pattern.matches(namePattern, userName))) {
@@ -285,11 +286,11 @@ public class CourseController {
 	 * @param courseId
 	 * @param transactionId
 	 * @return Course 
-	 * @throws CourseNotFoundException
+	 * @throws NotFoundException
 	 */
 	@PatchMapping("/update-payment")
 	public Course updateCourseForPayment(@RequestParam("courseId") int courseId, @RequestParam("transactionId") int transactionId)
-			throws CourseNotFoundException {
+			throws NotFoundException {
 		logger.info("Updating Course  for Payment (Controller) -START!");
 		logger.info("Adding Payment");
 		Course course = service.updateCourseForPayment(courseId, transactionId);
@@ -307,7 +308,7 @@ public class CourseController {
 	 */
 	@PatchMapping("/update-test")
 	public Course updateCourseForTest(@RequestParam("courseId") int courseId, @RequestParam("testId") int testId)
-			throws CourseNotFoundException {
+			throws NotFoundException {
 		logger.info("Updating Course for  Test (Controller) -START!");
 		logger.info("Adding Test");
 		Course course = service.updateCourseForTest(courseId, testId);
@@ -320,11 +321,11 @@ public class CourseController {
 	 * @param courseId
 	 * @param progressId
 	 * @return Course
-	 * @throws CourseNotFoundException
+	 * @throws NotFoundException
 	 */
 	@PatchMapping("/update-progress")
 	public Course updateCourseForProgress(@RequestParam("courseId") int courseId, @RequestParam("progressId") int progressId)
-			throws CourseNotFoundException {
+			throws NotFoundException {
 		logger.info("Updating Course for Progress (Controller) -START!");
 		logger.info("Adding Progress");
 

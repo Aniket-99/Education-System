@@ -2,9 +2,7 @@ package com.training.educationsystem.service;
 
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertThrows;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 

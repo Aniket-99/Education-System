@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.training.educationsystem.entities.Payment;
-import com.training.educationsystem.exception.ErrorMessage;
 import com.training.educationsystem.exceptions.DateException;
+import com.training.educationsystem.exceptions.ErrorMessages;
 import com.training.educationsystem.exceptions.InvalidPaymentException;
 import com.training.educationsystem.exceptions.PaymentException;
 import com.training.educationsystem.services.IPaymentService;
@@ -53,7 +53,7 @@ public class PaymentController {
 		String cardNoPattern = "[0-9]{9}";
 		String datePattern = "^(1[0-2]|0[1-9])/(3[01]"
                 + "|[12][0-9]|0[1-9])/[0-9]{4}$";
-		List<String> bankNameList = new ArrayList();
+		List<String> bankNameList = new ArrayList<>();
 		bankNameList.add("Axis");
 		bankNameList.add("HDFC");
 		bankNameList.add("ICICI");
@@ -93,20 +93,20 @@ public class PaymentController {
 
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(InvalidPaymentException.class)
-	ErrorMessage exceptionHandler(InvalidPaymentException e) {
-		return new ErrorMessage("400", e.str);
+	ErrorMessages exceptionHandler(InvalidPaymentException e) {
+		return new ErrorMessages("400", e.str);
 	}
 	
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(PaymentException.class)
-	ErrorMessage exceptionHandler(PaymentException e) {
-		return new ErrorMessage("404", e.str);
+	ErrorMessages exceptionHandler(PaymentException e) {
+		return new ErrorMessages("404", e.str);
 	}
 	
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(DateException.class)
-	ErrorMessage exceptionHandler(DateException e) {
-		return new ErrorMessage("400", e.str);
+	ErrorMessages exceptionHandler(DateException e) {
+		return new ErrorMessages("400", e.str);
 	}
 
 	/**

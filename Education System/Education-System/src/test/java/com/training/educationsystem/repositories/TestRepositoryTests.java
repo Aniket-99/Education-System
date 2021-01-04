@@ -1,8 +1,11 @@
 package com.training.educationsystem.repositories;
 
-import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
-import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.TestMethodOrder;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import java.util.List;
+
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -10,18 +13,12 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringRunner;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
-import java.util.List;
 
 import com.training.educationsystem.entities.Test;
 
 @RunWith(SpringRunner.class)
 @AutoConfigureTestDatabase(replace = Replace.NONE)
 @DataJpaTest
-@TestMethodOrder(OrderAnnotation.class)
 public class TestRepositoryTests {
 	
 	@Autowired
@@ -40,7 +37,6 @@ public class TestRepositoryTests {
 	}
 	
 	@org.junit.jupiter.api.Test
-	@Order(1)
 	public void testSaveTest() {
 		Test test = getTest();
 		Test savedTest=entityManager.persist(test);
@@ -49,14 +45,12 @@ public class TestRepositoryTests {
 	}
 	
 	@org.junit.jupiter.api.Test
-	@Order(2)
 	public void getAllTests(){
 		List<Test> testList=testRepo.findAll();
 		assertThat(testList).size().isGreaterThan(0);
 	}
 	
 	@org.junit.jupiter.api.Test
-	@Order(3)
 	public void updateTests() {
 		Test savedTest=testRepo.getOne(6);
 		savedTest.setTestName("SQL Basics");
@@ -65,7 +59,6 @@ public class TestRepositoryTests {
 	}
 	
 	@org.junit.jupiter.api.Test
-	@Order(4)
 	public void testDeleteTest() {
 		Test test = new Test();
 		test.setTestName("Spring Boot");
@@ -78,7 +71,6 @@ public class TestRepositoryTests {
 	}
 	
 	@org.junit.jupiter.api.Test
-	@Order(5)
 	public void testFindAllTest() {
 		Test test = new Test();
 		test.setTestName("Spring API");

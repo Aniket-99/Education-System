@@ -21,11 +21,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.training.educationsystem.entities.StudyMaterial;
 import com.training.educationsystem.entities.Trainer;
-import com.training.educationsystem.exception.AlreadyExistsException;
-import com.training.educationsystem.exception.ErrorMessage;
-import com.training.educationsystem.exception.InvalidTrainerException;
-import com.training.educationsystem.exception.ListEmptyException;
-import com.training.educationsystem.exception.TrainerNotFoundException;
+import com.training.educationsystem.exceptions.AlreadyExistsException;
+import com.training.educationsystem.exceptions.ErrorMessages;
+import com.training.educationsystem.exceptions.InvalidTrainerException;
+import com.training.educationsystem.exceptions.ListEmptyException;
+import com.training.educationsystem.exceptions.TrainerNotFoundException;
 import com.training.educationsystem.services.ITrainerService;
 
 /**
@@ -78,8 +78,8 @@ public class TrainerController {
 	 */
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(InvalidTrainerException.class)
-	ErrorMessage exceptionHandler(InvalidTrainerException e) {
-		return new ErrorMessage("400", e.message);
+	ErrorMessages exceptionHandler(InvalidTrainerException e) {
+		return new ErrorMessages("400", e.message);
 	}
 
 	/**
@@ -90,8 +90,8 @@ public class TrainerController {
 	 */
 	@ResponseStatus(HttpStatus.NOT_FOUND)
 	@ExceptionHandler(TrainerNotFoundException.class)
-	ErrorMessage exceptionHandler(TrainerNotFoundException e) {
-		return new ErrorMessage("404", e.message);
+	ErrorMessages exceptionHandler(TrainerNotFoundException e) {
+		return new ErrorMessages("404", e.message);
 	}
 
 	/**
@@ -102,8 +102,8 @@ public class TrainerController {
 	 */
 	@ResponseStatus(HttpStatus.NOT_FOUND)
 	@ExceptionHandler(ListEmptyException.class)
-	ErrorMessage exceptionHandler(ListEmptyException e) {
-		return new ErrorMessage("404", e.message);
+	ErrorMessages exceptionHandler(ListEmptyException e) {
+		return new ErrorMessages("404", e.message);
 	}
 
 	/**
@@ -114,8 +114,8 @@ public class TrainerController {
 	 */
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(AlreadyExistsException.class)
-	ErrorMessage exceptionHandler(AlreadyExistsException e) {
-		return new ErrorMessage("400", e.message);
+	ErrorMessages exceptionHandler(AlreadyExistsException e) {
+		return new ErrorMessages("400", e.message);
 	}
 
 	/**

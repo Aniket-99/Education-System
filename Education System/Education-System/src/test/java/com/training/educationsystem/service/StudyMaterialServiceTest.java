@@ -49,7 +49,7 @@ public class StudyMaterialServiceTest {
 		StudyMaterial stud2 = new StudyMaterial();
 		stud2.setContent("Testing tutorial 2");
 		
-		List<StudyMaterial> studList = new ArrayList();
+		List<StudyMaterial> studList = new ArrayList<StudyMaterial>();
 		studList.add(stud1);
 		studList.add(stud2);
 		

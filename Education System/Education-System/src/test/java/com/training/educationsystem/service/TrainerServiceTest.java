@@ -2,7 +2,6 @@ package com.training.educationsystem.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,11 +15,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import com.training.educationsystem.entities.StudyMaterial;
 import com.training.educationsystem.entities.Trainer;
-import com.training.educationsystem.exception.InvalidTrainerException;
-import com.training.educationsystem.exception.ListEmptyException;
-import com.training.educationsystem.exception.TrainerNotFoundException;
+import com.training.educationsystem.exceptions.InvalidTrainerException;
+import com.training.educationsystem.exceptions.ListEmptyException;
+import com.training.educationsystem.exceptions.TrainerNotFoundException;
 import com.training.educationsystem.repositories.StudyMaterialRepository;
 import com.training.educationsystem.repositories.TrainerRepository;
 import com.training.educationsystem.services.TrainerService;
@@ -104,53 +102,5 @@ public class TrainerServiceTest {
 		assertFalse(trainerRepo.existsById(trainer.getTrainerId()));
 	}
 
-	@Test
-	public void testUpdateTrainerForStudyMaterial() throws TrainerNotFoundException {
-		Trainer trainer = new Trainer();
-
-		trainer.setTrainerId(5);
-		trainer.setFirstName("Richa");
-		trainer.setMiddleName("Raj");
-		trainer.setLastName("Talukar");
-
-		StudyMaterial material = new StudyMaterial();
-		material.setMaterialId(1);
-		material.setContent("Introduction to Programming");
-
-		List<StudyMaterial> materials = new ArrayList<>();
-		materials.add(material);
-
-		trainer.setStudyMaterial(materials);
-
-		Mockito.when(trainerRepo.getOne(5)).thenReturn(trainer);
-		//assertThat(service.updateTrainerForStudyMaterial(trainer.getTrainerId(), material.getContent()))
-				//.isEqualTo(trainer);
-		assertThrows(NullPointerException.class,
-				()->{trainerService.updateTrainerForStudyMaterial(1,"Introduction to Java");}
-				);
-		
-
-	}
-
-	@Test
-	public void testViewStudyMaterials() throws ListEmptyException {
-		Trainer trainer = new Trainer();
-
-		trainer.setTrainerId(5);
-		trainer.setFirstName("Richa");
-		trainer.setMiddleName("Raj");
-		trainer.setLastName("Talukar");
-
-		StudyMaterial material = new StudyMaterial();
-		material.setMaterialId(1);
-		material.setContent("Introduction to Programming");
-
-		List<StudyMaterial> materials = new ArrayList<>();
-		materials.add(material);
-
-		trainer.setStudyMaterial(materials);
-
-		Mockito.when(trainerRepo.getOne(5)).thenReturn(trainer);
-		assertThat(trainerService.viewStudyMaterial(5)).isEqualTo(materials);
-	}
+	
 }

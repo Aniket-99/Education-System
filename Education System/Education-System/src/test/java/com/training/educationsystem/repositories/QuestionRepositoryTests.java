@@ -6,10 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.List;
 
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
-import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -23,7 +20,7 @@ import com.training.educationsystem.entities.Question;
 @RunWith(SpringRunner.class)
 @AutoConfigureTestDatabase(replace = Replace.NONE)
 @DataJpaTest
-@TestMethodOrder(OrderAnnotation.class)
+
 public class QuestionRepositoryTests {
 	
 	@Autowired
@@ -44,7 +41,6 @@ public class QuestionRepositoryTests {
 	}
 	
 	@Test
-	@Order(1)
 	public void testSaveQuestion() {
 		Question question = getQuestion();
 		Question savedquestion=entityManager.persist(question);
@@ -53,14 +49,14 @@ public class QuestionRepositoryTests {
 	}
 	
 	@Test
-	@Order(2)
+
 	public void getAllQuestions(){
 		List<Question> questionList=questionRepo.findAll();
 		assertThat(questionList).size().isGreaterThan(0);
 	}
 	
 	@Test
-	@Order(3)
+
 	public void updateQuestions() {
 		Question savedquestion=questionRepo.getOne(5);
 		savedquestion.setOption3("0x98ffa");
@@ -68,8 +64,7 @@ public class QuestionRepositoryTests {
 		assertThat(updateQuestion).isNotEqualTo(savedquestion);	
 	}
 	
-	@org.junit.jupiter.api.Test
-	@Order(4)
+	@Test
 	public void testDeleteTest() {
 		Question question = getQuestion();
 		question.setQuestion("How to run java program in command prompt?");
@@ -84,8 +79,7 @@ public class QuestionRepositoryTests {
 		
 	}
 	
-	@org.junit.jupiter.api.Test
-	@Order(5)
+	@Test
 	public void testFindAllTest() {
 		Question question = getQuestion();
 		question.setQuestion("What is JRE?");

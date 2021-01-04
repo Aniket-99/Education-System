@@ -1,4 +1,4 @@
-package com.training.educationsystem.exception;
+package com.training.educationsystem.exceptions;
 
 public class TestNotFoundException extends Exception{
      /**

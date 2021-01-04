@@ -6,26 +6,20 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
 
-import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
-
 
 import com.training.educationsystem.entities.Payment;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
 @AutoConfigureTestDatabase(replace=Replace.NONE)
-@TestMethodOrder(OrderAnnotation.class)
 public class PaymentRepositoryTest {
 	@Autowired
 	private PaymentRepository paytestRepo;
@@ -44,7 +38,6 @@ public class PaymentRepositoryTest {
 	
 	@Test
 	@Rollback(false)
-	@Order(1)
 	public void testAddPayment()
 	{
 		Payment payment = getPayment();
@@ -54,7 +47,6 @@ public class PaymentRepositoryTest {
 	}
 	
 	@Test
-	@Order(2)
 	public void getAllPayment()
 	{
 		List<Payment> payList = paytestRepo.findAll();

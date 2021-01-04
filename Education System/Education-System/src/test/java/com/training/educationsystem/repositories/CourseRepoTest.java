@@ -1,12 +1,10 @@
-package com.training.educationsystem.repository;
+package com.training.educationsystem.repositories;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -20,7 +18,6 @@ import com.training.educationsystem.repositories.CourseRepository;
 @RunWith(SpringRunner.class)
 @AutoConfigureTestDatabase(replace= Replace.NONE)
 @DataJpaTest
-@TestMethodOrder(OrderAnnotation.class)
 class CourseRepoTest {
   
 	@Autowired

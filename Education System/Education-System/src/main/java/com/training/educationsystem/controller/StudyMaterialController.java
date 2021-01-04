@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.training.educationsystem.entities.StudyMaterial;
-import com.training.educationsystem.exception.ErrorMessage;
+import com.training.educationsystem.exceptions.ErrorMessages;
 import com.training.educationsystem.exceptions.InvalidStudyMaterialException;
 import com.training.educationsystem.exceptions.StudyMaterialException;
 import com.training.educationsystem.services.IStudyMaterialService;
@@ -48,7 +48,7 @@ public class StudyMaterialController {
 			throws InvalidStudyMaterialException {
 		logger.info("adding study material details - start");
 
-		String materialPattern = "[a-zA-Z0-9\s]+";
+		String materialPattern = "[a-zA-Z0-9\\s]+";
 		if (!(Pattern.matches(materialPattern, studymaterial.getContent()))) {
 			logger.error("Checking for content type");
 			throw new InvalidStudyMaterialException(
@@ -64,14 +64,14 @@ public class StudyMaterialController {
 
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(InvalidStudyMaterialException.class)
-	ErrorMessage exceptionHandler(InvalidStudyMaterialException e) {
-		return new ErrorMessage("400", e.str);
+	ErrorMessages exceptionHandler(InvalidStudyMaterialException e) {
+		return new ErrorMessages("400", e.str);
 	}
 
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(StudyMaterialException.class)
-	ErrorMessage exceptionHandler(StudyMaterialException e) {
-		return new ErrorMessage("400", e.str);
+	ErrorMessages exceptionHandler(StudyMaterialException e) {
+		return new ErrorMessages("400", e.str);
 	}
 
 	/**

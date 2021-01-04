@@ -18,11 +18,12 @@ import com.training.educationsystem.entities.Progress;
 import com.training.educationsystem.entities.Student;
 import com.training.educationsystem.entities.Test;
 import com.training.educationsystem.entities.Trainer;
-import com.training.educationsystem.exception.AlreadyExistsException;
-import com.training.educationsystem.exception.CourseNotFoundException;
-import com.training.educationsystem.exception.InvalidCourseException;
-import com.training.educationsystem.exception.ListEmptyException;
-import com.training.educationsystem.exception.TestNotFoundException;
+import com.training.educationsystem.exceptions.AlreadyExistsException;
+import com.training.educationsystem.exceptions.CourseNotFoundException;
+import com.training.educationsystem.exceptions.InvalidCourseException;
+import com.training.educationsystem.exceptions.ListEmptyException;
+import com.training.educationsystem.exceptions.NotFoundException;
+import com.training.educationsystem.exceptions.TestNotFoundException;
 import com.training.educationsystem.repositories.CourseRepository;
 import com.training.educationsystem.repositories.PaymentRepository;
 import com.training.educationsystem.repositories.ProgressRepository;
@@ -82,10 +83,10 @@ public class CourseService implements ICourseService {
 	 * 
 	 * @param courseId
 	 * @return Nothing
-	 * @throws CourseNotFoundException 
+	 * @throws NotFoundException 
 	 */
 	@Override
-	public void deleteCourse(int courseId) throws CourseNotFoundException {
+	public void deleteCourse(int courseId) throws NotFoundException {
 		logger.info("Delete Course (Service) - START");
 		if(courseRepo.existsById(courseId)){
 		courseRepo.deleteById(courseId);
@@ -94,7 +95,7 @@ public class CourseService implements ICourseService {
 		else
 		{
 			logger.error("Course cannot be deleted as this Course cannot be found");
-			throw new CourseNotFoundException("Course cannot be deleted as this Course cannot be found");
+			throw new NotFoundException("Course cannot be deleted as this Course cannot be found");
 		}
 	}
 
@@ -103,10 +104,10 @@ public class CourseService implements ICourseService {
 	 * 
 	 * @param courseId
 	 * @return Course 
-	 * @throws CourseNotFoundException
+	 * @throws NotFoundException
 	 */
 	@Override
-	public Course viewCourse(int courseId) throws CourseNotFoundException {
+	public Course viewCourse(int courseId) throws NotFoundException {
 		logger.info("View Course (Service) -START!");
 		Course course = courseRepo.findById(courseId).orElse(null);
 		if (course != null) {
@@ -115,7 +116,7 @@ public class CourseService implements ICourseService {
 			return course;
 		} else {
 			logger.error("Course cannot be Found!");
-			throw new CourseNotFoundException("Course cannot be Found!");
+			throw new NotFoundException("Course cannot be Found!");
 		}
 
 	}
@@ -146,12 +147,12 @@ public class CourseService implements ICourseService {
 	 * @param courseId
 	 * @param firstName
 	 * @return Course 
-	 * @throws CourseNotFoundException
+	 * @throws NotFoundException
 	 * @throws AlreadyExistsException
 	 */
 	@Override
 	public Course updateCourseForTrainers(int courseId, String firstName)
-			throws CourseNotFoundException, AlreadyExistsException {
+			throws NotFoundException, AlreadyExistsException {
 		logger.info("Updating Course for Trainers (Service) -START!");
 		Course course = courseRepo.findById(courseId).orElse(null);
 		if (course != null) {
@@ -173,7 +174,7 @@ public class CourseService implements ICourseService {
 			}
 		} else {
 			logger.error("Trainer cannot be added!");
-			throw new CourseNotFoundException("Trainer cannot be added!");
+			throw new NotFoundException("Trainer cannot be added!");
 		}
 
 	}
@@ -184,12 +185,12 @@ public class CourseService implements ICourseService {
 	 * @param courseId
 	 * @param userName
 	 * @return Course object
-	 * @throws CourseNotFoundException
+	 * @throws NotFoundException
 	 * @throws AlreadyExistsException
 	 */
 	@Override
 	public Course updateCourseForStudents(int courseId, String userName)
-			throws CourseNotFoundException, AlreadyExistsException {
+			throws NotFoundException, AlreadyExistsException {
 		logger.info("Updating Course for Students (Service) -START!");
 		Course course = courseRepo.findById(courseId).orElse(null);
 		if (course != null) {
@@ -212,7 +213,7 @@ public class CourseService implements ICourseService {
 			}
 		} else {
 			logger.error("Student cannot be added");
-			throw new CourseNotFoundException("Student cannot be added");
+			throw new NotFoundException("Student cannot be added");
 		}
 
 	}
@@ -223,11 +224,11 @@ public class CourseService implements ICourseService {
 	 * @param courseId
 	 * @param transactionId
 	 * @return Course 
-	 * @throws CourseNotFoundException
+	 * @throws NotFoundException
 	 */
 
 	@Override
-	public Course updateCourseForPayment(int courseId, int transactionId) throws CourseNotFoundException {
+	public Course updateCourseForPayment(int courseId, int transactionId) throws NotFoundException {
 		logger.info("Updating Course  for Payment (Service) -START!");
 		Payment payment = paymentRepo.getOne(transactionId);
 		Course course = courseRepo.getOne(courseId);
@@ -239,7 +240,7 @@ public class CourseService implements ICourseService {
 			return course;
 		} else {
 			logger.error("Payment cannot be added");
-			throw new CourseNotFoundException("Payment cannot be added");
+			throw new NotFoundException("Payment cannot be added");
 		}
 
 	}
@@ -299,7 +300,7 @@ public class CourseService implements ICourseService {
 	 * @throws CourseNotFoundException
 	 */
 	@Override
-	public Course updateCourseForTest(int courseId, int testId) throws CourseNotFoundException {
+	public Course updateCourseForTest(int courseId, int testId) throws NotFoundException {
 		logger.info("Updating Course for  Test (Service) -START!");
 		Test test = testRepo.getOne(testId);
 		Course course = courseRepo.getOne(courseId);
@@ -311,7 +312,7 @@ public class CourseService implements ICourseService {
 			return course;
 		} else {
 			logger.error("Test cannot be added");
-			throw new CourseNotFoundException("Test cannot be added");
+			throw new NotFoundException("Test cannot be added");
 		}
 
 	}
@@ -346,7 +347,7 @@ public class CourseService implements ICourseService {
 	 * @throws CourseNotFoundException
 	 */
 	@Override
-	public Course updateCourseForProgress(int courseId, int progressId) throws CourseNotFoundException {
+	public Course updateCourseForProgress(int courseId, int progressId) throws NotFoundException {
 		logger.info("Updating Course for Progress (Service) -START!");
 		Progress progress = progressRepo.getOne(progressId);
 		Course course = courseRepo.getOne(courseId);
@@ -358,7 +359,7 @@ public class CourseService implements ICourseService {
 			return course;
 		} else {
 			logger.error("Progress cannot be added");
-			throw new CourseNotFoundException("Progress cannot be added");
+			throw new NotFoundException("Progress cannot be added");
 		}
 	}
 

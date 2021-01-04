@@ -16,7 +16,11 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-
+/**
+ * Student Entity class
+ * @author aniket
+ *
+ */
 @Entity
 @Table(name = "student_table")
 public class Student {

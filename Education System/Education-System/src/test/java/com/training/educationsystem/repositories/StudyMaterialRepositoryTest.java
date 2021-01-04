@@ -4,16 +4,12 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import java.util.List;
 
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
-import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -22,7 +18,6 @@ import com.training.educationsystem.entities.StudyMaterial;
 @RunWith(SpringRunner.class)
 @DataJpaTest
 @AutoConfigureTestDatabase(replace=Replace.NONE)
-@TestMethodOrder(OrderAnnotation.class)
 public class StudyMaterialRepositoryTest {
 	
 	@Autowired
@@ -37,7 +32,6 @@ public class StudyMaterialRepositoryTest {
 	
 	@Test
 	@Rollback(false)
-	@Order(1)
 	public void testAddStudyMaterial()
 	{
 		StudyMaterial stud = getStudyMaterial();
@@ -47,7 +41,6 @@ public class StudyMaterialRepositoryTest {
 	}
 	
 	@Test
-	@Order(2)
 	public void getAllMaterial()
 	{
 		List<StudyMaterial> studList = studyRepo.findAll();
@@ -55,7 +48,6 @@ public class StudyMaterialRepositoryTest {
 	}
 	
 	@Test
-	@Order(3)
 	public void deleteMaterial()
 	{
 		StudyMaterial stud=new StudyMaterial();
@@ -68,7 +60,6 @@ public class StudyMaterialRepositoryTest {
 	}
 	
 	@Test
-	@Order(4)
 	public void viewId()
 	{
 		StudyMaterial stud=new StudyMaterial();

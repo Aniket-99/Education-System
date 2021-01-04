@@ -41,7 +41,7 @@ public class StudentController {
 
 	/**
 	 * 
-	 * @param Student
+	 * @param Student Object
 	 * This controller function method takes Student object
 	 * @return ResponseEntity object about whether the registration request has been
 	 *         made or not
