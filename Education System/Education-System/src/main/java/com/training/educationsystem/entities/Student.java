@@ -74,8 +74,8 @@ public class Student {
 	private List<Course> courses;
 	
 	@Column(name = "feedback_fk", nullable = true)
-	@OneToMany(targetEntity = FeedBack.class, cascade = CascadeType.ALL)
-	private List<FeedBack> feedback;
+	@OneToMany(targetEntity = Feedback.class, cascade = CascadeType.ALL)
+	private List<Feedback> feedback;
 	
 	private boolean isValidate = false;
 
@@ -85,7 +85,7 @@ public class Student {
 
 	public Student(int studentId, String firstName, String middleName, String lastName, String emailId, String userName,
 			String contactNumber, String password, String confirmPassword, List<Course> courses,
-			List<FeedBack> feedback, boolean isValidate) {
+			List<Feedback> feedback, boolean isValidate) {
 		super();
 		this.studentId = studentId;
 		this.firstName = firstName;
@@ -182,11 +182,11 @@ public class Student {
 		//this.courses = courses;
 	}
 
-	public List<FeedBack> getFeedback() {
+	public List<Feedback> getFeedback() {
 		return feedback;
 	}
 
-	public void setFeedback(List<FeedBack> feedback) {
+	public void setFeedback(List<Feedback> feedback) {
 		this.feedback = feedback;
 	}
 
