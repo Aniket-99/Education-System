@@ -18,7 +18,7 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 /**
  * Student Entity class
- * @author aniket
+ * @author aniket.
  *
  */
 @Entity
@@ -82,14 +82,31 @@ public class Student {
 	private List<Feedback> feedback;
 	
 	private boolean isValidate = false;
-
+	
+	/**
+	 * Empty Constructor.
+	 */
 	public Student() {
 		super();
 	}
-
-	public Student(int studentId, String firstName, String middleName, String lastName, String emailId, String userName,
-			String contactNumber, String password, String confirmPassword, List<Course> courses,
-			List<Feedback> feedback, boolean isValidate) {
+	/**
+	 * 
+	 * @param studentId
+	 * @param firstName
+	 * @param middleName
+	 * @param lastName
+	 * @param emailId
+	 * @param userName
+	 * @param contactNumber
+	 * @param password
+	 * @param confirmPassword
+	 * @param courses
+	 * @param feedback
+	 * @param isValidate
+	 */
+	public Student(final int studentId, final String firstName, final String middleName, final String lastName, final String emailId, final String userName,
+			final String contactNumber, final String password, final String confirmPassword, final List<Course> courses,
+			final List<Feedback> feedback, final boolean isValidate) {
 		super();
 		this.studentId = studentId;
 		this.firstName = firstName;
@@ -109,7 +126,7 @@ public class Student {
 		return studentId;
 	}
 
-	public void setStudentId(int studentId) {
+	public void setStudentId(final int studentId) {
 		this.studentId = studentId;
 	}
 
@@ -117,7 +134,7 @@ public class Student {
 		return firstName;
 	}
 
-	public void setFirstName(String firstName) {
+	public void setFirstName(final String firstName) {
 		this.firstName = firstName;
 	}
 
@@ -125,7 +142,7 @@ public class Student {
 		return middleName;
 	}
 
-	public void setMiddleName(String middleName) {
+	public void setMiddleName(final String middleName) {
 		this.middleName = middleName;
 	}
 
@@ -133,7 +150,7 @@ public class Student {
 		return lastName;
 	}
 
-	public void setLastName(String lastName) {
+	public void setLastName(final String lastName) {
 		this.lastName = lastName;
 	}
 
@@ -141,7 +158,7 @@ public class Student {
 		return emailId;
 	}
 
-	public void setEmailId(String emailId) {
+	public void setEmailId(final String emailId) {
 		this.emailId = emailId;
 	}
 
@@ -149,7 +166,7 @@ public class Student {
 		return userName;
 	}
 
-	public void setUserName(String userName) {
+	public void setUserName(final String userName) {
 		this.userName = userName;
 	}
 
@@ -157,7 +174,7 @@ public class Student {
 		return contactNumber;
 	}
 
-	public void setContactNumber(String contactNumber) {
+	public void setContactNumber(final String contactNumber) {
 		this.contactNumber = contactNumber;
 	}
 
@@ -165,7 +182,7 @@ public class Student {
 		return password;
 	}
 
-	public void setPassword(String password) {
+	public void setPassword(final String password) {
 		this.password = password;
 	}
 
@@ -173,7 +190,7 @@ public class Student {
 		return confirmPassword;
 	}
 
-	public void setConfirmPassword(String confirmPassword) {
+	public void setConfirmPassword(final String confirmPassword) {
 		this.confirmPassword = confirmPassword;
 	}
 
@@ -181,7 +198,7 @@ public class Student {
 		return courses;
 	}
 
-	public void setCourses(List<Course> courses) {
+	public void setCourses(final List<Course> courses) {
 		this.courses.addAll(courses);
 		//this.courses = courses;
 	}
@@ -190,7 +207,7 @@ public class Student {
 		return feedback;
 	}
 
-	public void setFeedback(List<Feedback> feedback) {
+	public void setFeedback(final List<Feedback> feedback) {
 		this.feedback = feedback;
 	}
 
@@ -198,7 +215,7 @@ public class Student {
 		return isValidate;
 	}
 
-	public void setValidate(boolean isValidate) {
+	public void setValidate(final boolean isValidate) {
 		this.isValidate = isValidate;
 	}
 

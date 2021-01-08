@@ -1,10 +1,21 @@
 package com.training.educationsystem.exceptions;
-
+/**
+ * 
+ * @author Gauri
+ *
+ */
 public class InvalidPaymentException extends Exception {
 	private static final long serialVersionUID = 1L;
-	public String str;
-	public InvalidPaymentException(String str) {
-		
+	/**
+	 * message
+	 */
+	public transient String str;
+	/**
+	 * 
+	 * @param str
+	 */
+	public InvalidPaymentException(final String str) {
+		super();
 		this.str = str;
 	}
 	@Override

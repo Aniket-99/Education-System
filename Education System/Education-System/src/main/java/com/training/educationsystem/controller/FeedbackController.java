@@ -25,16 +25,19 @@ import com.training.educationsystem.services.FeedbackService;
 @RestController
 @RequestMapping("/api/educationsystem/feedback")
 public class FeedbackController {
+	/**
+	 * Initializing Logger.
+	 */
 	private static final Logger LOGGER = LoggerFactory.getLogger(FeedbackController.class);
+	
 	/**
 	 * 
 	 */
 	@Autowired
-	private FeedbackService service;
+	transient private FeedbackService service;
 
 	/**
-	 * Shows all list of feedback data
-	 * 
+	 * Shows all list of feedback data 
 	 * @return feedback list
 	 * @throws InvalidFeedbackException
 	 * 

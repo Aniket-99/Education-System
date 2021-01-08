@@ -6,7 +6,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
+/**
+ * 
+ * @author aniket.
+ *
+ */
 @Entity
 @Table(name = "study_material_table")
 public class StudyMaterial {
@@ -17,12 +21,21 @@ public class StudyMaterial {
 
 	@Column(name = "content")
 	private String content;
-
+	
+	
+	/**
+	 * Empty Constructor.
+	 */
 	public StudyMaterial() {
 		super();
 	}
-
-	public StudyMaterial(int materialId, String content) {
+	
+	/**
+	 * 
+	 * @param materialId
+	 * @param content
+	 */
+	public StudyMaterial(final int materialId, final String content) {
 		super();
 		this.materialId = materialId;
 		this.content = content;
@@ -32,7 +45,7 @@ public class StudyMaterial {
 		return materialId;
 	}
 
-	public void setMaterialId(int materialId) {
+	public void setMaterialId(final int materialId) {
 		this.materialId = materialId;
 	}
 
@@ -40,7 +53,7 @@ public class StudyMaterial {
 		return content;
 	}
 
-	public void setContent(String content) {
+	public void setContent(final String content) {
 		this.content = content;
 	}
 

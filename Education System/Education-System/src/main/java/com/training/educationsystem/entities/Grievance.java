@@ -8,7 +8,9 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * creating Grievance entity here
+ * 
+ * @author aniket.
+ *
  */
 @Entity
 @Table(name = "Grievance")
@@ -26,6 +28,30 @@ public class Grievance {
 	private String grievance;
 	@Column(name = "reply")
 	private String reply;
+	
+	/**
+	 * Empty Constructor.
+	 */
+	public Grievance() {
+		super();
+	}
+	/**
+	 * 
+	 * @param id
+	 * @param studentId
+	 * @param sname
+	 * @param grievance
+	 * @param reply
+	 */
+	public Grievance(final int id, final int studentId, final String sname, final String grievance,
+			final String reply) {
+		super();
+		this.id = id;
+		this.studentId = studentId;
+		this.sname = sname;
+		this.grievance = grievance;
+		this.reply = reply;
+	}
 
 	public int getId() {
 		return id;
@@ -35,7 +61,7 @@ public class Grievance {
 		return sname;
 	}
 
-	public void setSname(String sname) {
+	public void setSname(final String sname) {
 		this.sname = sname;
 	}
 
@@ -43,7 +69,7 @@ public class Grievance {
 		return studentId;
 	}
 
-	public void setStudent(int studentId) {
+	public void setStudent(final int studentId) {
 		this.studentId = studentId;
 	}
 
@@ -51,7 +77,7 @@ public class Grievance {
 		return grievance;
 	}
 
-	public void setGrievance(String grievance) {
+	public void setGrievance(final String grievance) {
 		this.grievance = grievance;
 	}
 
@@ -59,7 +85,7 @@ public class Grievance {
 		return reply;
 	}
 
-	public void setReply(String reply) {
+	public void setReply(final String reply) {
 		this.reply = reply;
 	}
 

@@ -40,26 +40,46 @@ import com.training.educationsystem.repositories.TrainerRepository;
 @Transactional
 @Service
 public class CourseService implements ICourseService {
-
+	/**
+	 * Initializing Logger
+	 */
 	private static final Logger LOGGER = LoggerFactory.getLogger(CourseController.class);
-
+	
+	/**
+	 * Initializing CourseRepository
+	 */
 	@Autowired
-	private CourseRepository courseRepo;
-
+	transient private CourseRepository courseRepo;
+	
+	/**
+	 * Initializing TrainerRepository
+	 */
 	@Autowired
-	private TrainerRepository trainerRepo;
+	transient private TrainerRepository trainerRepo;
 
+	/**
+	 * Initializing StudentRepository
+	 */
 	@Autowired
-	private StudentRepository studentRepo;
+	transient private StudentRepository studentRepo;
 
+	/**
+	 * Initializing PaymentRepository
+	 */
 	@Autowired
-	private PaymentRepository paymentRepo;
+	transient private PaymentRepository paymentRepo;
 
+	/**
+	 * Initializing TestRepository
+	 */
 	@Autowired
-	private TestRepository testRepo;
+	transient private TestRepository testRepo;
 
+	/**
+	 * Initializing ProgressRepository
+	 */
 	@Autowired
-	private ProgressRepository progressRepo;
+	transient private ProgressRepository progressRepo;
 
 	/**
 	 * This method adds the course in the System
@@ -187,10 +207,10 @@ public class CourseService implements ICourseService {
 	 * @throws AlreadyExistsException
 	 */
 	@Override
-	public Course updateCourseForStudents(int courseId, String userName)
+	public Course updateCourseForStudents(final int courseId, final String userName)
 			throws NotFoundException, AlreadyExistsException {
 		LOGGER.info("Updating Course for Students (Service) -START!");
-		Course course = courseRepo.findById(courseId).orElse(null);
+		final Course course = courseRepo.findById(courseId).orElse(null);
 		if (course != null) {
 			final List<Student> studentList = course.getStudents();
 

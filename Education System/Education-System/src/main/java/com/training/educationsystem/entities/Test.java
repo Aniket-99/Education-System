@@ -13,7 +13,7 @@ import javax.persistence.Table;
 
 /**
  * Entity class for Test
- * @author Rita
+ * @author Rita.
  *
  */
 @Entity
@@ -39,12 +39,21 @@ public class Test implements Serializable{
 	@Column(name = "number_of_attempts")
 	private int numberOfAttempts;
 
-	//implementing constructors
+	/**
+	 * Empty Constructor.
+	 */
 	public Test() {
 		super();
 	}
-
-	public Test(int testId, String testName, List<Question> question, float score, int numberOfAttempts) {
+	/**
+	 * 
+	 * @param testId
+	 * @param testName
+	 * @param question
+	 * @param score
+	 * @param numberOfAttempts
+	 */
+	public Test(final int testId, final String testName, final List<Question> question, final float score, final int numberOfAttempts) {
 		super();
 		this.testId = testId;
 		this.testName = testName;
@@ -58,7 +67,7 @@ public class Test implements Serializable{
 		return testId;
 	}
 
-	public void setTestId(int testId) {
+	public void setTestId(final int testId) {
 		this.testId = testId;
 	}
 
@@ -66,7 +75,7 @@ public class Test implements Serializable{
 		return testName;
 	}
 
-	public void setTestName(String testName) {
+	public void setTestName(final String testName) {
 		this.testName = testName;
 	}
 
@@ -74,7 +83,7 @@ public class Test implements Serializable{
 		return question;
 	}
 
-	public void setQuestion(List<Question> question) {
+	public void setQuestion(final List<Question> question) {
 		this.question = question;
 	}
 
@@ -82,7 +91,7 @@ public class Test implements Serializable{
 		return score;
 	}
 
-	public void setScore(float score) {
+	public void setScore(final float score) {
 		this.score = score;
 	}
 
@@ -90,7 +99,7 @@ public class Test implements Serializable{
 		return numberOfAttempts;
 	}
 
-	public void setNumberOfAttempts(int numberOfAttempts) {
+	public void setNumberOfAttempts(final int numberOfAttempts) {
 		this.numberOfAttempts = numberOfAttempts;
 	}
 

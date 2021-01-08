@@ -14,8 +14,8 @@ import com.training.educationsystem.repositories.AdminRepository;
 
 /**
  * admin service implementation class to implement 
- * all the methods of service interface and provide its defintion
- * @author Aniket
+ * all the methods of service interface and provide its definition
+ * @author Aniket.
  *
  */
 @Transactional

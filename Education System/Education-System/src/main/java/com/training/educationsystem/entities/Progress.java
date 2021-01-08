@@ -6,7 +6,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
+/**
+ * 
+ * @author aniket.
+ *
+ */
 @Entity
 @Table(name = "progress_table")
 public class Progress {
@@ -17,12 +21,19 @@ public class Progress {
 
 	@Column(name = "completed_hours")
 	private int completedHours;
-
+	
+	/**
+	 * Empty Constructor.
+	 */
 	public Progress() {
 		super();
 	}
-
-	public Progress(int progressId, int completedHours) {
+	/**
+	 * 
+	 * @param progressId
+	 * @param completedHours
+	 */
+	public Progress(final int progressId, final int completedHours) {
 		super();
 		this.progressId = progressId;
 		this.completedHours = completedHours;
@@ -32,7 +43,7 @@ public class Progress {
 		return progressId;
 	}
 
-	public void setProgressId(int progressId) {
+	public void setProgressId(final int progressId) {
 		this.progressId = progressId;
 	}
 
@@ -40,7 +51,7 @@ public class Progress {
 		return completedHours;
 	}
 
-	public void setCompletedHours(int completedHours) {
+	public void setCompletedHours(final int completedHours) {
 		this.completedHours = completedHours;
 	}
 

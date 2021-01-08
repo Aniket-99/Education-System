@@ -10,7 +10,11 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
+/**
+ * 
+ * @author aniket.
+ *
+ */
 @Entity
 @Table(name = "trainer_table")
 public class Trainer {
@@ -35,13 +39,23 @@ public class Trainer {
 	@ManyToMany
 	@Column(name = "course_fk", nullable = true)
 	private List<Course> courses;
-
+	
+	/**
+	 * Empty Constructor.
+	 */
 	public Trainer() {
 		super();
 	}
-
-	public Trainer(int trainerId, String firstName, String middleName, String lastName,
-			List<StudyMaterial> studyMaterial) {
+	/**
+	 * 
+	 * @param trainerId
+	 * @param firstName
+	 * @param middleName
+	 * @param lastName
+	 * @param studyMaterial
+	 */
+	public Trainer(final int trainerId, final String firstName, final String middleName, final String lastName,
+			final List<StudyMaterial> studyMaterial) {
 		super();
 		this.trainerId = trainerId;
 		this.firstName = firstName;
@@ -54,7 +68,7 @@ public class Trainer {
 		return trainerId;
 	}
 
-	public void setTrainerId(int trainerId) {
+	public void setTrainerId(final int trainerId) {
 		this.trainerId = trainerId;
 	}
 
@@ -62,7 +76,7 @@ public class Trainer {
 		return firstName;
 	}
 
-	public void setFirstName(String firstName) {
+	public void setFirstName(final String firstName) {
 		this.firstName = firstName;
 	}
 
@@ -70,7 +84,7 @@ public class Trainer {
 		return middleName;
 	}
 
-	public void setMiddleName(String middleName) {
+	public void setMiddleName(final String middleName) {
 		this.middleName = middleName;
 	}
 
@@ -78,7 +92,7 @@ public class Trainer {
 		return lastName;
 	}
 
-	public void setLastName(String lastName) {
+	public void setLastName(final String lastName) {
 		this.lastName = lastName;
 	}
 
@@ -86,7 +100,7 @@ public class Trainer {
 		return studyMaterial;
 	}
 
-	public void setStudyMaterial(List<StudyMaterial> studyMaterial) {
+	public void setStudyMaterial(final List<StudyMaterial> studyMaterial) {
 		this.studyMaterial.addAll(studyMaterial);
 	}
 

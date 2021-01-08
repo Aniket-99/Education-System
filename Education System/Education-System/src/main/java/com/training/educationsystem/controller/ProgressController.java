@@ -15,17 +15,22 @@ import com.training.educationsystem.entities.Progress;
 import com.training.educationsystem.exceptions.InvalidInputException;
 import com.training.educationsystem.exceptions.InvalidProgressException;
 import com.training.educationsystem.services.ProgressService;
-
+/**
+ * 
+ * @author aniket.
+ *
+ */
 @RestController
 @RequestMapping("/educationsystem/progress")
 public class ProgressController {
 	
-	//declaring LOGGER
+	/**
+	 * Initialzing Logger.
+	 */
 	private static final Logger LOGGER = LoggerFactory.getLogger(ProgressController.class);
 			
-	// autowiring ProgressService service interfaces
 	@Autowired
-	private ProgressService progressService;
+	transient private ProgressService progressService;
 
 	/*
 	 * @param completedhours

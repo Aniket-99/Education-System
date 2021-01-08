@@ -25,13 +25,17 @@ import com.training.educationsystem.repositories.TestRepository;
 @Transactional
 @Service
 public class ITestService {
+	
+	/**
+	 * Initialzing Logger.
+	 */
 	private static final Logger LOGGER = LoggerFactory.getLogger(ITestService.class);
 
 	@Autowired
-	private TestRepository testRepo;
+	transient private TestRepository testRepo;
 
 	@Autowired
-	private QuestionRepository questionRepo;
+	transient private QuestionRepository questionRepo;
 
 	/***
 	 * Add Test in test-table

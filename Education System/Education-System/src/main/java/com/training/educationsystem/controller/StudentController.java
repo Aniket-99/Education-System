@@ -29,15 +29,21 @@ import com.training.educationsystem.exceptions.RegistrationRequestNotApprovedExc
 import com.training.educationsystem.exceptions.StudentNotFoundException;
 import com.training.educationsystem.exceptions.UserNameExistException;
 import com.training.educationsystem.services.StudentServiceImpl;
-
+/**
+ * 
+ * @author aniket
+ *
+ */
 @RestController
 @RequestMapping("/api/educationsystem")
 public class StudentController {
-
+	/**
+	 * Initializing Logger.
+	 */
 	private static final Logger LOGGER = LoggerFactory.getLogger(StudentController.class);
 
 	@Autowired
-	private StudentServiceImpl studentService;
+	transient private StudentServiceImpl studentService;
 
 	/**
 	 * 

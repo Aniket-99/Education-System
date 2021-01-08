@@ -8,7 +8,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
+/**
+ * 
+ * @author aniket.
+ *
+ */
 @Entity
 @Table(name = "message_table")
 public class Message {
@@ -22,12 +26,20 @@ public class Message {
 
 	@Column(name = "message_date")
 	private LocalDate messageDate;
-
+	
+	/**
+	 * Empty Constructor.
+	 */
 	public Message() {
 		super();
 	}
-
-	public Message(int messageId, String messageDescription, LocalDate messageDate) {
+	/**
+	 * 
+	 * @param messageId
+	 * @param messageDescription
+	 * @param messageDate
+	 */
+	public Message(final int messageId, final String messageDescription, final LocalDate messageDate) {
 		super();
 		this.messageId = messageId;
 		this.messageDescription = messageDescription;
@@ -38,7 +50,7 @@ public class Message {
 		return messageId;
 	}
 
-	public void setMessageId(int messageId) {
+	public void setMessageId(final int messageId) {
 		this.messageId = messageId;
 	}
 
@@ -46,7 +58,7 @@ public class Message {
 		return messageDescription;
 	}
 
-	public void setMessageDescription(String messageDescription) {
+	public void setMessageDescription(final String messageDescription) {
 		this.messageDescription = messageDescription;
 	}
 
@@ -54,7 +66,7 @@ public class Message {
 		return messageDate;
 	}
 
-	public void setMessageDate(LocalDate messageDate) {
+	public void setMessageDate(final LocalDate messageDate) {
 		this.messageDate = messageDate;
 	}
 

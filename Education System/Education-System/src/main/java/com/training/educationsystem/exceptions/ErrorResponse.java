@@ -3,27 +3,43 @@ package com.training.educationsystem.exceptions;
 import javax.xml.bind.annotation.XmlRootElement;
  
 @XmlRootElement(name = "error")
+/**
+ * 
+ * @author 
+ *
+ */
 public class ErrorResponse {
 	
-	//General error message about nature of error
-    private String message;
+	/**
+	 * General error message about nature of error
+	 */
+    private String message; 
  
-    //Specific errors in API request processing
-    private String status;
+    /**
+	 * Specific errors in API request processing
+	 */
+    private String status;  
 
-    //constructors
-	public ErrorResponse(String message, String status) {
+    /**
+     * 
+     * @param message
+     * @param status
+     */
+	public ErrorResponse(final String message, final String status) {  
 		super();
 		this.message = message;
 		this.status = status;
 	}
 	
-	//getters and setters
+	/**
+	 * Getter and Setter
+	 * @return
+	 */
 	public String getMessage() {
 		return message;
 	}
 
-	public void setMessage(String message) {
+	public void setMessage(final String message) {
 		this.message = message;
 	}
 
@@ -31,7 +47,7 @@ public class ErrorResponse {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(final String status) {
 		this.status = status;
 	}
 

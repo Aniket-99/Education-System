@@ -14,16 +14,19 @@ import com.training.educationsystem.repositories.StudyMaterialRepository;
 
 /**
  * 
- * @author Anisha
+ * @author Anisha.
  *
  */
 @Transactional
 @Service
 public class IStudyMaterialService implements StudyMaterialService{
+	/**
+	 * Initializing Logger.
+	 */
 	private static final Logger LOGGER = LoggerFactory.getLogger(IStudyMaterialService.class);
 	
 	@Autowired
-	private StudyMaterialRepository studyRepo;
+	transient private StudyMaterialRepository studyRepo;
 
 	/**
 	 * This method adds the study material details after enrollment

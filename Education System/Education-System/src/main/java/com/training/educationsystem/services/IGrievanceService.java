@@ -12,8 +12,11 @@ import com.training.educationsystem.exceptions.InvalidGrievanceException;
  */
 public interface IGrievanceService {
 
-	 Grievance addGrievance(String sname, String grievance);
-	 List<Grievance> getAllGrievance() throws InvalidGrievanceException;
-	 Grievance updateGrievanceForReply(int id,String reply) throws InvalidGrievanceException;
-	 String viewReply(int id ) throws InvalidGrievanceException;
+	Grievance addGrievance(String sname, String grievance);
+
+	List<Grievance> getAllGrievance() throws InvalidGrievanceException;
+
+	Grievance updateGrievanceForReply(int id, String reply) throws InvalidGrievanceException;
+
+	String viewReply(int id) throws InvalidGrievanceException;
 }

@@ -31,13 +31,16 @@ import com.training.educationsystem.services.ITrainerService;
 /**
  * This is the controller for Trainer module
  * 
- * @author Afeeda A.H
+ * @author Afeeda A.H.
  *
  */
 @RestController
 @RequestMapping("/api/educationsystem/trainer")
 public class TrainerController {
 
+	/**
+	 * Initializing Logger.
+	 */
 	private static final Logger LOGGER = LoggerFactory.getLogger(CourseController.class);
 
 	@Autowired
@@ -57,9 +60,9 @@ public class TrainerController {
 		if (trainer.getFirstName() == "" || trainer.getMiddleName() == "" || trainer.getLastName() == "") {
 			LOGGER.error("First name, middle name and last name cannot be Empty!");
 			throw new InvalidTrainerException("First name, middle name and last name cannot be Empty!");
-		} else if (!(Pattern.matches(namePattern, trainer.getFirstName()))
-				|| (!Pattern.matches(namePattern, trainer.getMiddleName()))
-				|| (!Pattern.matches(namePattern, trainer.getLastName()))) {
+		} else if (!Pattern.matches(namePattern, trainer.getFirstName())
+				|| !Pattern.matches(namePattern, trainer.getMiddleName())
+				|| !Pattern.matches(namePattern, trainer.getLastName())) {
 			LOGGER.error("First name, middle name and last name must contain alphabets only!");
 			throw new InvalidTrainerException("First name, middle name and last name must contain alphabets only!");
 		} else {
@@ -78,8 +81,8 @@ public class TrainerController {
 	 */
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(InvalidTrainerException.class)
-	public ErrorMessages exceptionHandler(final InvalidTrainerException ex) {
-		return new ErrorMessages("400", ex.message);
+	public ErrorMessages exceptionHandler(final InvalidTrainerException invalidTrainerEx) {
+		return new ErrorMessages("400", invalidTrainerEx.message);
 	}
 
 	/**
@@ -90,8 +93,8 @@ public class TrainerController {
 	 */
 	@ResponseStatus(HttpStatus.NOT_FOUND)
 	@ExceptionHandler(TrainerNotFoundException.class)
-	public ErrorMessages exceptionHandler(final TrainerNotFoundException ex) {
-		return new ErrorMessages("404", ex.message);
+	public ErrorMessages exceptionHandler(final TrainerNotFoundException trainerNotFoundEx) {
+		return new ErrorMessages("404", trainerNotFoundEx.message);
 	}
 
 	/**
@@ -102,8 +105,8 @@ public class TrainerController {
 	 */
 	@ResponseStatus(HttpStatus.NOT_FOUND)
 	@ExceptionHandler(ListEmptyException.class)
-	public ErrorMessages exceptionHandler(final ListEmptyException ex) {
-		return new ErrorMessages("404", ex.message);
+	public ErrorMessages exceptionHandler(final ListEmptyException listEmptyEx) {
+		return new ErrorMessages("404", listEmptyEx.message);
 	}
 
 	/**
@@ -114,8 +117,8 @@ public class TrainerController {
 	 */
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(AlreadyExistsException.class)
-	public ErrorMessages exceptionHandler(final AlreadyExistsException ex) {
-		return new ErrorMessages("400", ex.message);
+	public ErrorMessages exceptionHandler(final AlreadyExistsException alreadyExistEx) {
+		return new ErrorMessages("400", alreadyExistEx.message);
 	}
 
 	/**

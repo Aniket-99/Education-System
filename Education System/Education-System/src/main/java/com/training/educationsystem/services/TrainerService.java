@@ -27,14 +27,17 @@ import com.training.educationsystem.repositories.TrainerRepository;
 @Transactional
 @Service
 public class TrainerService implements ITrainerService {
-
+	
+	/**
+	 * Initializing Logger.
+	 */
 	private static final Logger LOGGER = LoggerFactory.getLogger(CourseController.class);
 
 	@Autowired
-	private TrainerRepository trainerRepo;
+	transient private TrainerRepository trainerRepo;
 
 	@Autowired
-	private StudyMaterialRepository studyRepo;
+	transient private StudyMaterialRepository studyRepo;
 
 	/**
 	 * This method adds Trainer in the System

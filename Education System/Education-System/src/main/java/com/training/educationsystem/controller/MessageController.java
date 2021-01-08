@@ -21,12 +21,14 @@ import com.training.educationsystem.services.MessageService;
 @RequestMapping("/educationsystem/message")
 public class MessageController {
 
-	// declaring LOGGER
+	/**
+	 * Initializing Logger
+	 */
+	
 	private static final Logger LOGGER = LoggerFactory.getLogger(AdminController.class);
 
-	// autowiring MessageService service interfaces
 	@Autowired
-	private MessageService messageService;
+	transient private MessageService messageService;
 
 	/*
 	 * @param messageDate 

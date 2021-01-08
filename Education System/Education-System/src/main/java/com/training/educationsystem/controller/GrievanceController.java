@@ -22,16 +22,23 @@ import com.training.educationsystem.exceptions.ErrorDetails;
 import com.training.educationsystem.exceptions.InvalidGrievanceException;
 import com.training.educationsystem.services.GrievanceService;
 
+/**
+ * 
+ * @author aniket.
+ *
+ */
+
 @RestController
 @RequestMapping("/api/educationsystem/grievance")
 public class GrievanceController {
+	
+	/**
+	 * Initializing logger
+	 */
 	private static final Logger LOGGER = LogManager.getLogger(GrievanceController.class);
 
-	/**
-	 * 
-	 */
 	@Autowired
-	private GrievanceService service;
+	transient private GrievanceService service;
 
 	/**
 	 * Shows all grievances
@@ -58,7 +65,7 @@ public class GrievanceController {
 	 */
 	@PostMapping("/add-grievance")
 	public Grievance addGrievance(@RequestParam("sname") final String sname,
-			@RequestParam("grievance") String grievance) throws InvalidGrievanceException {
+			@RequestParam("grievance") final String grievance) throws InvalidGrievanceException {
 		LOGGER.info("For adding feedback in controller-START");
 		final String pattern = "^[a-zA-Z0-9]*$";
 		final String namePattern = "^[a-zA-Z]+$";
@@ -85,8 +92,8 @@ public class GrievanceController {
 
 	@ResponseStatus(HttpStatus.NOT_FOUND)
 	@ExceptionHandler(InvalidGrievanceException.class)
-	public ErrorDetails exceptionHabler(final InvalidGrievanceException ex) {
-		return new ErrorDetails("400", ex.message);
+	public ErrorDetails exceptionHabler(final InvalidGrievanceException invalidEx) {
+		return new ErrorDetails("400", invalidEx.message);
 	}
 
 	/**
@@ -100,7 +107,7 @@ public class GrievanceController {
 	 */
 	@PatchMapping("/add-reply")
 	public Grievance updateGrievanceForReply(@RequestParam("id") final int grievanceId,
-			@RequestParam("reply") String reply) throws InvalidGrievanceException {
+			@RequestParam("reply") final String reply) throws InvalidGrievanceException {
 		LOGGER.info("Updating reply in grievance controller-START");
 		final Grievance addReply = service.updateGrievanceForReply(grievanceId, reply);
 		LOGGER.info("Done in grievance controller-END");
@@ -116,7 +123,7 @@ public class GrievanceController {
 	 * 
 	 */
 	@GetMapping("/view-reply/{id}")
-	public String viewReply(@PathVariable("id") int replyId) throws InvalidGrievanceException {
+	public String viewReply(@PathVariable("id") final int replyId) throws InvalidGrievanceException {
 		LOGGER.info("Showing reply in grievance controller-START");
 		final String reply = service.viewReply(replyId);
 		LOGGER.info("Done in grievance controller-END");

@@ -25,15 +25,20 @@ import com.training.educationsystem.services.IStudyMaterialService;
 
 /**
  * 
- * @author Anisha
+ * @author Anisha.
  *
  */
 @RestController
 @RequestMapping("/api/educationsystem")
 public class StudyMaterialController {
+	
+	/**
+	 * Initializing Logger.
+	 */
+	
 	private static final Logger LOGGER = LoggerFactory.getLogger(StudyMaterialController.class);
 	@Autowired
-	public IStudyMaterialService studymaterialService;
+	transient private IStudyMaterialService studymaterialService;
 
 	/**
 	 * This method adds the study material details after enrollment
@@ -62,14 +67,14 @@ public class StudyMaterialController {
 
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(InvalidStudyMaterialException.class)
-	public ErrorMessages exceptionHandler(final InvalidStudyMaterialException ex) {
-		return new ErrorMessages("400", ex.str);
+	public ErrorMessages exceptionHandler(final InvalidStudyMaterialException invalidMaterialEx) {
+		return new ErrorMessages("400", invalidMaterialEx.str);
 	}
 
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(StudyMaterialException.class)
-	public ErrorMessages exceptionHandler(final StudyMaterialException ex) {
-		return new ErrorMessages("400", ex.str);
+	public ErrorMessages exceptionHandler(final StudyMaterialException studyMaterialEx) {
+		return new ErrorMessages("400", studyMaterialEx.str);
 	}
 
 	/**

@@ -6,7 +6,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
+/**
+ * 
+ * @author aniket.
+ *
+ */
 @Entity
 @Table(name = "payment_table")
 public class Payment {
@@ -32,13 +36,25 @@ public class Payment {
 
 	@Column(name = "payment_date", nullable = false)
 	private String paymentDate;
-
+	
+	/**
+	 * Empty Constructor.
+	 */
 	public Payment() {
 		super();
 	}
-
-	public Payment(int transactionId, int cardNumber, String cardType, String bankName, double amount,
-			String description, String paymentDate) {
+	/**
+	 * 
+	 * @param transactionId
+	 * @param cardNumber
+	 * @param cardType
+	 * @param bankName
+	 * @param amount
+	 * @param description
+	 * @param paymentDate
+	 */
+	public Payment(final int transactionId, final int cardNumber, final String cardType, final String bankName, final double amount,
+			final String description, final String paymentDate) {
 		super();
 		this.transactionId = transactionId;
 		this.cardNumber = cardNumber;
@@ -53,7 +69,7 @@ public class Payment {
 		return transactionId;
 	}
 
-	public void setTransactionId(int transactionId) {
+	public void setTransactionId(final int transactionId) {
 		this.transactionId = transactionId;
 	}
 
@@ -61,7 +77,7 @@ public class Payment {
 		return cardNumber;
 	}
 
-	public void setCardNumber(int cardNumber) {
+	public void setCardNumber(final int cardNumber) {
 		this.cardNumber = cardNumber;
 	}
 
@@ -69,7 +85,7 @@ public class Payment {
 		return cardType;
 	}
 
-	public void setCardType(String cardType) {
+	public void setCardType(final String cardType) {
 		this.cardType = cardType;
 	}
 
@@ -77,7 +93,7 @@ public class Payment {
 		return bankName;
 	}
 
-	public void setBankName(String bankName) {
+	public void setBankName(final String bankName) {
 		this.bankName = bankName;
 	}
 
@@ -85,7 +101,7 @@ public class Payment {
 		return amount;
 	}
 
-	public void setAmount(double amount) {
+	public void setAmount(final double amount) {
 		this.amount = amount;
 	}
 
@@ -93,7 +109,7 @@ public class Payment {
 		return description;
 	}
 
-	public void setDescription(String description) {
+	public void setDescription(final String description) {
 		this.description = description;
 	}
 
@@ -101,7 +117,7 @@ public class Payment {
 		return paymentDate;
 	}
 
-	public void setPaymentDate(String paymentDate) {
+	public void setPaymentDate(final String paymentDate) {
 		this.paymentDate = paymentDate;
 	}
 

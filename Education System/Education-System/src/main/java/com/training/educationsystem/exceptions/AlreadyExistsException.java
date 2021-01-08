@@ -1,13 +1,24 @@
 package com.training.educationsystem.exceptions;
-
+/**
+ * 
+ * @author Afeeda
+ *
+ */
 public class AlreadyExistsException extends Exception {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	public String message;
-	public AlreadyExistsException(String message) {
+	/**
+	 * Message
+	 */
+	public transient String message;
+	/**
+	 * 
+	 * @param message
+	 */
+	public AlreadyExistsException(final String message) {
 		super();
 		this.message = message;
 	}

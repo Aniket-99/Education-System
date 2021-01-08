@@ -26,11 +26,13 @@ import com.training.educationsystem.repositories.MessageRepository;
 @Service
 public class MessageServiceImp implements MessageService{
 
-	// declaring LOGGER
+	/**
+	 * Initializing Logger.
+	 */
 	private static final Logger LOGGER = LoggerFactory.getLogger(MessageServiceImp.class);
 
 	@Autowired
-	private MessageRepository messageRepo; // autowiring repository interface
+	transient private MessageRepository messageRepo; // autowiring repository interface
 	
 	
 	/*

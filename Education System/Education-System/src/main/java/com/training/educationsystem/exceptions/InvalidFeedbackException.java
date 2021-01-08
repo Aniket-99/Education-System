@@ -1,13 +1,25 @@
 package com.training.educationsystem.exceptions;
-
+/**
+ * 
+ * @author Gauri
+ *
+ */
 public class InvalidFeedbackException extends Exception {
 
 /**
  * InvalidInputException
  */
 	private static final long serialVersionUID=1L;
-	public String message;
-	public InvalidFeedbackException(String message) {
+	/**
+	 * message
+	 */
+	public transient String message;
+	/**
+	 * 
+	 * @param message
+	 */
+	public InvalidFeedbackException(final String message) {
+		super();
 		this.message=message;
 }
 	@Override

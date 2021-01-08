@@ -33,19 +33,21 @@ import com.training.educationsystem.exceptions.TestNotFoundException;
 import com.training.educationsystem.services.ICourseService;
 
 /**
- * This is the controller for Course module
+ * This is the controller for Course module.
  * 
- * @author Afeeda A.H
+ * @author Afeeda A.H.
  *
  */
 @RestController
 @RequestMapping("/api/educationsystem/course")
 public class CourseController {
-
+	/**
+	 * Initializing Logger
+	 */
 	private static final Logger LOGGER = LoggerFactory.getLogger(CourseController.class);
 
 	@Autowired
-	private ICourseService service;
+	transient private ICourseService service;
 
 	/**
 	 * This method adds the course in the System
@@ -83,8 +85,8 @@ public class CourseController {
 	 */
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(InvalidCourseException.class)
-	public ErrorMessages exceptionHandler(InvalidCourseException ex) {
-		return new ErrorMessages("400", ex.str);
+	public ErrorMessages exceptionHandler(final InvalidCourseException invalidEx) {
+		return new ErrorMessages("400", invalidEx.str);
 	}
 
 	/**
@@ -95,8 +97,8 @@ public class CourseController {
 	 */
 	@ResponseStatus(HttpStatus.NOT_FOUND)
 	@ExceptionHandler(NotFoundException.class)
-	public ErrorMessages exceptionHandler(final NotFoundException ex) {
-		return new ErrorMessages("404", ex.message);
+	public ErrorMessages exceptionHandler(final NotFoundException notFoundEx) {
+		return new ErrorMessages("404", notFoundEx.message);
 	}
 
 	/**
@@ -107,8 +109,8 @@ public class CourseController {
 	 */
 	@ResponseStatus(HttpStatus.NOT_FOUND)
 	@ExceptionHandler(ListEmptyException.class)
-	public ErrorMessages exceptionHandler(final ListEmptyException ex) {
-		return new ErrorMessages("404", ex.message);
+	public ErrorMessages exceptionHandler(final ListEmptyException listEmptyEx) {
+		return new ErrorMessages("404", listEmptyEx.message);
 	}
 
 	/**
@@ -119,8 +121,8 @@ public class CourseController {
 	 */
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(AlreadyExistsException.class)
-	public ErrorMessages exceptionHandler(final AlreadyExistsException ex) {
-		return new ErrorMessages("400", ex.message);
+	public ErrorMessages exceptionHandler(final AlreadyExistsException alreadyExistEx) {
+		return new ErrorMessages("400", alreadyExistEx.message);
 	}
 
 	/**
@@ -131,8 +133,8 @@ public class CourseController {
 	 */
 	@ResponseStatus(HttpStatus.NOT_FOUND)
 	@ExceptionHandler(TestNotFoundException.class)
-	public ErrorMessages exceptionHandler(final TestNotFoundException ex) {
-		return new ErrorMessages("404", ex.message);
+	public ErrorMessages exceptionHandler(final TestNotFoundException testNotFoundEx) {
+		return new ErrorMessages("404", testNotFoundEx.message);
 	}
 
 	/**
@@ -159,7 +161,7 @@ public class CourseController {
 	 * @throws NotFoundException 
 	 */
 	@DeleteMapping("/delete-course/{courseId}")
-	public String deleteCourse(@PathVariable("courseId") int courseId) throws NotFoundException {
+	public String deleteCourse(@PathVariable("courseId") final int courseId) throws NotFoundException {
 		LOGGER.info("Delete Course (Controller) - START");
 		LOGGER.info("Deleting Course");
 		service.deleteCourse(courseId);

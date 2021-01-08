@@ -22,13 +22,17 @@ import com.training.educationsystem.repositories.QuestionRepository;
 @Transactional
 @Service
 public class IQuestionService {
+	/**
+	 * Initializing Logger.
+	 */
 	private static final Logger LOGGER = LoggerFactory.getLogger(IQuestionService.class);
 
 	@Autowired
-	private QuestionRepository questionRepo;
+	transient private QuestionRepository questionRepo;
 
 	/***
 	 * Add Question to question_table
+	 * 
 	 * @param question
 	 * @return question
 	 * @throws EmptyInputException
@@ -73,7 +77,7 @@ public class IQuestionService {
 	 * @return list
 	 */
 	public List<Question> viewAllQuestions() {
-		LOGGER.info("Inside Service Layer for viewing All Questions..."); 
+		LOGGER.info("Inside Service Layer for viewing All Questions...");
 		return questionRepo.findAll();
 	}
 
@@ -119,7 +123,7 @@ public class IQuestionService {
 	 */
 	public Question deleteQuestionById(final int id) throws QuestionException {
 		LOGGER.info("Inside Service Layer for removing Question By Id...START");
-	    Question question = questionRepo.findById(id).orElse(null);
+		Question question = questionRepo.findById(id).orElse(null);
 		if (question == null) {
 			LOGGER.error("QuestionException occured...END");
 			throw new QuestionException("Test cannot be found!");

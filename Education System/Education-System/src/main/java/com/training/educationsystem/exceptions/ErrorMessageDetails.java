@@ -1,14 +1,36 @@
 package com.training.educationsystem.exceptions;
 
 import java.util.Date;
-
-public class ErrorMessageDetails {	
+/**
+ * 
+ * @author
+ *
+ */
+public class ErrorMessageDetails {
+	/**
+	 * date
+	 */
 	private Date timestamp;
+	/**
+	 * status
+	 */
 	private String status;
+	/**
+	 * message
+	 */
 	private String message;
+	/**
+	 * request
+	 */
 	private String request;
-	
-	public ErrorMessageDetails(Date timestamp, String status, String message, String string) {
+	/**
+	 * 
+	 * @param timestamp
+	 * @param status
+	 * @param message
+	 * @param string
+	 */
+	public ErrorMessageDetails(final Date timestamp, final String status, final String message, final String string) {
 		super();
 		this.timestamp = timestamp;
 		this.status = status;
@@ -18,25 +40,25 @@ public class ErrorMessageDetails {
 	public Date getTimestamp() {
 		return timestamp;
 	}
-	public void setTimestamp(Date timestamp) {
+	public void setTimestamp(final Date timestamp) {
 		this.timestamp = timestamp;
 	}
 	public String getStatus() {
 		return status;
 	}
-	public void setStatus(String status) {
+	public void setStatus(final String status) {
 		this.status = status;
 	}
 	public String getMessage() {
 		return message;
 	}
-	public void setMessage(String message) {
+	public void setMessage(final String message) {
 		this.message = message;
 	}
 	public String getRequest() {
 		return request;
 	}
-	public void setRequest(String request) {
+	public void setRequest(final String request) {
 		this.request = request;
 	}
 	

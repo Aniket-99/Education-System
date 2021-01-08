@@ -26,19 +26,25 @@ import com.training.educationsystem.repositories.StudentRepository;
 
 /**
  * 
- * @author Aniket
+ * @author Aniket.
  *
  */
 @Service
 public class StudentServiceImpl implements IStudentService {
-
+	
+	/**
+	 * Logger initialization.
+	 */
 	private static final Logger LOGGER = LoggerFactory.getLogger(StudentServiceImpl.class);
+	
+	/**
+	 * 
+	 */
+	@Autowired
+	transient private StudentRepository studentRepository;
 
 	@Autowired
-	private StudentRepository studentRepository;
-
-	@Autowired
-	private CourseRepository courseRepository;
+	transient private CourseRepository courseRepository;
 
 	/**
 	 * 

@@ -12,7 +12,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
+/**
+ * 
+ * @author aniket.
+ *
+ */
 @Entity
 @Table(name = "course_table")
 public class Course {
@@ -48,13 +52,26 @@ public class Course {
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "progress_id", nullable = true)
 	private Progress progress;
-
+	/**
+	 * Empty Constructor.
+	 */
 	public Course() {
 		super();
 	}
+	/**
+	 * 
+	 * @param courseId
+	 * @param courseName
+	 * @param students
+	 * @param trainers
+	 * @param hours
+	 * @param test
+	 * @param payment
+	 * @param progress
+	 */
 
-	public Course(int courseId, String courseName, List<Student> students, List<Trainer> trainers, float hours,
-			Test test, Payment payment, Progress progress) {
+	public Course(final int courseId, final String courseName, final List<Student> students, final List<Trainer> trainers, final float hours,
+			final Test test, final Payment payment, final Progress progress) {
 		super();
 		this.courseId = courseId;
 		this.courseName = courseName;
@@ -70,7 +87,7 @@ public class Course {
 		return courseId;
 	}
 
-	public void setCourseId(int courseId) {
+	public void setCourseId(final int courseId) {
 		this.courseId = courseId;
 	}
 
@@ -78,7 +95,7 @@ public class Course {
 		return courseName;
 	}
 
-	public void setCourseName(String courseName) {
+	public void setCourseName(final String courseName) {
 		this.courseName = courseName;
 	}
 
@@ -87,7 +104,7 @@ public class Course {
 		return students;
 	}
 
-	public void setStudents(List<Student> students) {
+	public void setStudents(final List<Student> students) {
 		this.students = students;
 	}
 
@@ -95,7 +112,7 @@ public class Course {
 		return trainers;
 	}
 
-	public void setTrainers(List<Trainer> trainers) {
+	public void setTrainers(final List<Trainer> trainers) {
 		this.trainers = trainers;
 	}
 
@@ -103,7 +120,7 @@ public class Course {
 		return hours;
 	}
 
-	public void setHours(float hours) {
+	public void setHours(final float hours) {
 		this.hours = hours;
 	}
 
@@ -111,7 +128,7 @@ public class Course {
 		return test;
 	}
 
-	public void setTest(Test test) {
+	public void setTest(final Test test) {
 		this.test = test;
 	}
 
@@ -119,7 +136,7 @@ public class Course {
 		return payment;
 	}
 
-	public void setPayment(Payment payment) {
+	public void setPayment(final Payment payment) {
 		this.payment = payment;
 	}
 
@@ -127,7 +144,7 @@ public class Course {
 		return progress;
 	}
 
-	public void setProgress(Progress progress) {
+	public void setProgress(final Progress progress) {
 		this.progress = progress;
 	}
 

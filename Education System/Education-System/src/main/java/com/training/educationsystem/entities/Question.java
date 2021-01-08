@@ -11,7 +11,7 @@ import javax.persistence.Table;
 
 /**
  * Entity class for Question
- * @author Rita
+ * @author Rita.
  *
  */
 @Entity
@@ -42,14 +42,23 @@ public class Question implements Serializable{
 	@Column(name = "correct_answer")
 	private String correctAnswer;
 
-	//implementing constructors
+	/**
+	 * Empty Constructor.
+	 */
 	public Question() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
-
-	public Question(int questionId, String question, String option1, String option2, String option3, String option4,
-			String correctAnswer) {
+	/** 
+	 * @param questionId
+	 * @param question
+	 * @param option1
+	 * @param option2
+	 * @param option3
+	 * @param option4
+	 * @param correctAnswer
+	 */
+	public Question(final int questionId, final String question, final String option1, final String option2, final String option3, final String option4,
+			final String correctAnswer) {
 		super();
 		this.questionId = questionId;
 		this.question = question;
@@ -65,7 +74,7 @@ public class Question implements Serializable{
 		return questionId;
 	}
 
-	public void setQuestionId(int questionId) {
+	public void setQuestionId(final int questionId) {
 		this.questionId = questionId;
 	}
 
@@ -73,7 +82,7 @@ public class Question implements Serializable{
 		return question;
 	}
 
-	public void setQuestion(String question) {
+	public void setQuestion(final String question) {
 		this.question = question;
 	}
 
@@ -81,7 +90,7 @@ public class Question implements Serializable{
 		return option1;
 	}
 
-	public void setOption1(String option1) {
+	public void setOption1(final String option1) {
 		this.option1 = option1;
 	}
 
@@ -89,7 +98,7 @@ public class Question implements Serializable{
 		return option2;
 	}
 
-	public void setOption2(String option2) {
+	public void setOption2(final String option2) {
 		this.option2 = option2;
 	}
 
@@ -97,7 +106,7 @@ public class Question implements Serializable{
 		return option3;
 	}
 
-	public void setOption3(String option3) {
+	public void setOption3(final String option3) {
 		this.option3 = option3;
 	}
 
@@ -105,7 +114,7 @@ public class Question implements Serializable{
 		return option4;
 	}
 
-	public void setOption4(String option4) {
+	public void setOption4(final String option4) {
 		this.option4 = option4;
 	}
 
@@ -113,7 +122,7 @@ public class Question implements Serializable{
 		return correctAnswer;
 	}
 
-	public void setCorrectAnswer(String correctAnswer) {
+	public void setCorrectAnswer(final String correctAnswer) {
 		this.correctAnswer = correctAnswer;
 	}
 

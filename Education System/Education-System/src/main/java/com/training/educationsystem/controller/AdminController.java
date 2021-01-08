@@ -11,17 +11,23 @@ import org.springframework.web.bind.annotation.RestController;
 import com.training.educationsystem.exceptions.InvalidAdminException;
 import com.training.educationsystem.exceptions.InvalidInputException;
 import com.training.educationsystem.services.AdminService;
-
+/**
+ * 
+ * @author aniket.
+ *
+ */
 @RestController
 @RequestMapping("/educationsystem/admin")
 public class AdminController {
 
-	// declaring logger
+	/**
+	 * Declaring Logger.
+	 */
 	private static final Logger LOGGER = LoggerFactory.getLogger(AdminController.class); // Initializing Logger
 
 	// autowiring AdminService service interfaces
 	@Autowired
-	private AdminService adminService;
+	transient private AdminService adminService;
 
 	/*
 	 * @param adminUername

@@ -1,15 +1,24 @@
 package com.training.educationsystem.exceptions;
-
+/**
+ * 
+ * @author Gauri
+ *
+ */
 public class NotFoundException extends Exception {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
-	public String message;
-
-	public NotFoundException(String message) {
+/**
+ * message
+ */
+	public transient String message;
+/**
+ * 
+ * @param message
+ */
+	public NotFoundException(final String message) {
 		super();
 		this.message = message;
 	}

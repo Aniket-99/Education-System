@@ -9,7 +9,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
+/**
+ * 
+ * @author aniket.
+ *
+ */
 @Entity
 @Table(name = "admin_table")
 public class Admin {
@@ -28,12 +32,21 @@ public class Admin {
 	@Column(name = "message_id")
 	@OneToMany(targetEntity = Message.class)
 	private List<Message> messageId;
-
+	
+	/**
+	 * Empty Constructor.
+	 */
 	public Admin() {
 		super();
 	}
-
-	public Admin(int adminId, String userName, String password, List<Message> messageId) {
+	/**
+	 * 
+	 * @param adminId
+	 * @param userName
+	 * @param password
+	 * @param messageId
+	 */
+	public Admin(final int adminId, final String userName, final String password, final List<Message> messageId) {
 		super();
 		this.adminId = adminId;
 		this.userName = userName;
@@ -45,7 +58,7 @@ public class Admin {
 		return adminId;
 	}
 
-	public void setAdminId(int adminId) {
+	public void setAdminId(final int adminId) {
 		this.adminId = adminId;
 	}
 
@@ -53,7 +66,7 @@ public class Admin {
 		return userName;
 	}
 
-	public void setUserName(String userName) {
+	public void setUserName(final String userName) {
 		this.userName = userName;
 	}
 
@@ -61,7 +74,7 @@ public class Admin {
 		return password;
 	}
 
-	public void setPassword(String password) {
+	public void setPassword(final String password) {
 		this.password = password;
 	}
 
@@ -69,7 +82,7 @@ public class Admin {
 		return messageId;
 	}
 
-	public void setMessageId(List<Message> messageId) {
+	public void setMessageId(final List<Message> messageId) {
 		this.messageId = messageId;
 	}
 

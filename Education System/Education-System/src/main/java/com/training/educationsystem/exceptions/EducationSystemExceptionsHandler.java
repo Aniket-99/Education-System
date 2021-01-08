@@ -15,26 +15,37 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 @ControllerAdvice
+/**
+ * 
+ * @author Aniket
+ *
+ */
 public class EducationSystemExceptionsHandler extends ResponseEntityExceptionHandler {
-
+	
+	/**
+	 * 
+	 * @param exception
+	 * @param request
+	 * @return
+	 */
 	@ExceptionHandler(value = { Exception.class })
-	public ResponseEntity<Object> handleAnyException(Exception ex, WebRequest request) {
-		return new ResponseEntity<Object>(ex, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
+	public ResponseEntity<Object> handleAnyException(final Exception exception, final WebRequest request) {
+		return new ResponseEntity<Object>(exception, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
 	/**
 	 * This handler method will validate the student object 
 	 * using the javax.validation API
-	 * @return ResponseEntity of object about the validation error that has been happened
+	 * @return ResponseEntity 
 	 * during the registration request  
 	 */
 
 	@Override
-	  protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
-	      HttpHeaders headers, HttpStatus status, WebRequest request) {
-	    ErrorMessage errorMessage = new ErrorMessage();
+	  protected ResponseEntity<Object> handleMethodArgumentNotValid(final MethodArgumentNotValidException exception,
+			  final HttpHeaders headers, final HttpStatus status, final WebRequest request) {
+	    final ErrorMessage errorMessage = new ErrorMessage();
 	    errorMessage.setErrorCode(HttpStatus.BAD_REQUEST.value());
-		errorMessage.setErrorMessage(ex.getBindingResult().getAllErrors().get(0).getDefaultMessage());
+		errorMessage.setMessage(exception.getBindingResult().getAllErrors().get(0).getDefaultMessage());
 	    return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
 	  } 
 	
@@ -46,10 +57,10 @@ public class EducationSystemExceptionsHandler extends ResponseEntityExceptionHan
 	
 	
 	@ExceptionHandler(value = {EmailAlreadyExistsException.class})
-	public ResponseEntity<ErrorMessage> handleEmailAlreadyExistsException(EmailAlreadyExistsException ex){
-		ErrorMessage errorMessage = new ErrorMessage();
+	public ResponseEntity<ErrorMessage> handleEmailAlreadyExistsException(final EmailAlreadyExistsException exception){
+		final ErrorMessage errorMessage = new ErrorMessage();
 		errorMessage.setErrorCode(HttpStatus.BAD_REQUEST.value());
-		errorMessage.setErrorMessage(ex.getMessage());
+		errorMessage.setMessage(exception.getMessage());
 		return new ResponseEntity<ErrorMessage>(errorMessage, HttpStatus.OK);
 	}
 	
@@ -61,10 +72,10 @@ public class EducationSystemExceptionsHandler extends ResponseEntityExceptionHan
 	
 	
 	@ExceptionHandler(value = {UserNameExistException.class})
-	public ResponseEntity<ErrorMessage> handleUserNameAlreadyExistsException(UserNameExistException ex){
-		ErrorMessage errorMessage = new ErrorMessage();
+	public ResponseEntity<ErrorMessage> handleUserNameAlreadyExistsException(final UserNameExistException exception){
+		final ErrorMessage errorMessage = new ErrorMessage();
 		errorMessage.setErrorCode(HttpStatus.BAD_REQUEST.value());
-		errorMessage.setErrorMessage(ex.getMessage());
+		errorMessage.setMessage(exception.getMessage());
 		return new ResponseEntity<ErrorMessage>(errorMessage, HttpStatus.OK);
 	}
 	
@@ -75,10 +86,10 @@ public class EducationSystemExceptionsHandler extends ResponseEntityExceptionHan
 	 */
 
 	@ExceptionHandler(value = {PasswordAndConfirmPasswordNotMatchException.class})
-	public ResponseEntity<ErrorMessage> handlePasswordAndConfirmPassword(PasswordAndConfirmPasswordNotMatchException ex){
-		ErrorMessage errorMessage = new ErrorMessage();
+	public ResponseEntity<ErrorMessage> handlePasswordAndConfirmPassword(final PasswordAndConfirmPasswordNotMatchException exception){
+		final ErrorMessage errorMessage = new ErrorMessage();
 		errorMessage.setErrorCode(HttpStatus.BAD_REQUEST.value());
-		errorMessage.setErrorMessage(ex.getMessage());
+		errorMessage.setMessage(exception.getMessage());
 		return new ResponseEntity<ErrorMessage>(errorMessage, HttpStatus.OK);
 	}
 	
@@ -89,10 +100,10 @@ public class EducationSystemExceptionsHandler extends ResponseEntityExceptionHan
 	 */
 	
 	@ExceptionHandler(value = {StudentNotFoundException.class})
-	public ResponseEntity<ErrorMessage> handleStudentNotFoundException(StudentNotFoundException ex){
-		ErrorMessage errorMessage = new ErrorMessage();
+	public ResponseEntity<ErrorMessage> handleStudentNotFoundException(final StudentNotFoundException exception){
+		final ErrorMessage errorMessage = new ErrorMessage();
 		errorMessage.setErrorCode(HttpStatus.BAD_REQUEST.value());
-		errorMessage.setErrorMessage(ex.getMessage());
+		errorMessage.setMessage(exception.getMessage());
 		return new ResponseEntity<ErrorMessage>(errorMessage, HttpStatus.OK);
 	}
 	
@@ -103,7 +114,7 @@ public class EducationSystemExceptionsHandler extends ResponseEntityExceptionHan
 	 */
 	
 	@ExceptionHandler(value = {EntityNotFoundException.class})
-	public ResponseEntity<String> handleEntityNotFoundException(EntityNotFoundException ex){		
+	public ResponseEntity<String> handleEntityNotFoundException(final EntityNotFoundException exception){		
 		return new ResponseEntity<String>("Student With given Id is not available", HttpStatus.OK);
 	}
 
@@ -114,10 +125,10 @@ public class EducationSystemExceptionsHandler extends ResponseEntityExceptionHan
 	 */
 	
 	@ExceptionHandler(value = {RegistrationRequestNotApprovedException.class})
-	public ResponseEntity<ErrorMessage> handleRegistrationNotApprovedException(RegistrationRequestNotApprovedException ex){
-		ErrorMessage errorMessage = new ErrorMessage();
+	public ResponseEntity<ErrorMessage> handleRegistrationNotApprovedException(final RegistrationRequestNotApprovedException exception){
+		final ErrorMessage errorMessage = new ErrorMessage();
 		errorMessage.setErrorCode(HttpStatus.FORBIDDEN.value());
-		errorMessage.setErrorMessage(ex.getMessage());
+		errorMessage.setMessage(exception.getMessage());
 		return new ResponseEntity<ErrorMessage>(errorMessage, HttpStatus.FORBIDDEN);
 	}
 	
@@ -127,10 +138,10 @@ public class EducationSystemExceptionsHandler extends ResponseEntityExceptionHan
 	 * @return
 	 */
 	@ExceptionHandler(value = {CourseNotFoundException.class})
-	public ResponseEntity<ErrorMessage> handleCourseNotFoundException(CourseNotFoundException ex){
-		ErrorMessage errorMessage = new ErrorMessage();
+	public ResponseEntity<ErrorMessage> handleCourseNotFoundException(final CourseNotFoundException exception){
+		final ErrorMessage errorMessage = new ErrorMessage();
 		errorMessage.setErrorCode(HttpStatus.NOT_FOUND.value());
-		errorMessage.setErrorMessage(ex.getMessage());
+		errorMessage.setMessage(exception.getMessage());
 		return new ResponseEntity<ErrorMessage>(errorMessage, HttpStatus.NOT_FOUND);
 	}
 	
@@ -140,10 +151,10 @@ public class EducationSystemExceptionsHandler extends ResponseEntityExceptionHan
 	 * @return
 	 */
 	@ExceptionHandler(value = {AlreadyEnrolledInCourseException.class})
-	public ResponseEntity<ErrorMessage> handleAlreadyEnrolledInCourseException(AlreadyEnrolledInCourseException ex){
-		ErrorMessage errorMessage = new ErrorMessage();
+	public ResponseEntity<ErrorMessage> handleAlreadyEnrolledInCourseException(final AlreadyEnrolledInCourseException exception){
+		final ErrorMessage errorMessage = new ErrorMessage();
 		errorMessage.setErrorCode(HttpStatus.BAD_REQUEST.value());
-		errorMessage.setErrorMessage(ex.getMessage());
+		errorMessage.setMessage(exception.getMessage());
 		return new ResponseEntity<ErrorMessage>(errorMessage, HttpStatus.BAD_REQUEST);
 	}
 	
@@ -151,15 +162,27 @@ public class EducationSystemExceptionsHandler extends ResponseEntityExceptionHan
 		@ResponseBody
 		@ResponseStatus(HttpStatus.BAD_REQUEST)
 		@ExceptionHandler(InvalidInputException.class)
-		ErrorMessageDetails validationExceptionHandler(InvalidInputException e, WebRequest request) {
-			return new ErrorMessageDetails(new Date(), "400", e.getMessage(), request.getDescription(false));
+		/**
+		 * 
+		 * @param exception
+		 * @param request
+		 * @return
+		 */
+		ErrorMessageDetails validationExceptionHandler(final InvalidInputException exception,final WebRequest request) {
+			return new ErrorMessageDetails(new Date(), "400", exception.getMessage(), request.getDescription(false));
 		}
 
 		// database exception handler for object not found
 		@ResponseBody
 		@ResponseStatus(HttpStatus.NOT_FOUND)
 		@ExceptionHandler(InvalidAdminException.class)
-		ErrorMessageDetails exceptionHandler(InvalidAdminException e, WebRequest request) {
+		/**
+		 * 
+		 * @param e
+		 * @param request
+		 * @return
+		 */
+		ErrorMessageDetails exceptionHandler(final InvalidAdminException e,final WebRequest request) {
 			return new ErrorMessageDetails(new Date(), "404", e.getMessage(), request.getDescription(false));
 		}
 
@@ -167,15 +190,27 @@ public class EducationSystemExceptionsHandler extends ResponseEntityExceptionHan
 		@ResponseBody
 		@ResponseStatus(HttpStatus.NOT_FOUND)
 		@ExceptionHandler(InvalidMessageException.class)
-		ErrorMessageDetails exceptionHandler(InvalidMessageException e, WebRequest request) {
-			return new ErrorMessageDetails(new Date(), "404", e.getMessage(), request.getDescription(false));
+		/**
+		 * 
+		 * @param e
+		 * @param request
+		 * @return
+		 */
+		ErrorMessageDetails exceptionHandler(final InvalidMessageException exception, final  WebRequest request) {
+			return new ErrorMessageDetails(new Date(), "404", exception.getMessage(), request.getDescription(false));
 		}
 
 		// database exception handler for object not found
 		@ResponseBody
 		@ResponseStatus(HttpStatus.NOT_FOUND)
 		@ExceptionHandler(InvalidProgressException.class)
-		ErrorMessageDetails exceptionHandler(InvalidProgressException e, WebRequest request) {
-			return new ErrorMessageDetails(new Date(), "404", e.getMessage(), request.getDescription(false));
+		/**
+		 * 
+		 * @param e
+		 * @param request
+		 * @return
+		 */
+		ErrorMessageDetails exceptionHandler(final InvalidProgressException exception,final WebRequest request) {
+			return new ErrorMessageDetails(new Date(), "404", exception.getMessage(), request.getDescription(false));
 		}
 }

@@ -20,11 +20,13 @@ import com.training.educationsystem.repositories.ProgressRepository;
 @Service
 public class ProgressServiceImp implements ProgressService{
 	
-	// declaring LOGGER
+	/**
+	 * Initializing Logger.
+	 */
 	private static final Logger LOGGER = LoggerFactory.getLogger(ProgressServiceImp.class);
 	
 	@Autowired
-	private ProgressRepository progressRepo; // autowiring repository interface
+	transient private ProgressRepository progressRepo; // autowiring repository interface
 	
 	/*
 	 * @param completedHours

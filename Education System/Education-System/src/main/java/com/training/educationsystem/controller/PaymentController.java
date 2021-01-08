@@ -24,19 +24,21 @@ import com.training.educationsystem.exceptions.InvalidPaymentException;
 import com.training.educationsystem.exceptions.PaymentException;
 import com.training.educationsystem.services.IPaymentService;
 
-
-
 /**
  * 
- * @author Anisha
+ * @author Anisha.
  *
  */
 @RestController
 @RequestMapping("/api/educationsystem")
 public class PaymentController {
+	/**
+	 * Initialzing Logger.
+	 */
+	
 	private static final Logger LOGGER = LoggerFactory.getLogger(PaymentController.class);
 	@Autowired
-	private IPaymentService paymentService;
+	transient private IPaymentService paymentService;
 
 	/**
 	 * This method adds Payment for the course after enrollment
@@ -46,7 +48,7 @@ public class PaymentController {
 	 * @throws InvalidPaymentException
 	 */
 	@PostMapping("/add-Payment")
-	public Payment addPayment(@RequestBody Payment payment) throws InvalidPaymentException,DateException {
+	public Payment addPayment(@RequestBody final Payment payment) throws InvalidPaymentException,DateException {
 		LOGGER.info("adding payment details - start");
 
 		final String alphaPattern = "[a-zA-Z]+";
@@ -93,20 +95,20 @@ public class PaymentController {
 
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(InvalidPaymentException.class)
-	public ErrorMessages exceptionHandler(final InvalidPaymentException ex) {
-		return new ErrorMessages("400", ex.str);
+	public ErrorMessages exceptionHandler(final InvalidPaymentException invalidPayEx) {
+		return new ErrorMessages("400", invalidPayEx.str);
 	}
 	
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(PaymentException.class)
-	public ErrorMessages exceptionHandler(PaymentException ex) {
-		return new ErrorMessages("404", ex.str);
+	public ErrorMessages exceptionHandler(PaymentException paymentEx) {
+		return new ErrorMessages("404", paymentEx.str);
 	}
 	
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(DateException.class)
-	public ErrorMessages exceptionHandler(final DateException ex) {
-		return new ErrorMessages("400", ex.str);
+	public ErrorMessages exceptionHandler(final DateException dateEx) {
+		return new ErrorMessages("400", dateEx.str);
 	}
 
 	/**
