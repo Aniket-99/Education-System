@@ -158,13 +158,14 @@ public class StudentServiceImpl implements IStudentService {
 	 */
 
 	@Override
-	public boolean validateStudentLogin(final String userName,final String password)
+	public Student validateStudentLogin(final String userName,final String password)
 			throws StudentNotFoundException, RegistrationRequestNotApprovedException
 	{
 
 		LOGGER.info("Inside the validateStudentLogin method of the service layer - START");
 		boolean isAuthorized = false;
 		final Student studentObj = studentRepository.findByUserName(userName);
+		//System.out.println(studentObj);
 		
 		if (studentObj != null)
 		{
@@ -179,7 +180,7 @@ public class StudentServiceImpl implements IStudentService {
 			else
 			{
 				final Student student = studentRepository.findByUserNameAndPassword(userName, password);
-				
+				System.out.println(student);
 				if (student != null)
 				{
 					isAuthorized = true;
@@ -198,7 +199,13 @@ public class StudentServiceImpl implements IStudentService {
 		}
 		
 		LOGGER.info("End of the validateStudentLogin method of service layer - END");
-		return isAuthorized;
+//		return studentObj;
+		if(isAuthorized) {
+			return studentObj;
+		}
+		else {
+			return null;
+		}
 	}
 
 	/**

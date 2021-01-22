@@ -11,17 +11,17 @@ import com.training.educationsystem.entities.Admin;
 import com.training.educationsystem.exceptions.InvalidAdminException;
 import com.training.educationsystem.repositories.AdminRepository;
 
-
 /**
- * admin service implementation class to implement 
- * all the methods of service interface and provide its definition
+ * admin service implementation class to implement all the methods of service
+ * interface and provide its definition
+ * 
  * @author Aniket.
  *
  */
 @Transactional
 @Service
 public class AdminServiceImp implements AdminService {
-	
+
 	/**
 	 * LOGGER Definition
 	 */
@@ -31,30 +31,29 @@ public class AdminServiceImp implements AdminService {
 	 * AdminRepository object
 	 */
 	@Autowired
-	transient public AdminRepository adminRepo; // autowiring repository interface
+	public AdminRepository adminRepo; // autowiring repository interface
 
-	
-	
 	/**
-	 * @param username 
-	 * @param password 
-	 * check if the admin with same username and password exists
-	 * @return success message if admin exists
-	 * throws exception if not exists
+	 * @param username
+	 * @param password
+	 *            check if the admin with same username and password exists
+	 * @return success message if admin exists throws exception if not exists
 	 */
 	@Override
-	public String adminLogin(final String adminUsername, final String adminPassword) throws InvalidAdminException{
+	public Admin adminLogin(final String adminUsername, final String adminPassword) throws InvalidAdminException {
 
 		LOGGER.info("admin login method of adminServiceImp class called-START");
+
 		final Admin admin = adminRepo.findByUserNameAndPassword(adminUsername, adminPassword);
+
 		if (admin == null) {
 			LOGGER.error("error finding admin-END");
 			throw new InvalidAdminException("Invalid admin username and password!");
-			} else {
+		} else {
 			LOGGER.info("admin logged in successful message-END");
-			return "Admin Logged In Sucessfully";
+			// return "Admin Logged In Sucessfully";
+			return admin;
 		}
 	}
-	
 
 }

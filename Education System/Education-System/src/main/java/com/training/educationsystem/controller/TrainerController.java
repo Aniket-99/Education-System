@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,6 +36,7 @@ import com.training.educationsystem.services.ITrainerService;
  *
  */
 @RestController
+@CrossOrigin("*")
 @RequestMapping("/api/educationsystem/trainer")
 public class TrainerController {
 
@@ -127,14 +129,15 @@ public class TrainerController {
 	 * @param trainerId
 	 * @return String
 	 * @throws TrainerNotFoundException 
+	 * @throws ListEmptyException 
 	 */
 	@DeleteMapping("/delete-trainer/{trainerId}")
-	public String deleteTrainer(@PathVariable("trainerId") final int trainerId) throws TrainerNotFoundException {
+	public List<Trainer> deleteTrainer(@PathVariable("trainerId") final int trainerId) throws TrainerNotFoundException, ListEmptyException {
 		LOGGER.info("Delete trainer  (Service) - START");
 		LOGGER.info("Deleting Trainer");
 		service.deleteTrainer(trainerId);
 		LOGGER.info("Delete trainer  (Service) - END");
-		return "Trainer Deleted!";
+		return viewAllTrainers();
 	}
 
 	/**

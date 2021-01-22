@@ -28,7 +28,7 @@ public interface IStudentService
 
 	 boolean getStudentByIdForValidatingRegistration(int id) throws EntityNotFoundException;
 
-	 boolean validateStudentLogin(String userName, String password)
+	 Student validateStudentLogin(String userName, String password)
 			throws StudentNotFoundException, RegistrationRequestNotApprovedException;
 
 	 List<Student> viewAllStudentDetails();

@@ -6,11 +6,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 //import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,6 +24,7 @@ import com.training.educationsystem.exceptions.ErrorDetails;
 import com.training.educationsystem.exceptions.InvalidFeedbackException;
 import com.training.educationsystem.services.FeedbackService;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api/educationsystem/feedback")
 public class FeedbackController {
@@ -78,14 +81,17 @@ public class FeedbackController {
 			LOGGER.error("feedback cannot be negative");
 			throw new InvalidFeedbackException("feedback cannot be empty");
 		}
-		if (!(feedback.matches(pattern))) {
-			LOGGER.error("feedback cannot contain special symbol");
-			throw new InvalidFeedbackException("feedback cannot contain special symbol");
-		} else {
+//		if (!(feedback.matches(pattern))) {
+//			LOGGER.error("feedback cannot contain special symbol");
+//			throw new InvalidFeedbackException("feedback cannot contain special symbol");
+//		} 
+		else {
 			LOGGER.info("feedback added succesfully..-END");
 			return service.addFeedback(sname, feedback);
 		}
 	}
+	
+	
 
 	@ResponseStatus(HttpStatus.NOT_FOUND)
 	@ExceptionHandler(InvalidFeedbackException.class)

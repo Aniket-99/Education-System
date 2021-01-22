@@ -1,5 +1,6 @@
 package com.training.educationsystem.services;
 
+import com.training.educationsystem.entities.Admin;
 
 /**
  * admin service interface to declare all the methods
@@ -14,6 +15,6 @@ public interface AdminService {
 	 * @param adminPassword
 	 * @return String
 	 */
-	 String adminLogin(String adminUsername,String adminPassword); 
+	 Admin adminLogin(String adminUsername,String adminPassword); 
 
 }

@@ -81,10 +81,11 @@ public class GrievanceController {
 			LOGGER.error("Grievance cannot be empty");
 			throw new InvalidGrievanceException("grievance cannot be empty");
 		}
-		if (!(grievance.matches(pattern))) {
-			LOGGER.error("Grievance cannot contain special symbol");
-			throw new InvalidGrievanceException("grievance cannot contain special symbol");
-		} else {
+//		if (!(grievance.matches(pattern))) {
+//			LOGGER.error("Grievance cannot contain special symbol");
+//			throw new InvalidGrievanceException("grievance cannot contain special symbol");
+//		} 
+		else {
 			LOGGER.info("Grievance added succesfully-END");
 			return service.addGrievance(sname, grievance);
 		}

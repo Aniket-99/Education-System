@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,6 +40,7 @@ import com.training.educationsystem.services.ICourseService;
  *
  */
 @RestController
+@CrossOrigin("*")
 @RequestMapping("/api/educationsystem/course")
 public class CourseController {
 	/**
@@ -159,14 +161,15 @@ public class CourseController {
 	 * @param courseId
 	 * @return String
 	 * @throws NotFoundException 
+	 * @throws ListEmptyException 
 	 */
 	@DeleteMapping("/delete-course/{courseId}")
-	public String deleteCourse(@PathVariable("courseId") final int courseId) throws NotFoundException {
+	public List<Course> deleteCourse(@PathVariable("courseId") final int courseId) throws NotFoundException, ListEmptyException {
 		LOGGER.info("Delete Course (Controller) - START");
 		LOGGER.info("Deleting Course");
 		service.deleteCourse(courseId);
 		LOGGER.info("Delete Course (Controller) - END");
-		return "Course deleted!";
+		return viewAllCourses();
 	}
 
 	/**

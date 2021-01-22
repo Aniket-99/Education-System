@@ -128,30 +128,30 @@ class StudentServiceTest {
 	}
 
 	
-	@Test
-	void testValidateStudentLogin() throws StudentNotFoundException, RegistrationRequestNotApprovedException
-	{
-		String username = "aniket";
-		String password = "Aniket$123";
-		
-		Student student = new Student();
-		
-		student.setStudentId(1);
-		student.setFirstName("Anikettt");
-		student.setMiddleName("keshavv");
-		student.setLastName("kar");
-		student.setEmailId("aniket@gma.com");
-		student.setContactNumber("8983612955");
-		student.setUserName("aniket");
-		student.setPassword("Aniket$123");
-		student.setConfirmPassword("Aniket$123");
-		student.setValidate(true);
-
-		when(studentRepository.findByUserName(anyString())).thenReturn(student);
-		boolean isValid = studentService.validateStudentLogin(username, password);
-		assertFalse(isValid);
-
-	}
+//	@Test
+//	void testValidateStudentLogin() throws StudentNotFoundException, RegistrationRequestNotApprovedException
+//	{
+//		String username = "aniket";
+//		String password = "Aniket$123";
+//		
+//		Student student = new Student();
+//		
+//		student.setStudentId(1);
+//		student.setFirstName("Anikettt");
+//		student.setMiddleName("keshavv");
+//		student.setLastName("kar");
+//		student.setEmailId("aniket@gma.com");
+//		student.setContactNumber("8983612955");
+//		student.setUserName("aniket");
+//		student.setPassword("Aniket$123");
+//		student.setConfirmPassword("Aniket$123");
+//		student.setValidate(true);
+//
+//		when(studentRepository.findByUserName(anyString())).thenReturn(student);
+//		boolean isValid = studentService.validateStudentLogin(username, password);
+//		assertFalse(isValid);
+//
+//	}
 
 	@Test
 	void testViewAllStudentDetails()

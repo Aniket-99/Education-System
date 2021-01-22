@@ -28,6 +28,10 @@ public class Course {
 
 	@Column(name = "course_name", nullable = false)
 	private String courseName;
+	
+	@Column(name = "course_amount", nullable = false)
+	private double courseAmount;
+
 
 	@Column(name = "student_fk", nullable = true)
 	//@ManyToMany(cascade = CascadeType.ALL)
@@ -147,13 +151,24 @@ public class Course {
 	public void setProgress(final Progress progress) {
 		this.progress = progress;
 	}
-
+	
+	
+	public double getCourseAmount() {
+		return courseAmount;
+	}
+	public void setCourseAmount(double courseAmount) {
+		this.courseAmount = courseAmount;
+	}
+	
+	
 	@Override
 	public String toString() {
-		return "Course [courseId=" + courseId + ", courseName=" + courseName + ", students=" + students + ", trainers="
-				+ trainers + ", hours=" + hours + ", test=" + test + ", payment=" + payment + ", progress=" + progress
-				+ "]";
+		return "Course [courseId=" + courseId + ", courseName=" + courseName + ", courseAmount=" + courseAmount
+				+ ", students=" + students + ", trainers=" + trainers + ", hours=" + hours + ", test=" + test
+				+ ", payment=" + payment + ", progress=" + progress + "]";
 	}
+
+	
 
 }
 

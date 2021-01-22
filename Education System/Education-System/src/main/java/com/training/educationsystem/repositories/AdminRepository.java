@@ -14,4 +14,5 @@ import com.training.educationsystem.entities.Admin;
 public interface AdminRepository extends JpaRepository<Admin,Integer>{
 
 	public Admin findByUserNameAndPassword(String userName, String password);
+
 }

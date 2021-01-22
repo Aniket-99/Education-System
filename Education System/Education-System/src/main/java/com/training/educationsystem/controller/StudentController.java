@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,6 +35,7 @@ import com.training.educationsystem.services.StudentServiceImpl;
  * @author aniket
  *
  */
+@CrossOrigin
 @RestController
 @RequestMapping("/api/educationsystem")
 public class StudentController {
@@ -64,7 +66,7 @@ public class StudentController {
 		final boolean isRequestMade = studentService.requestRegistration(student);
 		
 		if (isRequestMade) {
-			
+				
 			LOGGER.info("End of makeRegistration method- END");
 			return new ResponseEntity<String>("Registration request has been made", HttpStatus.OK);
 			
@@ -137,23 +139,26 @@ public class StudentController {
 	 */
 
 	@GetMapping("/student-login")
-	public ResponseEntity<String> studentLogin(@RequestParam("username") final String username,
-			@RequestParam("password") final  String password)
+	public ResponseEntity<Student> studentLogin(@RequestParam("username") final String username,
+			@RequestParam("password") final String password)
 			throws StudentNotFoundException, RegistrationRequestNotApprovedException
 	{
 		LOGGER.info("Inside the studentLogin method - START");
-		final boolean validateLogin = studentService.validateStudentLogin(username, password);
-		
-		if (validateLogin)
+		final Student validateLogin = studentService.validateStudentLogin(username, password);
+		System.out.println(validateLogin);
+		if (validateLogin != null)
 		{
 			LOGGER.info("Login is successsful controller method... - END");
-			return new ResponseEntity<String>("Login Successful!! Welcome to the education system!!", HttpStatus.OK);
+			//return new ResponseEntity<String>("Login Successful!! Welcome to the education system!!", HttpStatus.OK);
+			return new ResponseEntity<Student>(validateLogin,HttpStatus.OK);
 			
 		} 
 		else
 		{
 			LOGGER.info("Login Failed controller method - END");
-			return new ResponseEntity<String>("Invalid username and password!", HttpStatus.BAD_REQUEST);
+			//return new ResponseEntity<String>("Invalid username and password!", HttpStatus.BAD_REQUEST);
+			return new ResponseEntity("Invalid username and password!",HttpStatus.OK);
+			
 			
 		}
 
