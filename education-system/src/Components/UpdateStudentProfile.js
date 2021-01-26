@@ -3,6 +3,7 @@ import { NavBarStudent } from "./NavBarHome";
 import { connect } from "react-redux";
 import * as actionCreators from "../actions/action";
 import axios from "axios";
+import avatar from "../images/avatar.svg";
 
 class UpdateStudentProfile extends Component {
   constructor(props) {
@@ -14,10 +15,9 @@ class UpdateStudentProfile extends Component {
       lastName: "",
       contactNo: "",
       emailId: "",
-      studentObj: {},
+      message: "",
     };
     // this.updateProfile = this.updateProfile.bind(this);
-    // this.showDetails = this.showDetails.bind(this);
   }
   componentWillMount() {
     if (!localStorage.getItem("loggedUser")) {
@@ -25,101 +25,45 @@ class UpdateStudentProfile extends Component {
     }
   }
 
-  inputEvent = (e) => {
-    const name = e.target.name;
-    const value = e.target.value;
-    this.setState({ [name]: value });
-  };
-
   componentDidMount() {
     const loggedUserObject = JSON.parse(localStorage.getItem("loggedUser"));
-    const loggedUserId = loggedUserObject.studentId;
-    this.props.onGetSingleStudentDetails(loggedUserId);
+    if (loggedUserObject) {
+      const loggedUserId = loggedUserObject.studentId;
+      this.props.onGetSingleStudentDetails(loggedUserId);
+    }
   }
-
-  updateProfile = (e) => {
-    const loggedUserObject = JSON.parse(localStorage.getItem("loggedUser"));
-    const loggedUserId = loggedUserObject.studentId;
-  };
 
   render() {
     return (
       <div className="container-fluid">
         <NavBarStudent />
+        <h1 style={{ textAlign: "center", marginTop: "75px" }}>My Profile</h1>
+        {this.props.studentObj.firstName ? (
+          <div class="card-view" style={{ marginTop: "50px" }}>
+            <img src={avatar} alt="Avatar" style={{ width: "100%" }} />
+            <div class="container-student" style={{ textAlign: "center" }}>
+              <h4>
+                <b>
+                  {this.props.studentObj.firstName}
+                  &nbsp;
+                  {this.props.studentObj.lastName}
+                </b>
+              </h4>
 
-        <form onSubmit={this.updateProfile}>
-          <div
-            className="form-group cname"
-            style={{ textAlign: "center", marginTop: "80px" }}
-          >
-            <input
-              className="form-control"
-              type="text"
-              id="studentFirstName"
-              name="firstName"
-              onChange={this.inputEvent}
-              placeholder={this.props.studentObj.firstName}
-              required
-            />
-            <br />
+              <p>Username: {this.props.studentObj.userName}</p>
 
-            <input
-              className="form-control"
-              type="text"
-              id="studentMiddleName"
-              name="middleName"
-              onChange={this.inputEvent}
-              placeholder={this.props.studentObj.middleName}
-              required
-            />
-            <br />
+              <p>Email-Id: {this.props.studentObj.emailId}</p>
 
-            <input
-              className="form-control"
-              type="text"
-              id="studentLastName"
-              name="lastName"
-              onChange={this.inputEvent}
-              placeholder={this.props.studentObj.lastName}
-              required
-            />
-            <br />
-
-            <input
-              className="form-control"
-              type="text"
-              id="studentEmailId"
-              name="emailId"
-              onChange={this.inputEvent}
-              placeholder={this.props.studentObj.emailId}
-              required
-            />
-            <br />
-
-            <input
-              className="form-control"
-              type="text"
-              id="studentContactNo"
-              name="contactNo"
-              onChange={this.inputEvent}
-              placeholder={this.props.studentObj.contactNumber}
-              required
-            />
-
-            <br />
-            <button type="submit" id="trainer-button">
-              Update Profile
-            </button>
+              <p>Contact no: {this.props.studentObj.contactNumber}</p>
+            </div>
           </div>
-        </form>
+        ) : null}
       </div>
     );
   }
 }
 
 const mapStateToProps = (state) => {
-  console.log(state);
-  // console.log(state.studentObj + "hello how do you do");
   return {
     studentObj: state.studentObj,
   };

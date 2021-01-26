@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import "../css/approveRegistration.css";
 import { connect } from "react-redux";
 import * as actionCreators from "../actions/action";
-import axios from "axios";
 
 class ApproveRegistration extends Component {
   constructor(props) {
@@ -14,9 +13,7 @@ class ApproveRegistration extends Component {
     };
   }
   componentWillMount() {
-    if (localStorage.getItem("loggedAdmin")) {
-      this.props.history.replace("/admin-home");
-    } else {
+    if (!localStorage.getItem("loggedAdmin")) {
       this.props.history.replace("/admin-login");
     }
   }

@@ -14,10 +14,8 @@ class Quiz extends Component {
     window.open("/attemptquiz");
   }
   componentWillMount() {
-    if (localStorage.getItem("loggedUser")) {
-      this.props.history.replace("/student-home");
-    } else {
-      this.props.history.replace("/");
+    if (!localStorage.getItem("loggedUser")) {
+      this.props.history.replace("/student-login");
     }
   }
   render() {

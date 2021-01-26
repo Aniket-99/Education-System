@@ -1,17 +1,14 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Switch, Link, Route } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "../css/studenthome.css";
 import { NavBarStudent } from "../Components/NavBarHome";
 import shome1 from "../images/shome1.jpeg";
 import bookgif from "../images/books.gif";
-import logo from "../images/logo.png";
 
 class StudentHome extends Component {
   componentWillMount() {
-    if (localStorage.getItem("loggedUser")) {
-      this.props.history.replace("/student-home");
-    } else {
-      this.props.history.replace("/");
+    if (!localStorage.getItem("loggedUser")) {
+      this.props.history.replace("/student-login");
     }
   }
   render() {
@@ -22,7 +19,7 @@ class StudentHome extends Component {
           <div class="container">
             <div class="row">
               <div class="col">
-                <img id="mainimg" src={shome1} />
+                <img id="mainimg" src={shome1} alt="main home image" />
               </div>
               <div class="col">
                 <div className="imageText">
@@ -57,7 +54,7 @@ class StudentHome extends Component {
                 </div>
 
                 <div class="col">
-                  <img id="gif" src={bookgif} />
+                  <img id="gif" src={bookgif} alt="book gif" />
                 </div>
               </div>
             </div>

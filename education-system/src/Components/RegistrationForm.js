@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import "../css/registration.css";
-import bg from "../images/bg.png";
-import avatar from "../images/avatar.svg";
 import signup from "../images/signup.svg";
 import * as actionCreators from "../actions/action";
 import { Link } from "react-router-dom";
@@ -96,7 +94,12 @@ class RegistrationForm extends Component {
           <NavBarHome />
           <div class="row my-2 mx-2 main">
             <div class="col-md-4 col-12 mycol">
-              <img src={signup} width="100%" height="100%" />
+              <img
+                src={signup}
+                width="100%"
+                height="100%"
+                alt="sign up image"
+              />
             </div>
 
             <div class="col-md-8 col-12 xcol">
@@ -108,7 +111,7 @@ class RegistrationForm extends Component {
               </h2>
 
               {data}
-              <form class="myform" onSubmit={this.submitData}>
+              <form class="myform" onSubmit={this.submitData} method="POST">
                 <div class="row rone">
                   <div class="form-group col-md-6 fone py-3">
                     <input

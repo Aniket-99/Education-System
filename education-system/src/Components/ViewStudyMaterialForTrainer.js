@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as actionCreated from "../actions/action";
 import "../css/ViewStudyMaterialForTrainer.css";
-import { Link } from "react-router-dom";
+
 import axios from "axios";
 
 class ViewStudyMaterialForTrainer extends Component {
@@ -43,6 +43,7 @@ class ViewStudyMaterialForTrainer extends Component {
                 href="https://www.youtube.com/watch?v=lL2PXC1fmnQ"
                 onClick={this.update.bind(this)}
                 target="_blank"
+                rel="noreferrer"
               >
                 <h6>Select</h6>
               </a>

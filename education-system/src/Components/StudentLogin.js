@@ -63,14 +63,14 @@ class StudentLogin extends Component {
     return (
       <div>
         <div className="container-fluid">
-          <img className="wave" src={wave} />
+          <img className="wave" src={wave} alt="Wave" />
           <div className="row">
             <div className="col">
-              <img src={login} className="bg" />
+              <img src={login} className="bg" alt="background img" />
             </div>
             <div className="col">
               <div className="div-avatar">
-                <img src={avatar} className="avatar" />
+                <img src={avatar} className="avatar" alt="avatar" />
               </div>
 
               <div className="div-welcome">Welcome</div>
@@ -88,7 +88,11 @@ class StudentLogin extends Component {
 
               <div className="login-text">One Of Us?</div>
               <div className="form-container ">
-                <form className="row g-3" onSubmit={this.submitform}>
+                <form
+                  className="row g-3"
+                  onSubmit={this.submitform}
+                  method="POST"
+                >
                   <div className="col-md-12 container-responsive">
                     <div className="form-group has-username">
                       {/* <span className="fa fa-user form-control-username"></span> */}

@@ -22,10 +22,8 @@ class AttemptQuiz extends Component {
   }
 
   componentWillMount() {
-    if (localStorage.getItem("loggedUser")) {
-      this.props.history.replace("/student-home");
-    } else {
-      this.props.history.replace("/");
+    if (!localStorage.getItem("loggedUser")) {
+      this.props.history.replace("/student-login");
     }
   }
 
@@ -140,7 +138,3 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(AttemptQuiz);
-
-{
-  /* <input type="radio" name="option" id="option2" onChange={this.handleChange} value={ques.option2}/> */
-}

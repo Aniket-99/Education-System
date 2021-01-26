@@ -16,9 +16,7 @@ class ViewCoursesEnrolled extends Component {
     this.submitData = this.submitData.bind(this);
   }
   componentWillMount() {
-    if (localStorage.getItem("loggedAdmin")) {
-      this.props.history.replace("/admin-home");
-    } else {
+    if (!localStorage.getItem("loggedAdmin")) {
       this.props.history.replace("/admin-login");
     }
   }
@@ -27,7 +25,6 @@ class ViewCoursesEnrolled extends Component {
     e.preventDefault();
     const id = this.studentId.current.value;
     console.log(id);
-    //this.props.onGetCourses(id);
     axios
       .get(
         `http://localhost:8080/api/educationsystem/get-courses-enrolled/${id}`
@@ -56,6 +53,7 @@ class ViewCoursesEnrolled extends Component {
   };
 
   componentDidMount() {
+    document.title = "Enrolled Courses";
     this.props.clearState();
   }
 
@@ -63,6 +61,7 @@ class ViewCoursesEnrolled extends Component {
     let courseList = this.props.courseList.map((course) => {
       return <h1 style={{ textAlign: "center" }}>{course.courseName}</h1>;
     });
+
     return (
       <div className="container-fluid">
         <NavBarAdmin />

@@ -1,13 +1,10 @@
 import React, { Component } from "react";
 import * as actionCreators from "../actions/action";
 import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
 import { Link } from "react-router-dom";
 import logo from "../images/logoonly.png";
-import axios from "axios";
 
 import "../css/AddCourse.css";
-import { NavBarAdmin } from "../Components/NavBarHome";
 
 class AddCourse extends Component {
   constructor(props) {
@@ -18,9 +15,7 @@ class AddCourse extends Component {
     this.hours = React.createRef();
   }
   componentWillMount() {
-    if (localStorage.getItem("loggedAdmin")) {
-      this.props.history.replace("/admin-home");
-    } else {
+    if (!localStorage.getItem("loggedAdmin")) {
       this.props.history.replace("/admin-login");
     }
   }
@@ -59,7 +54,7 @@ class AddCourse extends Component {
                   <li className="nav-item">
                     <Link id="logo" className="nav-link" to="">
                       <div style={{ marginBottom: "5px" }}>
-                        <img id="logoimg" src={logo} /> EDUCRATE
+                        <img id="logoimg" src={logo} alt="Logo" /> EDUCRATE
                       </div>
                     </Link>
                   </li>

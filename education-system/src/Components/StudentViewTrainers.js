@@ -45,7 +45,7 @@ class StudentViewTrainers extends Component {
               <ul className="navbar-nav">
                 <li className="nav-item">
                   <Link id="logo" className="nav-link" to="">
-                    <img id="logoimg" src={logo} /> EDUCRATE
+                    <img id="logoimg" src={logo} alt="Educrate Logo" /> EDUCRATE
                   </Link>
                 </li>
                 <li className="nav-item">

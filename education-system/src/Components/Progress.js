@@ -19,6 +19,11 @@ class Progress extends Component {
       search: null,
     };
   }
+  componentWillMount() {
+    if (!localStorage.getItem("loggedUser")) {
+      this.props.history.replace("/student-login");
+    }
+  }
 
   componentDidMount() {
     let courseId = this.props.match.params.courseId;

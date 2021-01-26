@@ -19,7 +19,12 @@ const NavBarHome = () => {
       <nav className="py-3 navbar navbar-expand-lg fixed-top auto-hiding-navbar">
         <div className="container">
           <div className="navbar-brand" style={{ marginBottom: "18px" }}>
-            <img className="logo" src={logo} style={{ marginBottom: "18px" }} />
+            <img
+              className="logo"
+              src={logo}
+              style={{ marginBottom: "18px" }}
+              alt="LOGO"
+            />
             <b style={{ color: "#683aa4" }}>educrate</b>
           </div>
           <button
@@ -80,7 +85,12 @@ const NavBarAdmin = () => {
       <nav className="py-3 navbar navbar-expand-lg fixed-top auto-hiding-navbar">
         <div className="container">
           <div className="navbar-brand" style={{ marginBottom: "15px" }}>
-            <img className="logo" src={logo} style={{ marginBottom: "12px" }} />
+            <img
+              className="logo"
+              src={logo}
+              style={{ marginBottom: "12px" }}
+              alt="LOGO"
+            />
             <b style={{ color: "#683aa4" }}>educrate</b>
           </div>
           <button
@@ -155,7 +165,12 @@ const NavBarStudent = () => {
       >
         <div className="container">
           <div className="navbar-brand" style={{ marginBottom: "10px" }}>
-            <img className="logo" src={logo} style={{ marginBottom: "12px" }} />
+            <img
+              className="logo"
+              src={logo}
+              style={{ marginBottom: "12px" }}
+              alt="LOGO"
+            />
             <b style={{ color: "#683aa4" }}>educrate</b>
           </div>
           <button
@@ -190,6 +205,12 @@ const NavBarStudent = () => {
               <li className="nav-item">
                 <Link to="/view-message" className="nav-link">
                   <small>Message</small>
+                </Link>
+              </li>
+
+              <li className="nav-item">
+                <Link to="/update-profile" className="nav-link">
+                  <small>My Profile</small>
                 </Link>
               </li>
 

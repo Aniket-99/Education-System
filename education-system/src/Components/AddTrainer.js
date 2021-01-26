@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import * as actionCreators from "../actions/action";
 import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
 import { Link } from "react-router-dom";
 import logo from "../images/logoonly.png";
 
@@ -36,9 +35,7 @@ class AddTrainer extends Component {
     );
   }
   componentWillMount() {
-    if (localStorage.getItem("loggedAdmin")) {
-      this.props.history.replace("/admin-home");
-    } else {
+    if (!localStorage.getItem("loggedAdmin")) {
       this.props.history.replace("/admin-login");
     }
   }
@@ -51,7 +48,7 @@ class AddTrainer extends Component {
               <ul className="navbar-nav">
                 <li className="nav-item">
                   <Link id="logo" className="nav-link" to="">
-                    <img id="logoimg" src={logo} /> EDUCRATE
+                    <img id="logoimg" src={logo} alt="Logo" /> EDUCRATE
                   </Link>
                 </li>
                 <li className="nav-item">

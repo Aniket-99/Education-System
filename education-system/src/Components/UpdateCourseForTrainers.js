@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import * as actionCreators from "../actions/action";
 import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
-
 import "../css/UpdateCourseForTrainers.css";
 
 class UpdateCourseForTrainers extends Component {
@@ -21,9 +19,7 @@ class UpdateCourseForTrainers extends Component {
     );
   }
   componentWillMount() {
-    if (localStorage.getItem("loggedAdmin")) {
-      this.props.history.replace("/admin-home");
-    } else {
+    if (!localStorage.getItem("loggedAdmin")) {
       this.props.history.replace("/admin-login");
     }
   }

@@ -37,9 +37,6 @@ import UpdateStudentProfile from "./UpdateStudentProfile";
 import { Route, Switch } from "react-router-dom";
 
 class ReactRouter extends Component {
-  constructor(props) {
-    super(props);
-  }
   render() {
     return (
       <div>

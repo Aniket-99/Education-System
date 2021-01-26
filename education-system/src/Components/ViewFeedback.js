@@ -15,13 +15,10 @@ class ViewFeedback extends Component {
     this.props.onGetAllFeedback();
   }
   componentWillMount() {
-    if (localStorage.getItem("loggedAdmin")) {
-      this.props.history.replace("/admin-home");
-    } else {
+    if (!localStorage.getItem("loggedAdmin")) {
       this.props.history.replace("/admin-login");
     }
   }
-
   render() {
     return (
       <div>

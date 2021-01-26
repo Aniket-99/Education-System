@@ -60,15 +60,15 @@ class AdminLogin extends Component {
   render() {
     return (
       <div>
-        <img className="wave" src={background} />
+        <img className="wave" src={background} alt="image" />
         <div className="container-fluid">
           <div className="row">
             <div className="col">
-              <img src={adminbg} className="bg" />
+              <img src={adminbg} className="bg" alt="Admin background" />
             </div>
             <div className="col">
               <div className="div-avatar">
-                <img src={logo} className="avatar" />
+                <img src={logo} className="avatar" alt="Avatar" />
               </div>
               <div className="div-welcome">Admin Panel</div>
               <hr />
@@ -84,7 +84,11 @@ class AdminLogin extends Component {
               ) : null}
               <div className="login-text">Login</div>
               <div className="form-container">
-                <form className="row g-3" onSubmit={this.submitData}>
+                <form
+                  className="row g-3"
+                  onSubmit={this.submitData}
+                  method="POST"
+                >
                   <div className="col-md-12">
                     <div className="form-group has-username">
                       {/* <span className="fa fa-user form-control-username"></span> */}
@@ -121,11 +125,6 @@ class AdminLogin extends Component {
                       >
                         Log In
                       </button>
-                    </div>
-                  </div>
-                  <div className="col">
-                    <div className="div-text">
-                      <h5>Please hide your credentials while logging in</h5>
                     </div>
                   </div>
                 </form>

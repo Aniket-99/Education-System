@@ -178,8 +178,6 @@ export const addCourse = (course) => {
       )
       .then((res) => {
         dispatch(addCourseAction(res.data));
-        const progress = JSON.parse(localStorage.getItem("progress"));
-        const progressId = progress.progressId;
 
         let completedHours = 1;
         var courseId = res.data.courseId;

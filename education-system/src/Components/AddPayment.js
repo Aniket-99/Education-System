@@ -13,34 +13,20 @@ class AddPayment extends Component {
     this.state = {
       paymentObj: {},
     };
-    //this.transactionId = React.createRef();
     this.cardNumber = React.createRef();
     this.cardType = React.createRef();
     this.bankName = React.createRef();
     this.amount = React.createRef();
     this.description = React.createRef();
     this.paymentDate = React.createRef();
-    // console.log(this.props.match.params.courseId + "this is the course Id");
-    // console.log(
-    //   this.props.match.params.courseName + " this is the course name"
-    // );
   }
   // componentDidMount() {
   //   this.props.clearState();
   // }
-  // componentDidUpdate() {
-  //   let check = this.props.returnedMessage.split(" ");
-  //   if (check[0] === "Successfully") {
-  //     setTimeout(() => {
-  //       this.props.history.push("/listOfPayment");
-  //     }, 2000);
-  //   }
-  // }
+
   componentWillMount() {
-    if (localStorage.getItem("loggedUser")) {
-      this.props.history.replace("/student-home");
-    } else {
-      this.props.history.replace("/");
+    if (!localStorage.getItem("loggedUser")) {
+      this.props.history.replace("/student-login");
     }
   }
 
@@ -76,8 +62,6 @@ class AddPayment extends Component {
     axios.patch(
       `http://localhost:8080/api/educationsystem/update-student-course?studentId=${loggedUserId}&courseName=${courseName}`
     );
-
-    let message = "Payment Successful";
   }
   setValidityCardno() {
     alert("Card number cannot be empty and should contain 9 digits!!");
@@ -106,11 +90,11 @@ class AddPayment extends Component {
         <div className="container-fluid">
           <div className="row">
             <div className="col">
-              <img src={paymentbg} className="bg" />
+              <img src={paymentbg} className="bg" alt="payment background" />
             </div>
             <div className="col">
               <div className="div-avatar">
-                <img src={payylogo} class="avatar" />
+                <img src={payylogo} class="avatar" alt="avatar" />
               </div>
               <div className="div-title" style={{ textAlign: "center" }}>
                 Make Payment!

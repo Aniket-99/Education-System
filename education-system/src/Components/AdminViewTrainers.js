@@ -12,9 +12,7 @@ class AdminViewTrainers extends Component {
     this.props.onDeleteTrainer(trainerId);
   }
   componentWillMount() {
-    if (localStorage.getItem("loggedAdmin")) {
-      this.props.history.replace("/admin-home");
-    } else {
+    if (!localStorage.getItem("loggedAdmin")) {
       this.props.history.replace("/admin-login");
     }
   }

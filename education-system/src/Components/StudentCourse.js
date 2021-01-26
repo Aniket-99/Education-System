@@ -1,11 +1,5 @@
 import React, { Component } from "react";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Link,
-  Route,
-  NavLink,
-} from "react-router-dom";
+import { Link, Route, NavLink } from "react-router-dom";
 import { connect } from "react-redux";
 import * as actionCreated from "../actions/action";
 
@@ -20,13 +14,11 @@ class StudentCourse extends Component {
       buttonText: "Enroll",
     };
   }
-  // componentWillMount() {
-  //   if (localStorage.getItem("loggedUser")) {
-  //     this.props.history.replace("/student-home");
-  //   } else {
-  //     this.props.history.replace("/");
-  //   }
-  // }
+  componentWillMount() {
+    if (!localStorage.getItem("loggedUser")) {
+      this.props.history.replace("/student-login");
+    }
+  }
   componentDidMount() {
     this.props.onGetCourses();
     this.props.clearState();
@@ -44,7 +36,7 @@ class StudentCourse extends Component {
           <div class="col">
             <div class="card">
               <NavLink to={`/student-view-trainer/${course.courseId}`}>
-                <img src={education} class="card-img-top" alt="..." />
+                <img src={education} class="card-img-top" alt="Card image" />
               </NavLink>
               <div class="card-body">
                 <h5 class="card-title">{course.courseName}</h5>

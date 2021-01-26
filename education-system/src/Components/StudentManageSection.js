@@ -5,13 +5,8 @@ import "../css/studentmanage.css";
 import { Link } from "react-router-dom";
 
 class StudentManageSection extends Component {
-  constructor(props) {
-    super(props);
-  }
   componentWillMount() {
-    if (localStorage.getItem("loggedAdmin")) {
-      this.props.history.replace("/admin-home");
-    } else {
+    if (!localStorage.getItem("loggedAdmin")) {
       this.props.history.replace("/admin-login");
     }
   }

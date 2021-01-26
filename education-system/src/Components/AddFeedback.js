@@ -16,10 +16,8 @@ class AddFeedback extends Component {
     this.submitFeedback = this.submitFeedback.bind(this);
   }
   componentWillMount() {
-    if (localStorage.getItem("loggedUser")) {
-      this.props.history.replace("/student-home");
-    } else {
-      this.props.history.replace("/");
+    if (!localStorage.getItem("loggedUser")) {
+      this.props.history.replace("/student-login");
     }
   }
 
@@ -28,15 +26,6 @@ class AddFeedback extends Component {
     let value = e.target.value;
     this.setState({ [name]: [value] });
   };
-
-  componentWillMount() {
-    const name = JSON.parse(localStorage.getItem("loggedUser"));
-    if (name != null) {
-      this.setState({ loggedUserName: name.username });
-    } else {
-      console.log("user is not logeed in");
-    }
-  }
 
   submitFeedback = (e) => {
     e.preventDefault();

@@ -26,6 +26,12 @@ export class ViewMessage extends Component {
     this.setState({ search: keyword });
   };
 
+  componentWillMount() {
+    if (!localStorage.getItem("loggedUser")) {
+      this.props.history.replace("/student-login");
+    }
+  }
+
   render() {
     if (!(this.state.search == null)) {
       return (

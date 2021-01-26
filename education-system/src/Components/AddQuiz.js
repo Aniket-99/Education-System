@@ -29,13 +29,10 @@ class AddQuiz extends Component {
     }
   }
   componentWillMount() {
-    if (localStorage.getItem("loggedAdmin")) {
-      this.props.history.replace("/admin-home");
-    } else {
+    if (!localStorage.getItem("loggedAdmin")) {
       this.props.history.replace("/admin-login");
     }
   }
-
   add(e) {
     let question = {
       questionId: this.questionId.current.value,

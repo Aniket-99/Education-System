@@ -11,14 +11,8 @@ import { NavBarAdmin } from "./NavBarHome";
 import { Link } from "react-router-dom";
 
 class AdminDashboard extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   componentWillMount() {
-    if (localStorage.getItem("loggedAdmin")) {
-      this.props.history.replace("/admin-home");
-    } else {
+    if (!localStorage.getItem("loggedAdmin")) {
       this.props.history.replace("/admin-login");
     }
   }

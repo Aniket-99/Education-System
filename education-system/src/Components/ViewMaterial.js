@@ -11,9 +11,7 @@ class ViewMaterial extends Component {
     this.props.onDeleteMaterial(matId);
   }
   componentWillMount() {
-    if (localStorage.getItem("loggedAdmin")) {
-      this.props.history.replace("/admin-home");
-    } else {
+    if (!localStorage.getItem("loggedAdmin")) {
       this.props.history.replace("/admin-login");
     }
   }

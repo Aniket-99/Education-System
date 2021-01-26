@@ -8,22 +8,13 @@ class AdminViewCourse extends Component {
     this.props.onGetCourses();
   }
   componentWillMount() {
-    if (localStorage.getItem("loggedAdmin")) {
-      this.props.history.replace("/admin-home");
-    } else {
+    if (!localStorage.getItem("loggedAdmin")) {
       this.props.history.replace("/admin-login");
     }
   }
 
   delete(courseId) {
     this.props.onDeleteCourse(courseId);
-  }
-  componentWillMount() {
-    if (localStorage.getItem("loggedAdmin")) {
-      this.props.history.replace("/admin-home");
-    } else {
-      this.props.history.replace("/admin-login");
-    }
   }
 
   render() {

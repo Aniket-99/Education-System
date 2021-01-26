@@ -10,6 +10,12 @@ class ViewPayment extends Component {
     this.props.onGetPayment();
   }
 
+  componentWillMount() {
+    if (!localStorage.getItem("loggedAdmin")) {
+      this.props.history.replace("/admin-login");
+    }
+  }
+
   render() {
     let paymentList = this.props.paymentList.map((payment, index) => {
       return (
