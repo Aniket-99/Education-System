@@ -16,7 +16,9 @@ import com.training.educationsystem.entities.Message;
 import com.training.educationsystem.exceptions.InvalidInputException;
 import com.training.educationsystem.exceptions.InvalidMessageException;
 import com.training.educationsystem.services.MessageService;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/educationsystem/message")
 public class MessageController {

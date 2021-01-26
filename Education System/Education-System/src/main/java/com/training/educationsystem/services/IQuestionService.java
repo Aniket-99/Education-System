@@ -43,9 +43,9 @@ public class IQuestionService {
 				&& question.getOption3() != null && question.getOption4() != null
 				&& question.getCorrectAnswer() != null) {
 			LOGGER.info("Question Added Sucessfully...END");
-			questionRepo.save(question);
+			Question q = questionRepo.save(question);
 			LOGGER.info("");
-			return question;
+			return q;
 		} else {
 			LOGGER.error("EmptyInputException occured!..END");
 			throw new EmptyInputException("Input provided are empty!");
@@ -78,7 +78,8 @@ public class IQuestionService {
 	 */
 	public List<Question> viewAllQuestions() {
 		LOGGER.info("Inside Service Layer for viewing All Questions...");
-		return questionRepo.findAll();
+		List<Question> questions = questionRepo.findAll();
+		return questions;
 	}
 
 	/***
@@ -94,20 +95,21 @@ public class IQuestionService {
 				&& question.getOption3() != null && question.getOption4() != null
 				&& question.getCorrectAnswer() != null) {
 			LOGGER.info("Updating Question...END");
-			return questionRepo.findById(question.getQuestionId()).map(ques -> {
-				ques.setQuestion(question.getQuestion());
-				ques.setOption1(question.getOption1());
-				ques.setOption2(question.getOption2());
-				ques.setOption3(question.getOption3());
-				ques.setOption4(question.getOption4());
-				ques.setCorrectAnswer(question.getCorrectAnswer());
-				LOGGER.info("Saving the Updated Question...END");
-				return questionRepo.save(question);
-			}).orElseGet(() -> {
-				question.setQuestionId(question.getQuestionId());
-				LOGGER.info("Updating the question by new questionId");
-				return questionRepo.save(question);
-			});
+//			return questionRepo.findById(question.getQuestionId()).map(ques -> {
+//				ques.setQuestion(question.getQuestion());
+//				ques.setOption1(question.getOption1());
+//				ques.setOption2(question.getOption2());
+//				ques.setOption3(question.getOption3());
+//				ques.setOption4(question.getOption4());
+//				ques.setCorrectAnswer(question.getCorrectAnswer());
+//				LOGGER.info("Saving the Updated Question...END");
+//				return questionRepo.save(question);
+//			}).orElseGet(() -> {
+//				question.setQuestionId(question.getQuestionId());
+//				LOGGER.info("Updating the question by new questionId");
+//				return questionRepo.save(question);
+//			});
+			return questionRepo.saveAndFlush(question);
 		} else {
 			LOGGER.error("EmptyInputException occured!..END");
 			throw new EmptyInputException("Input provided are empty!");
@@ -121,17 +123,17 @@ public class IQuestionService {
 	 * @return question
 	 * @throws TestException
 	 */
-	public Question deleteQuestionById(final int id) throws QuestionException {
+	public void deleteQuestionById(final int id) throws QuestionException {
 		LOGGER.info("Inside Service Layer for removing Question By Id...START");
 		Question question = questionRepo.findById(id).orElse(null);
 		if (question == null) {
 			LOGGER.error("QuestionException occured...END");
 			throw new QuestionException("Test cannot be found!");
 		} else {
-			question = questionRepo.getOne(id);
-			questionRepo.delete(question);
+//			question = questionRepo.getOne(id);
+//			questionRepo.delete(question);
 			LOGGER.info("Deleted Question Sucessfully...END");
-			return question;
+			questionRepo.deleteById(id);
 		}
 	}
 }

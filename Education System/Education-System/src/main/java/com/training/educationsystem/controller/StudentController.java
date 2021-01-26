@@ -58,7 +58,7 @@ public class StudentController {
 	 */
 
 	@PostMapping("/request-registration")
-	public ResponseEntity<String> makeRegistration(@Valid @RequestBody final Student student)
+	public ResponseEntity<StudentDTO> makeRegistration(@Valid @RequestBody final Student student)
 			throws EmailAlreadyExistsException, UserNameExistException, PasswordAndConfirmPasswordNotMatchException
 	{
 		LOGGER.info(
@@ -68,13 +68,22 @@ public class StudentController {
 		if (isRequestMade) {
 				
 			LOGGER.info("End of makeRegistration method- END");
-			return new ResponseEntity<String>("Registration request has been made", HttpStatus.OK);
+			StudentDTO studentDto = new StudentDTO();
+			studentDto.setFirstName(student.getFirstName());
+			studentDto.setMiddleName(student.getMiddleName());
+			studentDto.setLastName(student.getLastName());
+			studentDto.setContactNumber(student.getContactNumber());
+			studentDto.setUserName(student.getUserName());
+			studentDto.setEmailId(student.getEmailId());
+			return new ResponseEntity<StudentDTO>(studentDto,HttpStatus.OK);
+			//return new ResponseEntity<String>("Registration request has been made", HttpStatus.OK);
 			
 		} 
 		else 
 		{
 			LOGGER.info("End of makeRegistration method - END");
-			return new ResponseEntity<String>("Registration request cannot be made", HttpStatus.BAD_REQUEST);
+			return new ResponseEntity("Registration request cannot be made",HttpStatus.OK);
+			//return new ResponseEntity<String>("Registration request cannot be made", HttpStatus.BAD_REQUEST);
 			
 		}
 
@@ -108,8 +117,28 @@ public class StudentController {
 	 * @throws EntityNotFoundException
 	 */
 
+//	@PatchMapping("/approve-student-request/{id}")
+//	public ResponseEntity<String> approveStudentRequest(@PathVariable("id") final int studentId) throws EntityNotFoundException 
+//	{
+//		LOGGER.info("Inside the approveStudentRequest method - START");
+//		final boolean approveStudentRequest = studentService.getStudentByIdForValidatingRegistration(studentId);
+//		
+//		if (approveStudentRequest)
+//		{
+//			LOGGER.info("Student is valid user controller method - END");
+//			return new ResponseEntity<String>("Student with Id: " + studentId + " is validated!", HttpStatus.OK);
+//			
+//		} 
+//		else
+//		{
+//			LOGGER.info("Student is already validated controller method - END");
+//			return new ResponseEntity<String>("Student is already validated!", HttpStatus.OK);
+//			
+//		}
+//	}
+	
 	@PatchMapping("/approve-student-request/{id}")
-	public ResponseEntity<String> approveStudentRequest(@PathVariable("id") final int studentId) throws EntityNotFoundException 
+	public ResponseEntity<List<Student>> approveStudentRequest(@PathVariable("id") final int studentId) throws EntityNotFoundException 
 	{
 		LOGGER.info("Inside the approveStudentRequest method - START");
 		final boolean approveStudentRequest = studentService.getStudentByIdForValidatingRegistration(studentId);
@@ -117,16 +146,19 @@ public class StudentController {
 		if (approveStudentRequest)
 		{
 			LOGGER.info("Student is valid user controller method - END");
-			return new ResponseEntity<String>("Student with Id: " + studentId + " is validated!", HttpStatus.OK);
+			//return new ResponseEntity<String>("Student with Id: " + studentId + " is validated!", HttpStatus.OK);
+			return getAllRegistrationRequest();
 			
 		} 
 		else
 		{
 			LOGGER.info("Student is already validated controller method - END");
-			return new ResponseEntity<String>("Student is already validated!", HttpStatus.OK);
+			return new ResponseEntity("Student is already validated!", HttpStatus.OK);
 			
 		}
 	}
+	
+	
 
 	/**
 	 * 
@@ -179,7 +211,7 @@ public class StudentController {
 		return new ResponseEntity<List<Student>>(listofStudent, HttpStatus.OK);
 		
 	}
-
+	
 	/**
 	 * 
 	 * @param id
@@ -203,6 +235,7 @@ public class StudentController {
 		studentDTO.setMiddleName(student.getMiddleName());
 		studentDTO.setLastName(student.getLastName());
 		studentDTO.setEmailId(student.getEmailId());
+		studentDTO.setUserName(student.getUserName());
 		studentDTO.setContactNumber(student.getContactNumber());
 		
 		LOGGER.info("End of view validated method and returning the student object controller method - END");
@@ -251,7 +284,6 @@ public class StudentController {
 		
 		LOGGER.info("Returning the list of courses from getCoursesEnrolledByStudent method controller method- END");
 		return listOfCourses;
-	
 	}
 
 	/**

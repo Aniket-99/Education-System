@@ -16,4 +16,6 @@ public interface ProgressService {
 	 Progress  viewProgress(int progressId);
 
 	 List<Progress> viewAllProgresses();
+	 
+	 Progress updateProgress(int id, int hours);
 }

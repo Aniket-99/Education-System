@@ -81,5 +81,24 @@ public class ProgressServiceImp implements ProgressService{
 			throw new InvalidProgressException("No progresses found!");
 		}
 	}
+	/**
+	 * This method to view all the progresses
+	 * @return updated progress in the database
+	 * @throws InvlidProgressException if no progresses exists 
+	 */
+	@Override
+	public Progress updateProgress(int id, int hours) {
+		LOGGER.info("ProgressServiceImp class's updateProgress method called-START");
+		if(progressRepo.existsById(id)) {
+			Progress progress=progressRepo.getOne(id);
+			progress.setCompletedHours(hours);
+			LOGGER.info("updating and returning the progress-END");
+			return progressRepo.saveAndFlush(progress);
+		}
+		else {
+			LOGGER.error("throwing progress with id not found exception");
+			throw new InvalidProgressException("No such progress found with this id : " + id);
+		}
+	}
 }
 

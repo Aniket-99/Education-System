@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.training.educationsystem.entities.Course;
+import com.training.educationsystem.entities.Progress;
 import com.training.educationsystem.entities.Student;
 import com.training.educationsystem.entities.Test;
 import com.training.educationsystem.entities.Trainer;
@@ -233,6 +234,14 @@ public class CourseController {
 		final Test test = service.viewTest(courseId);
 		LOGGER.info("View Test  (Controller) -END!");
 		return test;
+	}
+	@GetMapping("/view-progress/{courseId}")
+	public Progress viewProgress(@PathVariable("courseId") final int courseId) throws NotFoundException {
+		LOGGER.info("View Progress (Controller) -START!");
+		LOGGER.info("Fetching Progress");
+		final Progress progress = service.viewProgress(courseId);
+		LOGGER.info("View Progress  (Controller) -END!");
+		return progress;
 	}
 
 	/**

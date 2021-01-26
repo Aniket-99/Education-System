@@ -3,6 +3,7 @@ package com.training.educationsystem.services;
 import java.util.List;
 
 import com.training.educationsystem.entities.Course;
+import com.training.educationsystem.entities.Progress;
 import com.training.educationsystem.entities.Student;
 import com.training.educationsystem.entities.Test;
 import com.training.educationsystem.entities.Trainer;
@@ -41,4 +42,6 @@ public interface ICourseService {
 	List<Student> viewStudents(int courseId) throws ListEmptyException;
 
 	Test viewTest(int courseIdd) throws TestNotFoundException;
+	
+	Progress viewProgress(int courseId) throws NotFoundException;
 }

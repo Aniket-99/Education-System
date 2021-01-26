@@ -381,4 +381,20 @@ public class CourseService implements ICourseService {
 		}
 	}
 
+	@Override
+	public Progress viewProgress(int courseId) throws NotFoundException {
+		LOGGER.info("View Progress (Service) -START!");
+		final Course course = courseRepo.getOne(courseId);
+		if (course == null) {
+			LOGGER.error("Course cannot be found!");
+			throw new NotFoundException("Course cannot be found!");
+		} else {
+			LOGGER.info("Displaying Progress!");
+			LOGGER.info("View   (Service) -END!");
+			return course.getProgress();
+		}
+
+		
+	}
+
 }

@@ -46,7 +46,7 @@ public class EducationSystemExceptionsHandler extends ResponseEntityExceptionHan
 	    final ErrorMessage errorMessage = new ErrorMessage();
 	    errorMessage.setErrorCode(HttpStatus.BAD_REQUEST.value());
 		errorMessage.setMessage(exception.getBindingResult().getAllErrors().get(0).getDefaultMessage());
-	    return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
+	    return new ResponseEntity<>(errorMessage, HttpStatus.OK);
 	  } 
 	
 	/**
@@ -129,7 +129,7 @@ public class EducationSystemExceptionsHandler extends ResponseEntityExceptionHan
 		final ErrorMessage errorMessage = new ErrorMessage();
 		errorMessage.setErrorCode(HttpStatus.FORBIDDEN.value());
 		errorMessage.setMessage(exception.getMessage());
-		return new ResponseEntity<ErrorMessage>(errorMessage, HttpStatus.FORBIDDEN);
+		return new ResponseEntity<ErrorMessage>(errorMessage, HttpStatus.OK);
 	}
 	
 	/**
@@ -142,7 +142,7 @@ public class EducationSystemExceptionsHandler extends ResponseEntityExceptionHan
 		final ErrorMessage errorMessage = new ErrorMessage();
 		errorMessage.setErrorCode(HttpStatus.NOT_FOUND.value());
 		errorMessage.setMessage(exception.getMessage());
-		return new ResponseEntity<ErrorMessage>(errorMessage, HttpStatus.NOT_FOUND);
+		return new ResponseEntity<ErrorMessage>(errorMessage, HttpStatus.OK);
 	}
 	
 	/**
@@ -155,7 +155,7 @@ public class EducationSystemExceptionsHandler extends ResponseEntityExceptionHan
 		final ErrorMessage errorMessage = new ErrorMessage();
 		errorMessage.setErrorCode(HttpStatus.BAD_REQUEST.value());
 		errorMessage.setMessage(exception.getMessage());
-		return new ResponseEntity<ErrorMessage>(errorMessage, HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<ErrorMessage>(errorMessage, HttpStatus.OK);
 	}
 	
 	// specific exception handler for id not found
