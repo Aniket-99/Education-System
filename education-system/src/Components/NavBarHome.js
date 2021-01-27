@@ -62,13 +62,13 @@ const NavBarHome = () => {
 
               <li className="nav-item">
                 <Link to="/student-login" className="nav-link">
-                  <small>Student Login</small>
+                  <small>Student</small>
                 </Link>
               </li>
 
               <li className="nav-item">
                 <Link to="/admin-login" className="nav-link">
-                  <small>Admin Login</small>
+                  <small>Admin</small>
                 </Link>
               </li>
             </ul>
@@ -109,7 +109,7 @@ const NavBarAdmin = () => {
             id="navbarSupportedContent"
             style={{ marginBottom: "20px" }}
           >
-            <ul className="navbar-nav ms-auto">
+            <ul className="navbar-nav">
               <li className="nav-item">
                 <Link className="nav-link" to="/add-course">
                   <small>Course</small>
@@ -137,11 +137,11 @@ const NavBarAdmin = () => {
                   <small>Student</small>
                 </Link>
               </li>
-              <li className="nav-item">
+              {/* <li className="nav-item">
                 <Link to="/add-message" className="nav-link">
                   <small>Message</small>
                 </Link>
-              </li>
+              </li> */}
 
               <li className="nav-item">
                 <Link to="" className="nav-link" onClick={adminLogout}>
@@ -210,7 +210,7 @@ const NavBarStudent = () => {
 
               <li className="nav-item">
                 <Link to="/update-profile" className="nav-link">
-                  <small>My Profile</small>
+                  <small>Profile</small>
                 </Link>
               </li>
 

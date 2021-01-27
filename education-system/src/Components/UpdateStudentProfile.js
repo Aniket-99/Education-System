@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { NavBarStudent } from "./NavBarHome";
 import { connect } from "react-redux";
 import * as actionCreators from "../actions/action";
-import axios from "axios";
 import avatar from "../images/avatar.svg";
 
 class UpdateStudentProfile extends Component {
@@ -31,6 +30,7 @@ class UpdateStudentProfile extends Component {
       const loggedUserId = loggedUserObject.studentId;
       this.props.onGetSingleStudentDetails(loggedUserId);
     }
+    document.title = "My Profile";
   }
 
   render() {

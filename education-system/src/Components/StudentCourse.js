@@ -24,51 +24,6 @@ class StudentCourse extends Component {
     this.props.clearState();
   }
   render() {
-    let courseList = this.props.courseList.map((course, index) => {
-      let message = "Payment Successful";
-      if (message === "Payment Succcessful") {
-        this.setState({
-          buttonText: "Enrolled",
-        });
-      }
-      return (
-        <div className="course-card">
-          <div class="col">
-            <div class="card">
-              <NavLink to={`/student-view-trainer/${course.courseId}`}>
-                <img src={education} class="card-img-top" alt="Card image" />
-              </NavLink>
-              <div class="card-body">
-                <h5 class="card-title">{course.courseName}</h5>
-                <p
-                  class="card-text"
-                  style={{ color: "red", textAlign: "center" }}
-                >
-                  <h6>{course.courseAmount} INR</h6>
-                </p>
-                <p class="card-text">
-                  <small class="text-muted">
-                    Course Duration: {course.hours} hours
-                  </small>
-                </p>
-                <button
-                  type="button"
-                  class="btn btn-success"
-                  style={{ marginLeft: "100px" }}
-                >
-                  <NavLink
-                    to={`add-payment/${course.courseName}/${course.courseId}`}
-                    style={{ textDecoration: "none" }}
-                  >
-                    <h5 style={{ color: "white" }}>{this.state.buttonText}</h5>
-                  </NavLink>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      );
-    });
     return (
       <div className="coursebg">
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -96,7 +51,54 @@ class StudentCourse extends Component {
             class="row row-cols-1 row-cols-md-3 g-4"
             style={{ padding: "20px" }}
           >
-            {courseList}
+            {/* {courseList} */}
+            {this.props.courseList ? (
+              this.props.courseList.map((course, index) => (
+                <div className="course-card">
+                  <div class="col">
+                    <div class="card">
+                      <NavLink to={`/student-view-trainer/${course.courseId}`}>
+                        <img
+                          src={education}
+                          class="card-img-top"
+                          alt="Card image"
+                        />
+                      </NavLink>
+                      <div class="card-body">
+                        <h5 class="card-title">{course.courseName}</h5>
+                        <p
+                          class="card-text"
+                          style={{ color: "red", textAlign: "center" }}
+                        >
+                          <h6>{course.courseAmount} INR</h6>
+                        </p>
+                        <p class="card-text">
+                          <small class="text-muted">
+                            Course Duration: {course.hours} hours
+                          </small>
+                        </p>
+                        <button
+                          type="button"
+                          class="btn btn-success"
+                          style={{ marginLeft: "100px" }}
+                        >
+                          <NavLink
+                            to={`add-payment/${course.courseName}/${course.courseId}`}
+                            style={{ textDecoration: "none" }}
+                          >
+                            <h5 style={{ color: "white" }}>
+                              {this.state.buttonText}
+                            </h5>
+                          </NavLink>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <h1>Loading..</h1>
+            )}
           </div>
         </div>
       </div>

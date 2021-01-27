@@ -5,6 +5,7 @@ import wave from "../images/bg4.png";
 import login from "../images/login.svg";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { NavBarHome } from "./NavBarHome";
 
 class StudentLogin extends Component {
   constructor(props) {
@@ -33,20 +34,21 @@ class StudentLogin extends Component {
         `http://localhost:8080/api/educationsystem/student-login?username=${userName}&password=${password}`
       )
       .then((response) => {
-        //console.log(response.data);
         let user = {
           username: response.data.userName,
           email: response.data.emailId,
           studentId: response.data.studentId,
         };
 
-        localStorage.setItem("loggedUser", JSON.stringify(user));
-        this.props.history.replace("/student-home");
-
+        if (response.data === "Invalid username and password!") {
+          this.setState({ error: response.data });
+        } else if (response.data.firstName) {
+          localStorage.setItem("loggedUser", JSON.stringify(user));
+          this.props.history.replace("/student-home");
+        }
         this.setState({ response: response.data });
       })
       .catch((error) => {
-        //console.log(error.response.data.message);
         this.setState({ error: error.response.data.message });
       });
 
@@ -58,17 +60,21 @@ class StudentLogin extends Component {
       this.props.history.replace("/student-home");
     }
   }
+  componentDidMount() {
+    document.title = "Student Login";
+  }
 
   render() {
     return (
       <div>
+        <NavBarHome />
         <div className="container-fluid">
           <img className="wave" src={wave} alt="Wave" />
           <div className="row">
             <div className="col">
               <img src={login} className="bg" alt="background img" />
             </div>
-            <div className="col">
+            <div className="col" style={{ marginTop: "80px" }}>
               <div className="div-avatar">
                 <img src={avatar} className="avatar" alt="avatar" />
               </div>
@@ -95,7 +101,6 @@ class StudentLogin extends Component {
                 >
                   <div className="col-md-12 container-responsive">
                     <div className="form-group has-username">
-                      {/* <span className="fa fa-user form-control-username"></span> */}
                       <input
                         type="text"
                         placeholder="Username"
@@ -108,7 +113,6 @@ class StudentLogin extends Component {
                   </div>
                   <div className="col-md-12">
                     <div className="form-group has-password">
-                      {/* <span className="fa fa-lock form-control-password"></span> */}
                       <input
                         type="password"
                         placeholder="Password"
@@ -134,12 +138,12 @@ class StudentLogin extends Component {
               <div className="col">
                 <div className="div-text">
                   <Link to="/registration" style={{ textDecoration: "none" }}>
-                    <h5
+                    <h4
                       style={{ textAlign: "center", marginRight: "150px" }}
                       className="new-user"
                     >
                       New User?, Please sign up here
-                    </h5>
+                    </h4>
                   </Link>
                 </div>
               </div>

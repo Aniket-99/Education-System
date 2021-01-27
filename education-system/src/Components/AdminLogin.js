@@ -4,6 +4,9 @@ import adminbg from "../images/adminbg.svg";
 import background from "../images/bg3.png";
 import logo from "../images/logoonly.png";
 import axios from "axios";
+import { NavBarAdmin } from "./NavBarHome";
+import * as actionCreators from "../actions/action";
+import { connect } from "react-redux";
 
 class AdminLogin extends Component {
   constructor(props) {
@@ -28,7 +31,6 @@ class AdminLogin extends Component {
     e.preventDefault();
     const username = this.state.username;
     const password = this.state.password;
-    // console.log(username + "" + password);
 
     axios
       .get(
@@ -57,11 +59,17 @@ class AdminLogin extends Component {
     }
   }
 
+  componentDidMount() {
+    document.title = "Admin Login";
+    this.props.clearState();
+  }
+
   render() {
     return (
       <div>
+        <NavBarAdmin />
         <img className="wave" src={background} alt="image" />
-        <div className="container-fluid">
+        <div className="container-fluid" style={{ marginTop: "65px" }}>
           <div className="row">
             <div className="col">
               <img src={adminbg} className="bg" alt="Admin background" />
@@ -137,4 +145,18 @@ class AdminLogin extends Component {
   }
 }
 
-export default AdminLogin;
+const mapStateToProps = (state) => {
+  return {
+    studentList: state.studentDetailsList,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    clearState: () => {
+      return dispatch(actionCreators.clearState());
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AdminLogin);

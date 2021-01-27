@@ -7,8 +7,6 @@ import logo from "../images/logoonly.png";
 
 class StudentViewTrainers extends Component {
   componentDidMount() {
-    window.location.reload();
-    this.props.clearState();
     let courseId = this.props.match.params.courseId;
     console.log(courseId);
     this.props.onGetTrainersForStudents(courseId);
@@ -16,26 +14,6 @@ class StudentViewTrainers extends Component {
 
   render() {
     let courseId = this.props.match.params.courseId;
-
-    let trainerList = this.props.trainerList.map((trainer, index) => {
-      return (
-        <div class="col" style={{ textAlign: "center" }}>
-          <div class="card border-info mb-3" style={{ maxWidth: "18rem" }}>
-            <div class="card-header">Trainer</div>
-            <div class="card-body text-info">
-              <h5 class="card-title">
-                {trainer.firstName} {trainer.middleName} {trainer.lastName}
-              </h5>
-              <NavLink
-                to={`/view-study-material-for-trainer/${trainer.trainerId}/`}
-              >
-                <h6>Select</h6>
-              </NavLink>
-            </div>
-          </div>
-        </div>
-      );
-    });
 
     return (
       <div className="trainerbg">
@@ -75,18 +53,31 @@ class StudentViewTrainers extends Component {
         </nav>
         <div class="container" style={{ padding: "30px" }}>
           <div class="row">
-            {trainerList}
-            {/* {trainerList ? trainerList : <h3>Loading data!!Please Wait</h3>} */}
-
-            {/* <div class="col">
-                        <div class="card border-info mb-3" style={{ maxWidth: "18rem" }}>
-                            <div class="card-header">Trainer</div>
-                            <div class="card-body text-info">
-                                <h5 class="card-title">Afeeda Abdul Hameed</h5>
-                                
-                            </div>
-                        </div>
-                    </div> */}
+            {this.props.trainerList ? (
+              this.props.trainerList.map((trainer, index) => (
+                <div class="col" style={{ textAlign: "center" }}>
+                  <div
+                    class="card border-info mb-3"
+                    style={{ maxWidth: "18rem" }}
+                  >
+                    <div class="card-header">Trainer</div>
+                    <div class="card-body text-info">
+                      <h5 class="card-title">
+                        {trainer.firstName} {trainer.middleName}{" "}
+                        {trainer.lastName}
+                      </h5>
+                      <NavLink
+                        to={`/view-study-material-for-trainer/${trainer.trainerId}/`}
+                      >
+                        <h6>Select</h6>
+                      </NavLink>
+                    </div>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <h1>Loading..</h1>
+            )}
           </div>
         </div>
       </div>
@@ -95,7 +86,7 @@ class StudentViewTrainers extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state.trainerList);
+  console.log(state.trainerListStudent);
   return {
     trainerList: state.trainerList,
 

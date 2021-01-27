@@ -28,35 +28,37 @@ class ViewStudyMaterialForTrainer extends Component {
     );
   }
   render() {
-    let materialList = this.props.materialList.map((content, index) => {
-      return (
-        <div class="col">
-          <div
-            class="card border-info mb-3"
-            style={{ maxWidth: "18rem", textAlign: "center" }}
-          >
-            <div class="card-header">Content</div>
-            <div class="card-body text-info">
-              <h5 class="card-title">{content.content}</h5>
-              <a
-                class="card-link"
-                href="https://www.youtube.com/watch?v=lL2PXC1fmnQ"
-                onClick={this.update.bind(this)}
-                target="_blank"
-                rel="noreferrer"
-              >
-                <h6>Select</h6>
-              </a>
-            </div>
-          </div>
-        </div>
-      );
-    });
-
     return (
       <div className="contentbg">
         <div class="container" style={{ padding: "30px" }}>
-          <div class="row">{materialList}</div>
+          <div class="row">
+            {this.props.materialList ? (
+              this.props.materialList.map((content, index) => (
+                <div class="col">
+                  <div
+                    class="card border-info mb-3"
+                    style={{ maxWidth: "18rem", textAlign: "center" }}
+                  >
+                    <div class="card-header">Content</div>
+                    <div class="card-body text-info">
+                      <h5 class="card-title">{content.content}</h5>
+                      <a
+                        class="card-link"
+                        href="https://www.youtube.com/watch?v=lL2PXC1fmnQ"
+                        onClick={this.update.bind(this)}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        <h6>Select</h6>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <h1>Loading..</h1>
+            )}
+          </div>
         </div>
       </div>
     );

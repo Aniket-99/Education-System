@@ -18,6 +18,9 @@ class HomePage extends Component {
       this.props.history.replace("/student-home");
     }
   }
+  componentDidMount() {
+    document.title = "Educrate Home";
+  }
   render() {
     return (
       <div>

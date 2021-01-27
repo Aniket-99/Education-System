@@ -14,6 +14,7 @@ class ViewAllStudent extends Component {
 
   componentDidMount() {
     this.props.onGetAllStudents();
+    document.title = "All Student Details";
   }
 
   componentWillMount() {
@@ -65,7 +66,6 @@ class ViewAllStudent extends Component {
 }
 
 const mapStateToProps = (state) => {
-  //console.log(state + "fom state");
   return {
     studentList: state.studentDetailsList,
   };

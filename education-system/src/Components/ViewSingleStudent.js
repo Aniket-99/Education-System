@@ -27,6 +27,7 @@ class ViewSingleStudent extends Component {
 
   componentDidMount() {
     this.props.clearState();
+    document.title = "Sinlge Student Profile";
   }
   componentWillMount() {
     if (!localStorage.getItem("loggedAdmin")) {
@@ -102,7 +103,6 @@ class ViewSingleStudent extends Component {
 
 const mapStateToProps = (state) => {
   console.log(state);
-  // console.log(state.studentObj + "hello how do you do");
   return {
     student: state.studentObj,
   };

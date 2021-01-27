@@ -29,12 +29,13 @@ class AddFeedback extends Component {
 
   submitFeedback = (e) => {
     e.preventDefault();
-    const feedback = this.state.feedback;
-    const loggedUser = this.state.loggedUserName;
+    const loggedUser = JSON.parse(localStorage.getItem("loggedUser"));
+    const username = loggedUser.username;
 
+    const feedback = this.state.feedback;
     axios
       .post(
-        `http://localhost:8080/api/educationsystem/feedback/add-feedback?sname=${loggedUser}&feedback=${feedback}`
+        `http://localhost:8080/api/educationsystem/feedback/add-feedback?sname=${username}&feedback=${feedback}`
       )
       .then((response) => {
         if (response.status === 200) {
