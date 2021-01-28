@@ -76,14 +76,14 @@ public class StudentController {
 			studentDto.setUserName(student.getUserName());
 			studentDto.setEmailId(student.getEmailId());
 			return new ResponseEntity<StudentDTO>(studentDto,HttpStatus.OK);
-			//return new ResponseEntity<String>("Registration request has been made", HttpStatus.OK);
+			
 			
 		} 
 		else 
 		{
 			LOGGER.info("End of makeRegistration method - END");
 			return new ResponseEntity("Registration request cannot be made",HttpStatus.OK);
-			//return new ResponseEntity<String>("Registration request cannot be made", HttpStatus.BAD_REQUEST);
+			
 			
 		}
 
@@ -146,7 +146,7 @@ public class StudentController {
 		if (approveStudentRequest)
 		{
 			LOGGER.info("Student is valid user controller method - END");
-			//return new ResponseEntity<String>("Student with Id: " + studentId + " is validated!", HttpStatus.OK);
+			
 			return getAllRegistrationRequest();
 			
 		} 
@@ -181,14 +181,14 @@ public class StudentController {
 		if (validateLogin != null)
 		{
 			LOGGER.info("Login is successsful controller method... - END");
-			//return new ResponseEntity<String>("Login Successful!! Welcome to the education system!!", HttpStatus.OK);
+			
 			return new ResponseEntity<Student>(validateLogin,HttpStatus.OK);
 			
 		} 
 		else
 		{
 			LOGGER.info("Login Failed controller method - END");
-			//return new ResponseEntity<String>("Invalid username and password!", HttpStatus.BAD_REQUEST);
+			
 			return new ResponseEntity("Invalid username and password!",HttpStatus.OK);
 			
 			

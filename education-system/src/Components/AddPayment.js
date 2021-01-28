@@ -33,7 +33,6 @@ class AddPayment extends Component {
   add(e) {
     e.preventDefault();
     let newPayment = {
-      // transactionId: this.transactionId.current.value,
       cardNumber: this.cardNumber.current.value,
       cardType: this.cardType.current.value,
       bankName: this.bankName.current.value,

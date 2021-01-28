@@ -17,6 +17,9 @@ class HomePage extends Component {
     if (localStorage.getItem("loggedUser")) {
       this.props.history.replace("/student-home");
     }
+    if (localStorage.getItem("loggedAdmin")) {
+      this.props.history.replace("/admin-home");
+    }
   }
   componentDidMount() {
     document.title = "Educrate Home";

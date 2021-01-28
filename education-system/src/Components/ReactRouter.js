@@ -32,7 +32,7 @@ import QuizQuestion from "./QuizQuestion";
 import ViewStudyMaterialForTrainer from "./ViewStudyMaterialForTrainer";
 import UpdateTrainerForStudyMaterial from "./UpdateTrainerForStudyMaterial";
 import UpdateCourseForTrainers from "./UpdateCourseForTrainers";
-import UpdateStudentProfile from "./UpdateStudentProfile";
+import StudentProfile from "./StudentProfile";
 
 import { Route, Switch } from "react-router-dom";
 
@@ -126,11 +126,7 @@ class ReactRouter extends Component {
             path="/update-course-trainers"
             component={UpdateCourseForTrainers}
           />
-          <Route
-            exact
-            path="/update-profile"
-            component={UpdateStudentProfile}
-          />
+          <Route exact path="/my-profile" component={StudentProfile} />
         </Switch>
       </div>
     );

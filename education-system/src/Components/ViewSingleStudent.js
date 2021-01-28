@@ -20,7 +20,6 @@ class ViewSingleStudent extends Component {
   submitData = (e) => {
     e.preventDefault();
     const id = this.studentId.current.value;
-    console.log(id);
     this.props.onGetSingleStudentDetails(id);
     this.studentId.current.value = "";
   };
@@ -102,7 +101,6 @@ class ViewSingleStudent extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state);
   return {
     student: state.studentObj,
   };

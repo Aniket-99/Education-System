@@ -13,11 +13,11 @@ import paymentview from "../images/paymentview.svg";
 import { Link } from "react-router-dom";
 
 class AdminDashboard extends Component {
-  // componentWillMount() {
-  //   if (!localStorage.getItem("loggedAdmin")) {
-  //     this.props.history.replace("/admin-login");
-  //   }
-  // }
+  componentWillMount() {
+    if (!localStorage.getItem("loggedAdmin")) {
+      this.props.history.replace("/admin-login");
+    }
+  }
   componentDidMount() {
     document.title = "Admin Home";
   }

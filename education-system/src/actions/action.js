@@ -56,7 +56,6 @@ export const requestRegistration = (student) => {
       )
       .then((response) => {
         dispatch(studentRegistration(response.data));
-        console.log(response, "from action.js");
       });
   };
 };
@@ -75,7 +74,6 @@ export const showRegistrationRequest = () => {
       .then((response) => {
         const student = response.data;
         dispatch(getAllRegistrationRequest(student));
-        console.log(student, "actions show");
       });
   };
 };
@@ -93,7 +91,7 @@ export const getAllStudents = () => {
       .get(`http://localhost:8080/api/educationsystem/view-all-students`)
       .then((response) => {
         const students = response.data;
-        console.log(students + "from getAllStudents");
+
         dispatch(getAllStudentDetails(students));
       });
   };
@@ -114,7 +112,7 @@ export const getSingleStudentDetails = (id) => {
       )
       .then((response) => {
         const students = response.data;
-        console.log(students + "from getSingleStudentDetails");
+
         dispatch(getSingleStudent(students));
       });
   };
@@ -135,7 +133,7 @@ export const getAllEnrolledCourses = (id) => {
       )
       .then((response) => {
         const courses = response.data;
-        console.log(courses + "getAllEnrolledCourses");
+
         dispatch(getCourses(courses));
       });
   };
@@ -156,7 +154,7 @@ export const showAllFeedback = () => {
       )
       .then((response) => {
         const feedbacks = response.data;
-        console.log(feedbacks + "from action feedbcak");
+
         dispatch(getAllfeedback(feedbacks));
       });
   };
@@ -186,8 +184,6 @@ export const addCourse = (course) => {
             `http://localhost:8080/api/educationsystem/progress/add-progress?completedHours=${completedHours}`
           )
           .then((response) => {
-            console.log(response.data.progressId + "Progress Id in axios");
-
             let progressId = response.data.progressId;
             let progressObj = {
               courseId: courseId,
@@ -198,7 +194,6 @@ export const addCourse = (course) => {
               `http://localhost:8080/api/educationsystem/course/update-progress?courseId=${courseId}&progressId=${progressId}`
             );
           });
-        console.log(res);
       });
   };
 };
@@ -225,7 +220,6 @@ export const getAllCourses = () => {
 
       .then((response) => {
         dispatch(getAllCourseAction(response.data));
-        console.log(response);
       });
   };
 };
@@ -286,7 +280,6 @@ export const addTrainer = (trainer) => {
       )
       .then((response) => {
         dispatch(addTrainerAction(response.data));
-        console.log(response.data);
       });
   };
 };
@@ -308,7 +301,6 @@ export const getAllTrainers = () => {
 
       .then((response) => {
         dispatch(getAllTrainerAction(response.data));
-        console.log(response);
       });
   };
 };
@@ -331,7 +323,6 @@ export const getAllTrainersForStudent = (courseId) => {
 
       .then((response) => {
         dispatch(getAllTrainersForStudentAction(response.data));
-        console.log(response);
       });
   };
 };
@@ -354,7 +345,6 @@ export const getAllStudyMaterialForTrainer = (trainerId) => {
 
       .then((response) => {
         dispatch(getAllStudyMaterialForTrainerAction(response.data));
-        console.log(response);
       });
   };
 };
@@ -406,7 +396,6 @@ export const addMessage = (message) => {
       )
       .then((res) => {
         dispatch(addMsgAction(res.data));
-        console.log(res);
       });
   };
 };
@@ -425,7 +414,6 @@ export const getAllMessages = () => {
 
       .then((response) => {
         dispatch(getAllMsgAction(response.data));
-        console.log(response);
       });
   };
 };
@@ -445,7 +433,6 @@ export const getAllProgresses = () => {
 
       .then((response) => {
         dispatch(getAllPrgAction(response.data));
-        console.log(response);
       });
   };
 };
@@ -469,10 +456,8 @@ const getAllPaymentAction = (data) => {
 export const getAllPayment = () => {
   return (dispatch) => {
     axios.get(BASE_URL + "view-Payment/").then((response) => {
-      //dispatch(getAllTraineesAction(response.data))
       const payment = response.data;
       dispatch(getAllPaymentAction(payment));
-      console.log(response);
     });
   };
 };
@@ -487,7 +472,7 @@ export const addPayment = (newPayment) => {
   return (dispatch) => {
     axios.post(BASE_URL + "add-Payment/", newPayment).then((response) => {
       alert(`Payment Sucessfully added!`);
-      console.log(response.data);
+
       dispatch(addPaymentAction(response.data));
     });
   };
@@ -503,10 +488,8 @@ const getAllMaterialAction = (data) => {
 export const getAllMaterial = () => {
   return (dispatch) => {
     axios.get(BASE_URL + "view-Studymaterial/").then((response) => {
-      //dispatch(getAllTraineesAction(response.data))
       const material = response.data;
       dispatch(getAllMaterialAction(material));
-      console.log(response);
     });
   };
 };
@@ -523,12 +506,10 @@ export const addMaterial = (newMaterial) => {
       .post(BASE_URL + "add-Studymaterial/", newMaterial)
       .then((response) => {
         alert("Study Material Sucessfully added");
-        console.log(response.data);
+
         dispatch(addMaterialAction(response.data));
       })
-      .catch((error) => {
-        console.log(error.data + "the error");
-      });
+      .catch((error) => {});
   };
 };
 
@@ -545,9 +526,7 @@ export const deleteMaterial = (matId) => {
       .then((response) => {
         dispatch(deleteMaterialAction(response.data));
       })
-      .catch((error) => {
-        console.log(error);
-      });
+      .catch((error) => {});
   };
 };
 
@@ -568,7 +547,6 @@ export const getAllQuestions = () => {
 
       .then((response) => {
         dispatch(getAllQuestionAction(response.data));
-        console.log(response);
       });
   };
 };
@@ -586,7 +564,6 @@ export const addQuestion = (question) => {
       .post("http://localhost:8080/api/educationsystem/question/add", question)
       .then((res) => {
         dispatch(addQuesAction(res.data));
-        console.log(res);
       });
   };
 };
@@ -648,7 +625,6 @@ export const getQuestionById = (questionId) => {
       questionId;
     axios.get(URL).then((response) => {
       dispatch(getQuesByIdAction(response.data));
-      console.log(response.data);
     });
   };
 };
@@ -668,7 +644,6 @@ export const updateTrainer = (trainerId, content) => {
       )
       .then((response) => {
         dispatch(updateTrainerAction(response.data));
-        console.log(response.data);
       });
   };
 };
@@ -688,7 +663,6 @@ export const updateCourseForTrainers = (courseId, firstName) => {
       )
       .then((response) => {
         dispatch(updateCourseForTrainersAction(response.data));
-        console.log(response.data);
       });
   };
 };

@@ -209,7 +209,7 @@ const NavBarStudent = () => {
               </li>
 
               <li className="nav-item">
-                <Link to="/update-profile" className="nav-link">
+                <Link to="/my-profile" className="nav-link">
                   <small>Profile</small>
                 </Link>
               </li>
@@ -218,8 +218,6 @@ const NavBarStudent = () => {
                 <Link to="" className="nav-link" onClick={studentLogout}>
                   <small>Logout</small>
                 </Link>
-
-                {/* <i class="fa fa-sign-out" aria-hidden="true"></i> */}
               </li>
             </ul>
           </div>

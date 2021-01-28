@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import logo from "../images/logo.png";
 import { NavBarAdmin } from "../Components/NavBarHome";
 import "../css/studentmanage.css";
 import studentimg from "../images/hire-reactnative01.png";

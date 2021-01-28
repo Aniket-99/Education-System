@@ -4,7 +4,7 @@ import adminbg from "../images/adminbg.svg";
 import background from "../images/bg3.png";
 import logo from "../images/logoonly.png";
 import axios from "axios";
-import { NavBarAdmin } from "./NavBarHome";
+import { NavBarHome } from "./NavBarHome";
 import * as actionCreators from "../actions/action";
 import { connect } from "react-redux";
 
@@ -37,7 +37,7 @@ class AdminLogin extends Component {
         `http://localhost:8080/educationsystem/admin/admin-login?adminUsername=${username}&adminPassword=${password}`
       )
       .then((response) => {
-        //console.log(response.data);
+
         let admin = {
           username: response.data.userName,
           adminId: response.data.adminId,
@@ -67,7 +67,7 @@ class AdminLogin extends Component {
   render() {
     return (
       <div>
-        <NavBarAdmin />
+        <NavBarHome />
         <img className="wave" src={background} alt="image" />
         <div className="container-fluid" style={{ marginTop: "65px" }}>
           <div className="row">

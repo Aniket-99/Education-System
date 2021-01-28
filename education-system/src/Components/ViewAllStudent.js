@@ -26,7 +26,9 @@ class ViewAllStudent extends Component {
     return (
       <div className="container">
         <NavBarAdmin />
-        <h3 style={{ textAlign: "center", fontWeight: "bold" }}>
+        <h3
+          style={{ textAlign: "center", fontWeight: "bold", marginTop: "70px" }}
+        >
           All Registered Student Details
         </h3>
         <hr />

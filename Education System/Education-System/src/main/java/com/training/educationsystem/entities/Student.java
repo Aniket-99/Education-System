@@ -60,16 +60,12 @@ public class Student {
 	
 	@NotNull(message="Password is a required field")
 	@Column(name = "password", nullable = false)
-	@Pattern(regexp="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$", message= "Password Should contain:\na digit must occur at least once\n a lower case letter must occur at least once\n\"\r\n" + 
-			"+ \"an upper case letter must occur at least once\\na special character must occur at least once\n\"\r\n" + 
-			"+ \"no whitespace allowed in the entire string\nat least 8 characters")
+	@Pattern(regexp="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$", message= "Password Should contain:\n1)a digit must occur at least once\n 2)a lower case letter must occur at least once\n\r\n 3)an upper case letter must occur at least once\n4)a special character must occur at least once\n\r\n5)no whitespace allowed in the entire string\n6)at least 8 characters")
 	private String password;
 
 	@Transient
 	@NotNull(message="Confirm Password is a required field")
-	@Pattern(regexp="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$", message= "Password Should contain:\na digit must occur at least once\n a lower case letter must occur at least once\n\"\r\n" + 
-			"+ \"an upper case letter must occur at least once\\na special character must occur at least once\n\"\r\n" + 
-			"+ \"no whitespace allowed in the entire string\nat least 8 characters")
+	@Pattern(regexp="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$", message= "Password Should contain:\n1)a digit must occur at least once\n 2)a lower case letter must occur at least once\n\r\n 3)an upper case letter must occur at least once\n4)a special character must occur at least once\n\r\n5)no whitespace allowed in the entire string\n6)at least 8 characters")
 	private String confirmPassword;
 
 	@Column(name = "course_fk", nullable = true)

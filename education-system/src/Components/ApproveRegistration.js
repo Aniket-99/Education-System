@@ -20,7 +20,7 @@ class ApproveRegistration extends Component {
   }
 
   componentDidMount() {
-    //this.props.clearState();
+    
     this.props.onGetRegistrationRequest();
     document.title = "Approve Request";
   }
@@ -81,7 +81,7 @@ class ApproveRegistration extends Component {
                   </tr>
                 ))
               ) : (
-                <h1>Loading..</h1>
+                <h1 style={{textAlign:"center"}}>Loading..</h1>
               )}
             </tbody>
           </table>
@@ -92,7 +92,7 @@ class ApproveRegistration extends Component {
 }
 
 const mapStateToProps = (state) => {
-  //console.log(state, "from approve");
+  
   return {
     studentList: state.studentList,
   };
